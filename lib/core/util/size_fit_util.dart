@@ -24,7 +24,10 @@ class SizeFitUtil {
 
   //初始化之后提供静态方法，用于缩放
   //宽度缩放
+  static int _count=1;
   static double sw(double width) {
+    print("计算了sw：count：$_count");
+    _count ++;
     return width * _scaleWidth;
   }
 
