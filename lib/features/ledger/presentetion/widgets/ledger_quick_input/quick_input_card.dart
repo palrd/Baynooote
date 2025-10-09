@@ -21,7 +21,7 @@ class QuickInputCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.sw),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(0x4C),
+            color: const Color.fromARGB(14, 0, 0, 0),
             offset: Offset(0, 5),
             blurRadius: 10,
           ),
@@ -29,16 +29,14 @@ class QuickInputCard extends StatelessWidget {
       ),
       margin: EdgeInsets.only(top: 10.sw),
       height: 100.sw,
+
       ///在卡片内部首先分为左右两部分
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [inputSection(), ConfirmButton()],
-      ),
+      child: Row(children: [inputSection(), ConfirmButton()]),
     );
   }
 }
 
-////左侧的记账信息输入区域
+///左侧的记账信息输入区域
 class inputSection extends StatelessWidget {
   const inputSection({super.key});
 
@@ -49,37 +47,9 @@ class inputSection extends StatelessWidget {
       flex: 7,
       child: Column(
         mainAxisSize: MainAxisSize.min,
+
         ///为左侧的上下两层写 Widget
         children: [TypeChoiceBar(), moneyCountInput()],
-      ),
-    );
-  }
-}
-
-////记账金额输入区
-class moneyCountInput extends StatelessWidget {
-  const moneyCountInput({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 15.sw, bottom: 8.sw, right: 15.sw),
-      height: 50.sw,
-      child: Container(
-        height: 40.sw,
-        padding: EdgeInsets.only(left: 25.sw),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF2F2F2),
-          borderRadius: BorderRadius.circular(20.sw),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha(0x1A),
-              offset: Offset(0, 2),
-              blurRadius: 5,
-            ),
-          ],
-        ),
-        child: Center(child: MoneyInputField()),
       ),
     );
   }

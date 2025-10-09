@@ -18,9 +18,12 @@ class _TypeChoiceItemState extends State<TypeChoiceItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
+
       width: 30.sw,
       height: 30.sw,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.sw)),
+      decoration: BoxDecoration(
+        color: Colors.amber,
+        borderRadius: BorderRadius.circular(30.sw)),
       child: Icon(
         widget.iconName,
         fontWeight: FontWeight.w500,

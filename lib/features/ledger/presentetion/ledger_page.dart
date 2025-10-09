@@ -1,4 +1,5 @@
 import 'package:baynooote/core/util/size_fit_util.dart';
+import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_data_active_place.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_header.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_quick_input/ledger_quick_input.dart';
 
@@ -29,19 +30,18 @@ class LedgerPage extends StatelessWidget {
   ///下层的容器
   Widget centerContentContainer(BuildContext context) {
     final gradientTheme = Theme.of(context).extension<AppGradientTheme>();
-    ///只计算一次
-    final _ContainerPadding = 20.sw;
+    
 
     ///作为容器，占满屏幕、提供基础的左右padding约束、背景渐变色
     ///其中的内容拆分为单独widget逐个放入
     return Container(
       height: SizeFitUtil.screenHeight,
       padding: EdgeInsets.only(
-        left: _ContainerPadding,
-        right: _ContainerPadding,
+        left: 20.sw,
+        right: 20.sw,
       ),
       decoration: BoxDecoration(gradient: gradientTheme?.backgroundGradient),
-      child: Stack(children: [LedgerQuickInput()]),
+      child: Column(children: [LedgerQuickInput(),LedgerDataActivePlace()]),
     );
   }
 }
