@@ -19,7 +19,7 @@ class SizeFitUtil {
     //计算缩放因子
     _scaleWidth = screenWidth / designWidth;
     _scaleHeight = screenHeight / designHeight;
-    print("ww:$_scaleWidth");
+   
   }
 
   //初始化之后提供静态方法，用于缩放
