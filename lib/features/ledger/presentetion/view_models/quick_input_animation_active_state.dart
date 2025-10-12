@@ -18,7 +18,6 @@ class QuickAnimationActiveState extends ChangeNotifier {
   ///提供setter
   void ChangeTypeChoiceBarActiveState(bool state) {
     _typeChoiceBarActiveState = state;
-    print("我被更新了");
     notifyListeners();
   }
 

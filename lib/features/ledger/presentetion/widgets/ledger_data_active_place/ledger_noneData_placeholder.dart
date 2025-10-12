@@ -70,7 +70,7 @@ class _AnimatedIconState extends State<AnimatedIcon> {
       child: Container(
         padding: EdgeInsets.all(5.sw),
         alignment: Alignment.center,
-        child: Image.asset("assets/images/StarAnimation.gif"),
+        child: Image.asset("assets/images/Sleeping.gif"),
       ),
     );
   }

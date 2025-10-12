@@ -42,6 +42,7 @@ class inputSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     ///因为要分左右区域所以使用Expanded
     return Expanded(
       flex: 7,

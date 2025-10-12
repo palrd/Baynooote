@@ -1,5 +1,6 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
+///TODO 将watch用法改成Selector
 ///该组件就是选择示意的组件
 ///它的作用是用来示意哪一个类型被选中了
 ///长宽由它的目标组件确定
@@ -40,6 +41,7 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
 
     ///调用一次
     _initAnimation();
+    
   }
 
   void _initAnimation() {
@@ -91,24 +93,24 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch<QuickAnimationActiveState>();
-
-    ///判定动画状态
-    if (vm.typeChoiceBarActiveState) {
-      _controller.forward();
-    } else {
-      _controller.reverse();
-    }
-
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, _) {
-        return _animationBuilderContainer();
+    return Selector<QuickAnimationActiveState, bool>(
+      builder: (context, typeChoiceBarActiveState, _) {
+        ///判定动画状态
+        if (typeChoiceBarActiveState) {
+          _controller.forward();
+        } else {
+          _controller.reverse();
+        }
+        return AnimatedBuilder(
+          animation: _controller,
+          builder: (context, _) {
+            return _animationBuilderContainer();
+          },
+        );
       },
+      selector: (context, vm) => vm.typeChoiceBarActiveState,
     );
   }
 
