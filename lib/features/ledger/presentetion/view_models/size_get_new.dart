@@ -8,12 +8,8 @@ class SizeGetNew extends ChangeNotifier {
 
   void setSize(Size newSize) {
     if (newSize.width != 0) {
-      print("我拿到了！：：：：$newSize");
-
       _isNewSize = true;
       notifyListeners();
-    } else {
-      print("size还是0$newSize");
     }
   }
 }

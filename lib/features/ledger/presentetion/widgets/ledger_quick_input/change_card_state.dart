@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+
 ///私有导入
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
-import 'package:baynooote/features/ledger/presentetion/view_models/state_card_view_model.dart';
+
 
 ///这是位于卡片上方的快速记录提示
 

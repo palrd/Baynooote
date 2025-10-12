@@ -1,6 +1,3 @@
-import 'package:baynooote/features/ledger/presentetion/view_models/animation_active_state.dart';
-import 'package:flutter/material.dart';
-
 ///私有导入
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
@@ -45,7 +42,7 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
   @override
   void initState() {
     super.initState();
-    final vm = context.read<AnimationActiveState>();
+    final vm = context.read<QuickAnimationActiveState>();
 
     ///对两个动画控制器进行初始化
     ///对于这个是否拥有渐隐动画，通过判断是否需要来决定是否初始化，否则浪费资源
@@ -63,14 +60,9 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
 
       if (_isChoice) {
         _controllerIconOpcity.forward();
-        print("对icon：${widget.index}执行动画启动");
       } else {
-        print(
-          'item ${widget.index} 失选，当前 value=${_controllerIconOpcity.value}',
-        );
         if (_controllerIconOpcity.value > 0.0) {
           _controllerIconOpcity.reverse(from: _controllerIconOpcity.value);
-          print("item ${widget.index}执行回溯");
         }
       }
     });
@@ -128,7 +120,7 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.read<AnimationActiveState>();
+    final vm = context.read<QuickAnimationActiveState>();
     return GestureDetector(
       onTap: () {
         _controllerInvok?.forward();

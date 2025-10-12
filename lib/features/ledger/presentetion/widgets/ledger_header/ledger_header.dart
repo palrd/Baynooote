@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:baynooote/app/app_text_theme.dart';
-
 import 'package:baynooote/shared/extensions/int_extension.dart';
 import 'package:flutter/material.dart';
 
