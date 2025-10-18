@@ -7,13 +7,14 @@ class TypeChoiceItem extends StatefulWidget {
   final int index;
   final bool isUseOpcityContainer;
   final bool isTime;
+  final int animateDuration;
 
   const TypeChoiceItem({
     required this.iconName,
     required this.index,
     this.isTime = false,
     this.isUseOpcityContainer = true,
-
+    this.animateDuration = 200,
     super.key,
   });
 
@@ -48,12 +49,13 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
   void initInvokAnimationController() {
     _controllerInvok = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 250),
+      duration: const Duration(milliseconds: 200),
+      reverseDuration: const Duration(milliseconds: 500),
     );
 
     _curvedAnimation = CurvedAnimation(
       parent: _controllerInvok!,
-      curve: Curves.easeInOutCubic,
+      curve: Curves.decelerate,
     );
 
     ///控制背景透明度
@@ -111,7 +113,7 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
         builder: (_, isChoice, _) {
           return AnimatedOpacity(
             opacity: isChoice ? 1.0 : 0.5,
-            duration: const Duration(milliseconds: 250),
+            duration: const Duration(milliseconds: 200),
             child: Icon(
               widget.iconName,
               fontWeight: FontWeight.w300,

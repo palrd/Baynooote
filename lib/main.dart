@@ -1,15 +1,19 @@
 import 'package:baynooote/app/app_router.dart';
 import 'package:baynooote/app/app_theme.dart';
-
+import 'package:baynooote/core/util/size_fit_util.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:baynooote/features/ledger/presentetion/view_models/quick_input_animation_active_state.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/data_active_place_view_model.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/size_get_new.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/state_card_view_model.dart';
+import 'package:rive/rive.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await RiveFile.initialize();
+
   runApp(
     MultiProvider(
       providers: [
@@ -17,6 +21,7 @@ void main() {
         ChangeNotifierProvider(create: (ctx) => DataActivePlaceViewModel()),
         ChangeNotifierProvider(create: (ctx) => QuickAnimationActiveState()),
         ChangeNotifierProvider(create: (ctx) => SizeGetNew()),
+        ChangeNotifierProvider(create: (ctx) => ConfirmButtonState()),
       ],
       child: Baynooote(),
     ),
@@ -28,6 +33,17 @@ void main() {
 class Baynooote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ///在这里进行尺寸适配初始化
+    final size = MediaQuery.of(context).size;
+    SizeFitUtil.init(size);
+    final vm = context.read<SizeGetNew>();
+
+    ///只在尺寸第一次拿到时执行一次
+    if (!vm.isNewSize) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        vm.setSize(size);
+      });
+    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 

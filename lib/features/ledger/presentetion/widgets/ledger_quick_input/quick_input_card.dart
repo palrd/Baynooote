@@ -31,14 +31,14 @@ class QuickInputCard extends StatelessWidget {
       height: 100.sw,
 
       ///在卡片内部首先分为左右两部分
-      child: Row(children: [inputSection(), ConfirmButton()]),
+      child: Row(children: [InputSection(), ConfirmButton()]),
     );
   }
 }
 
 ///左侧的记账信息输入区域
-class inputSection extends StatelessWidget {
-  const inputSection({super.key});
+class InputSection extends StatelessWidget {
+  const InputSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class inputSection extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
 
         ///为左侧的上下两层写 Widget
-        children: [TypeChoiceBar(), moneyCountInput()],
+        children: [TypeChoiceBar(), MoneyCountInput()],
       ),
     );
   }

@@ -12,3 +12,5 @@ export 'package:baynooote/features/ledger/presentetion/view_models/quick_input_a
 export 'package:baynooote/features/ledger/presentetion/view_models/data_active_place_view_model.dart';
 export 'package:baynooote/features/ledger/presentetion/view_models/size_get_new.dart';
 export 'package:baynooote/features/ledger/presentetion/view_models/state_card_view_model.dart';
+
+export 'package:baynooote/shared/widgets/RiveWidgetBuilder.dart';

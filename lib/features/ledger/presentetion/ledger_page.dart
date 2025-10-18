@@ -1,4 +1,5 @@
 import 'package:baynooote/core/util/size_fit_util.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_data_active_place.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_header/ledger_header.dart';
@@ -11,25 +12,10 @@ import 'package:baynooote/features/ledger/di/ledger_module.dart';
 class LedgerPage extends StatelessWidget {
   static const String routeName = "/ledger";
 
+  const LedgerPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    ///在这里进行尺寸适配初始化
-    final size = MediaQuery.of(context).size;
-    SizeFitUtil.init(size);
-    final vm = context.read<SizeGetNew>();
-
-    ///只在尺寸第一次拿到时执行一次
-    if (!vm.isNewSize) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        vm.setSize(size);
-      });
-    }
-
-    return  _frame(context);
-  }
-
-  ///框架
-  Widget _frame(BuildContext context) {
     return Scaffold(
       ///底层背景色
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,

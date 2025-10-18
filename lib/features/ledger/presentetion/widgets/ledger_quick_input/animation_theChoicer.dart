@@ -1,6 +1,5 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
-///TODO 将watch用法改成Selector
 ///该组件就是选择示意的组件
 ///它的作用是用来示意哪一个类型被选中了
 ///长宽由它的目标组件确定
@@ -41,13 +40,13 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
 
     ///调用一次
     _initAnimation();
-    
   }
 
   void _initAnimation() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 250),
+      duration: const Duration(milliseconds: 200),
+      reverseDuration: const Duration(milliseconds: 270),
     );
 
     ///开始为各个属性添加动画并绑定曲线
@@ -64,7 +63,7 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
     _widthAnimation = Tween<double>(begin: 30.sw, end: 165.sw).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(0.3, 1.0, curve: Curves.easeInOutCubic),
+        curve: Interval(0.0, 1.0, curve: Curves.easeInOutCubic),
       ),
     );
 
@@ -72,7 +71,7 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
     _borderRadiusAnimation = Tween<double>(begin: 10.sw, end: 20.sw).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(0.5, 0.6, curve: Curves.easeInOutCubic),
+        curve: Interval(0.5, 1.0, curve: Curves.easeInOutCubic),
       ),
     );
 
@@ -80,7 +79,7 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
     _positionAnimation2 = Tween<double>(begin: 10.sw, end: 40.sw).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.3, 1.0, curve: Curves.easeOutCubic),
+        curve: const Interval(0.3, 0.6, curve: Curves.easeOutCubic),
       ),
     );
 
@@ -110,6 +109,7 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
           },
         );
       },
+
       selector: (context, vm) => vm.typeChoiceBarActiveState,
     );
   }

@@ -49,6 +49,7 @@ class TypeWithTime extends StatelessWidget {
       index: 0,
       isUseOpcityContainer: false,
       isTime: false,
+      animateDuration: 270,
     );
   }
 }
