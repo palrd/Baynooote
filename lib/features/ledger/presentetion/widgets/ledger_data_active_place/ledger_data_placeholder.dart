@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_ready_inputData_placeholder.dart';
 
 ///该组件是当数据活动区无数据时展示的组件
@@ -53,7 +54,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
     ///初始化动画控制器
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: Duration(milliseconds: 2100),
     );
 
     _action1();
@@ -96,7 +97,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
             weight: 15,
           ),
         ]).animate(
-          CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.3)),
+          CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.2)),
         );
 
     _scaleAnimationYA =
@@ -130,20 +131,20 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
             weight: 15,
           ),
         ]).animate(
-          CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.3)),
+          CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.2)),
         );
 
     ///针对文字的动画
     _scaleAnimationXAT = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.25, 0.3, curve: Curves.easeInOut),
+        curve: const Interval(0.16, 0.2, curve: Curves.easeInOut),
       ),
     );
     _scaleAnimationYAT = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.25, 0.3, curve: Curves.easeInOut),
+        curve: const Interval(0.16, 0.2, curve: Curves.easeInOut),
       ),
     );
   }
@@ -175,7 +176,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
             weight: 60,
           ),
         ]).animate(
-          CurvedAnimation(parent: _controller, curve: const Interval(0.3, 0.5)),
+          CurvedAnimation(parent: _controller, curve: const Interval(0.2, 0.5)),
         );
 
     _scaleAnimationYB =
@@ -202,7 +203,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
             weight: 60,
           ),
         ]).animate(
-          CurvedAnimation(parent: _controller, curve: const Interval(0.3, 0.5)),
+          CurvedAnimation(parent: _controller, curve: const Interval(0.2, 0.5)),
         );
   }
 
@@ -269,7 +270,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
             weight: 20,
           ),
         ]).animate(
-          CurvedAnimation(parent: _controller, curve: const Interval(0.5, 0.8)),
+          CurvedAnimation(parent: _controller, curve: const Interval(0.4, 0.8)),
         );
 
     _scaleAnimationYS =
@@ -286,7 +287,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
               begin: 0.9,
               end: 1.1,
             ).chain(CurveTween(curve: Curves.easeOut)),
-            weight:30,
+            weight: 30,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
@@ -310,10 +311,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
             weight: 20,
           ),
         ]).animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: const Interval(0.5, 0.8),
-          ),
+          CurvedAnimation(parent: _controller, curve: const Interval(0.4, 0.8)),
         );
 
     _jump =
@@ -354,16 +352,13 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
             weight: 20,
           ),
         ]).animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: const Interval(0.5, 0.8),
-          ),
+          CurvedAnimation(parent: _controller, curve: const Interval(0.4, 0.8)),
         );
 
     _widthStrech = Tween<double>(begin: 0.6, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.8, 1.0, curve: Curves.easeInOut),
+        curve: const Interval(0.75, 0.9, curve: Curves.easeInOut),
       ),
     );
   }
@@ -371,6 +366,20 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
   @override
   Widget build(BuildContext context) {
     ///外层容器
+    return Selector<ConfirmButtonState, int>(
+      builder: (context, inputState, _) {
+        if (inputState == 2) {
+          _controller.forward();
+        } else if (inputState == 4) {
+          _controller.reverse();
+        }
+        return _buildContainer();
+      },
+      selector: (context, vm) => vm.inputState,
+    );
+  }
+
+  Widget _buildContainer() {
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
