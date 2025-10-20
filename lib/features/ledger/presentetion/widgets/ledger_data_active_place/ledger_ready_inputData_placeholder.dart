@@ -129,26 +129,21 @@ class TipInputMode extends StatelessWidget {
   ///一个快速记录的动画ICon
   Widget _animationIcon() {
     return Expanded(
-      child: AnimatedBuilder(
-        animation: controller,
-        builder: (context, _) {
-          return Transform(
-            alignment: Alignment.bottomCenter,
-            transform: Matrix4.diagonal3Values(
-              ///这个值控制X
-              scaleAnimationX.value,
+      child: Transform(
+        alignment: Alignment.bottomCenter,
+        transform: Matrix4.diagonal3Values(
+          ///这个值控制X
+          scaleAnimationX.value,
 
-              ///这个值控制Y
-              scaleAnimationY.value,
-              1.0,
-            ),
-            child: Container(
-              padding: EdgeInsets.all(5.sw),
-              alignment: Alignment.center,
-              child: Image.asset('assets/images/Sleeping.gif'),
-            ),
-          );
-        },
+          ///这个值控制Y
+          scaleAnimationY.value,
+          1.0,
+        ),
+        child: Container(
+          padding: EdgeInsets.all(5.sw),
+          alignment: Alignment.center,
+          child: Image.asset('assets/images/Sleeping.gif'),
+        ),
       ),
     );
   }
