@@ -1,6 +1,7 @@
 ///私有导入
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/money_counter_view_model.dart';
 
 ///记账金额输入区
 class MoneyCountInput extends StatelessWidget {
@@ -34,31 +35,33 @@ class MoneyCountInput extends StatelessWidget {
 ///内容变动，所以单独抽出
 ////金额输入
 class MoneyInputField extends StatelessWidget {
-  final FocusNode _focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
+    final vm2 = context.read<MoneyCounterViewModel>();
     return TextFormField(
-      focusNode: _focusNode,
       showCursor: true,
-
-      readOnly: true, // 禁止输入，不弹键盘
+      // readOnly: true, // 禁止输入，不弹键盘
       onTap: () {
         final vm = context.read<ConfirmButtonState>();
         vm.changeState(2);
-        FocusScope.of(context).requestFocus(_focusNode);
+      },
+      onChanged: (value) {
+        final parsed = double.tryParse(value);
+        if (parsed != null) {
+          vm2.changeMoneyNumber(parsed);
+        } else {
+          vm2.changeMoneyNumber(0.0);
+        }
       },
       style: TextStyle(fontWeight: FontWeight.w800),
       decoration: InputDecoration(
         hintText: "输入记账金额",
         hintStyle: AppTextTheme.titleLarge,
         border: InputBorder.none,
-
-        /// 去掉下划线
         isCollapsed: true,
-
-        /// ✅ 关键，去掉TextField默认的内部padding
         contentPadding: EdgeInsets.zero,
       ),
+      maxLines: 1,
     );
   }
 }

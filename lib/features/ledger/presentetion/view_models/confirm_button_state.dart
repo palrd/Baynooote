@@ -13,7 +13,7 @@ class ConfirmButtonState extends ChangeNotifier {
 
   void changeState(int value) {
     _inputState = value;
-    print("DADADADAD:$_inputState");
+    print("dadadaddadad");
     notifyListeners();
   }
 }

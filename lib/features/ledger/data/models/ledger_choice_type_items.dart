@@ -13,7 +13,7 @@ class LedgerChoiceTypeItems {
   ];
 
   static final List<Color> iconColorsaBegin = [
-    Color.fromRGBO(184, 181, 198, 0.7),
+    Color.fromRGBO(181, 198, 196, 0.698),
     Color.fromRGBO(184, 181, 198, 0.7),
     Color.fromRGBO(163, 181, 199, 0.75),
     Color.fromRGBO(212, 184, 166, 0.7),
@@ -22,7 +22,7 @@ class LedgerChoiceTypeItems {
   ];
 
   static final List<Color> iconColorsaEnd = [
-    Color.fromRGBO(211, 207, 227, 0.6),
+    Color.fromRGBO(207, 217, 227, 0.6),
     Color.fromRGBO(211, 207, 227, 0.6),
     Color.fromRGBO(201, 213, 226, 0.65),
     Color.fromRGBO(232, 213, 200, 0.6),

@@ -1,11 +1,9 @@
-
-
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/detail_record_view_model.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/PlaceholderAnimationSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_ready_inputData_placeholder.dart';
-import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line.dart';
-
+import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/ledger_show_input_line.dart';
 
 ///该组件是当数据活动区无数据时展示的组件
 ///核心是一个容器包裹着三个内容，1.暂无记录 2.提示用户如何开始记账 3.一个用于装饰卡通动画
@@ -71,6 +69,10 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
+        if (_controller.isCompleted) {
+          final vm = context.read<DetailRecordViewModel>();
+          vm.changeMaxLine(3);
+        }
         return Transform(
           alignment: Alignment.bottomCenter,
           transform: Matrix4.diagonal3Values(
@@ -80,25 +82,36 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
           ),
           child: FractionallySizedBox(
             widthFactor: _anim.widthStrech.value,
-            child: Container(
-              margin: EdgeInsets.only(top: _anim.jump.value.sw),
-              height: 200.sw,
-              clipBehavior: Clip.hardEdge,
-              padding: EdgeInsets.symmetric(vertical: 10.sw),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  50.sw * _anim.radiusChange.value,
-                ),
-                gradient: LinearGradient(
-                  ///颜色过渡
-                  colors: [
-                    _anim.bgColorAnimationTop.value!,
-                    _anim.bgColorAnimationBottom.value!,
-                  ],
-                  begin: AlignmentGeometry.topCenter,
-                  end: AlignmentGeometry.bottomCenter,
-                ),
-              ),
+            child: Selector<QuickAnimationActiveState, int>(
+              builder: (_, index, child) {
+                return Container(
+                  margin: EdgeInsets.only(top: _anim.jump.value.sw),
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      50.sw * _anim.radiusChange.value,
+                    ),
+                  ),
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    height: 200.sw,
+                    clipBehavior: Clip.hardEdge,
+                    padding: EdgeInsets.symmetric(vertical: 10.sw),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        ///颜色过渡
+                        colors: [
+                          LedgerChoiceTypeItems.iconColorsaBegin[index],
+                          LedgerChoiceTypeItems.iconColorsaEnd[index],
+                        ],
+                        begin: AlignmentGeometry.topCenter,
+                        end: AlignmentGeometry.bottomCenter,
+                      ),
+                    ),
+                    child: child,
+                  ),
+                );
+              },
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -115,6 +128,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
                   _showIcon(),
                 ],
               ),
+              selector: (_, vm) => vm.selectedIndexActiveState,
             ),
           ),
         );
