@@ -1,4 +1,5 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
+import 'package:lottie/lottie.dart';
 
 ///该组件中，展示的内容是，提示用户当前没有数据，可以输入数据
 ///关于该组件的动画：
@@ -62,7 +63,7 @@ class TipInputMode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onDoubleTap: () => controller.forward(),
+      onTap: () => controller.forward(),
 
       child: _containerAnimationBuilder(),
     );
@@ -140,9 +141,9 @@ class TipInputMode extends StatelessWidget {
           1.0,
         ),
         child: Container(
-          padding: EdgeInsets.all(5.sw),
+          padding: EdgeInsets.all(15.sw),
           alignment: Alignment.center,
-          child: Image.asset('assets/images/Sleeping.gif'),
+          child: Lottie.asset(LedgerChoiceTypeItems.lottieJsons[0]),
         ),
       ),
     );

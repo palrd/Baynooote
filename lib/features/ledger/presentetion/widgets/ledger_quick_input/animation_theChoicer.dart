@@ -45,8 +45,8 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
   void _initAnimation() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 200),
-      reverseDuration: const Duration(milliseconds: 270),
+      duration: const Duration(milliseconds: 280),
+      reverseDuration: const Duration(milliseconds: 300),
     );
 
     ///开始为各个属性添加动画并绑定曲线

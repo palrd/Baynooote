@@ -1,9 +1,11 @@
-import 'dart:ffi';
+
 
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/PlaceholderAnimationSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_ready_inputData_placeholder.dart';
+import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line.dart';
+
 
 ///该组件是当数据活动区无数据时展示的组件
 ///核心是一个容器包裹着三个内容，1.暂无记录 2.提示用户如何开始记账 3.一个用于装饰卡通动画
@@ -39,7 +41,14 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
       vsync: this,
       duration: Duration(milliseconds: 2100),
     );
-    _anim = Placeholderanimationset(_controller);
+
+    final vm = context.read<QuickAnimationActiveState>();
+    final index = vm.selectedIndexActiveState;
+    vm.addListener(() {
+      final newIndex = vm.selectedIndexActiveState;
+      _anim.rebuild(_controller, newIndex);
+    });
+    _anim = Placeholderanimationset(_controller, index);
   }
 
   @override
@@ -77,7 +86,9 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
               clipBehavior: Clip.hardEdge,
               padding: EdgeInsets.symmetric(vertical: 10.sw),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.sw),
+                borderRadius: BorderRadius.circular(
+                  50.sw * _anim.radiusChange.value,
+                ),
                 gradient: LinearGradient(
                   ///颜色过渡
                   colors: [
@@ -119,10 +130,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
         _anim.scaleAnimationYB.value,
         1.0,
       ),
-      child: Container(
-        padding: EdgeInsets.all(5.sw),
-        child: Image.asset('assets/images/Sleeping.gif'),
-      ),
+      child: LedgerShowInputLine(),
     );
   }
 }

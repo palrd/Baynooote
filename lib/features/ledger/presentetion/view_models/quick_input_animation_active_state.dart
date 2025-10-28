@@ -9,7 +9,7 @@ class QuickAnimationActiveState extends ChangeNotifier {
   bool _typeChoiceBarActiveState = false;
 
   ///用于记录当前被选中的icon index
-  int _selectedIndexActiveState = -1;
+  int _selectedIndexActiveState = 0;
 
   ///提供getter
   bool get typeChoiceBarActiveState => _typeChoiceBarActiveState;

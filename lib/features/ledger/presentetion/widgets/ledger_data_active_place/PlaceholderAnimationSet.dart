@@ -2,6 +2,7 @@ import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
 class Placeholderanimationset {
   late AnimationController controller;
+  late int index;
 
   ///准备动画变化值
   ///外层盒子的动画S 0~0.5
@@ -22,10 +23,19 @@ class Placeholderanimationset {
   late Animation<double> scaleAnimationXB;
   late Animation<double> scaleAnimationYB;
 
-  Placeholderanimationset(this.controller) {
+  late Animation<double> radiusChange;
+
+  Placeholderanimationset(this.controller, this.index) {
     action1();
     action2();
-    action3();
+    action3(index);
+    action4();
+  }
+
+  void rebuild(controller, index) {
+    action1();
+    action2();
+    action3(index);
     action4();
   }
 
@@ -173,11 +183,11 @@ class Placeholderanimationset {
         );
   }
 
-  void action3() {
+  void action3(int index) {
     bgColorAnimationTop =
         ColorTween(
-          begin: Color.fromARGB(128, 83, 158, 249),
-          end: const Color.fromARGB(200, 44, 176, 90),
+          begin: Color(0x80539EF9),
+          end: LedgerChoiceTypeItems.iconColorsaBegin[index],
         ).animate(
           CurvedAnimation(
             parent: controller,
@@ -186,14 +196,20 @@ class Placeholderanimationset {
         );
     bgColorAnimationBottom =
         ColorTween(
-          begin: Color.fromARGB(75, 97, 197, 249),
-          end: const Color.fromARGB(200, 129, 201, 53),
+          begin: Color(0x4C61C5F9),
+          end: LedgerChoiceTypeItems.iconColorsaEnd[index],
         ).animate(
           CurvedAnimation(
             parent: controller,
             curve: const Interval(0.3, 0.6, curve: Curves.easeInOut),
           ),
         );
+    radiusChange = Tween<double>(begin: 0.4, end: 1.0).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: const Interval(0.5, 0.9, curve: Curves.easeInOut),
+      ),
+    );
   }
 
   void action4() {
@@ -321,7 +337,7 @@ class Placeholderanimationset {
           CurvedAnimation(parent: controller, curve: const Interval(0.4, 0.8)),
         );
 
-    widthStrech = Tween<double>(begin: 0.6, end: 1.0).animate(
+    widthStrech = Tween<double>(begin: 0.65, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
         curve: const Interval(0.75, 0.9, curve: Curves.easeInOut),

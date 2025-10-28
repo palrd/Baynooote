@@ -1,5 +1,6 @@
 ///私有导入
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 
 ////可选择的单个icon
 class TypeChoiceItem extends StatefulWidget {
@@ -49,7 +50,7 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
   void initInvokAnimationController() {
     _controllerInvok = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 280),
       reverseDuration: const Duration(milliseconds: 500),
     );
 
@@ -74,6 +75,7 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
   @override
   Widget build(BuildContext context) {
     final vm = context.read<QuickAnimationActiveState>();
+    final vm2 = context.read<ConfirmButtonState>();
     return GestureDetector(
       onTap: () {
         _controllerInvok?.forward();
@@ -83,6 +85,9 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
 
         ///更新index
         vm.ChangeSelectedIndexActiveState(widget.index);
+        if (vm2.inputState == 0) {
+          vm2.changeState(2);
+        }
       },
       child: itemAnimationBuilder(),
     );
@@ -113,7 +118,7 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
         builder: (_, isChoice, _) {
           return AnimatedOpacity(
             opacity: isChoice ? 1.0 : 0.5,
-            duration: const Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 280),
             child: Icon(
               widget.iconName,
               fontWeight: FontWeight.w300,

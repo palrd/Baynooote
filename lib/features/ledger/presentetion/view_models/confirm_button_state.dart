@@ -6,13 +6,14 @@ class ConfirmButtonState extends ChangeNotifier {
   ///1：默认样式
   ///2：输入框被点击但是没有输入数据
   ///3：输入框被点击后输入了数据
-  
+
   int _inputState = 0;
 
   int get inputState => _inputState;
 
   void changeState(int value) {
     _inputState = value;
+    print("DADADADAD:$_inputState");
     notifyListeners();
   }
 }
