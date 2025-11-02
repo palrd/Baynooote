@@ -37,7 +37,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
     ///初始化动画控制器
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 2100),
+      duration: Duration(milliseconds: 1500),
     );
 
     final vm = context.read<QuickAnimationActiveState>();
@@ -69,10 +69,13 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
-        if (_controller.isCompleted) {
-          final vm = context.read<DetailRecordViewModel>();
-          vm.changeMaxLine(3);
-        }
+        _controller.addStatusListener((status) {
+          if (status == AnimationStatus.completed) {
+            final vm = context.read<DetailRecordViewModel>();
+            vm.changeMaxLine(3);
+          }
+        });
+
         return Transform(
           alignment: Alignment.bottomCenter,
           transform: Matrix4.diagonal3Values(

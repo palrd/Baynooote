@@ -4,7 +4,8 @@ import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
 ///该组件用于展示正在记录的账单类型
 class TypenameShow extends StatelessWidget {
-  const TypenameShow({super.key});
+  final double scale;
+  const TypenameShow({this.scale = 1.0, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class TypenameShow extends StatelessWidget {
           padding: EdgeInsets.all(1.sw),
           alignment: Alignment.center,
           width: 36.sw,
-          height: 20.sw,
+          height: 20.sw * scale,
           decoration: BoxDecoration(
             color: const Color.fromARGB(100, 247, 247, 247),
             border: Border(bottom: BorderSide(color: Colors.white30)),

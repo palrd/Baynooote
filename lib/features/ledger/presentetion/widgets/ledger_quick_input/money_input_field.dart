@@ -14,7 +14,7 @@ class MoneyCountInput extends StatelessWidget {
       height: 50.sw,
       child: Container(
         height: 40.sw,
-        padding: EdgeInsets.only(left: 25.sw),
+        padding: EdgeInsets.only(left: 25.sw, right: 20.sw),
         decoration: BoxDecoration(
           color: const Color(0xFFF2F2F2),
           borderRadius: BorderRadius.circular(20.sw),
@@ -34,34 +34,51 @@ class MoneyCountInput extends StatelessWidget {
 
 ///内容变动，所以单独抽出
 ////金额输入
-class MoneyInputField extends StatelessWidget {
+class MoneyInputField extends StatefulWidget {
+  @override
+  State<MoneyInputField> createState() => _MoneyInputFieldState();
+}
+
+class _MoneyInputFieldState extends State<MoneyInputField> {
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final vm2 = context.read<MoneyCounterViewModel>();
-    return TextFormField(
-      showCursor: true,
-      // readOnly: true, // 禁止输入，不弹键盘
-      onTap: () {
-        final vm = context.read<ConfirmButtonState>();
-        vm.changeState(2);
+    return Selector<MoneyCounterViewModel, double>(
+      builder: (_, moneyNumber, _) {
+        _controller.text = moneyNumber == 0.0 ? '' : moneyNumber.toString();
+        final vm2 = context.read<MoneyCounterViewModel>();
+
+        return TextFormField(
+          controller: _controller,
+          showCursor: true,
+          cursorColor: Colors.black,
+          cursorRadius: Radius.circular(20),
+          // readOnly: true, // 禁止输入，不弹键盘
+          onTap: () {
+            final vm = context.read<ConfirmButtonState>();
+            vm.changeState(2);
+          },
+          onChanged: (value) {
+            final parsed = double.tryParse(value);
+            if (parsed != null) {
+              vm2.changeMoneyNumber(parsed);
+            } else {
+              vm2.changeMoneyNumber(0.0);
+            }
+          },
+          style: TextStyle(fontWeight: FontWeight.w800),
+          decoration: InputDecoration(
+            hintText: "输入记账金额",
+            hintStyle: AppTextTheme.titleLarge,
+            border: InputBorder.none,
+            isCollapsed: true,
+            contentPadding: EdgeInsets.zero,
+          ),
+          maxLines: 1,
+        );
       },
-      onChanged: (value) {
-        final parsed = double.tryParse(value);
-        if (parsed != null) {
-          vm2.changeMoneyNumber(parsed);
-        } else {
-          vm2.changeMoneyNumber(0.0);
-        }
-      },
-      style: TextStyle(fontWeight: FontWeight.w800),
-      decoration: InputDecoration(
-        hintText: "输入记账金额",
-        hintStyle: AppTextTheme.titleLarge,
-        border: InputBorder.none,
-        isCollapsed: true,
-        contentPadding: EdgeInsets.zero,
-      ),
-      maxLines: 1,
+      selector: (_, vm) => vm.moneyNumber,
     );
   }
 }

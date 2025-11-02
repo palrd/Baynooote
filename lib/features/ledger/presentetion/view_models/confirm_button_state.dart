@@ -13,7 +13,6 @@ class ConfirmButtonState extends ChangeNotifier {
 
   void changeState(int value) {
     _inputState = value;
-    print("dadadaddadad");
     notifyListeners();
   }
 }
