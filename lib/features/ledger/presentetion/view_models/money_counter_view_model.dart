@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MoneyCounterViewModel extends ChangeNotifier {
-  double _moneyNumber = 0;
+  double _moneyNumber = 0.0;
   int _index = 0;
+  bool _shouldSubmit = false;
 
   double get moneyNumber => _moneyNumber;
-  int get inedx => _index;
+  int get index => _index;
+  bool get shouldSubmit => _shouldSubmit;
 
   void changeMoneyNumber(value) {
     _moneyNumber = value;
@@ -21,5 +23,13 @@ class MoneyCounterViewModel extends ChangeNotifier {
       _index = 4;
     }
     notifyListeners();
+  }
+
+  void triggerSubmit() {
+    _shouldSubmit = true;
+  }
+
+  void resetSubmit() {
+    _shouldSubmit = false;
   }
 }

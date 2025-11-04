@@ -48,7 +48,7 @@ class LedgerShowInputLine extends StatelessWidget {
               return Transform(
                 transform: Matrix4.diagonal3Values(value, value, 1.0),
                 alignment: Alignment.centerLeft,
-                child: MoneyCounter(fontsize: 25),
+                child: MoneyCounter(fontsize: 25, isSmall: true),
               );
             }
           },
@@ -94,7 +94,6 @@ class LedgerShowInputLine extends StatelessWidget {
           tween: Tween(begin: 50.0, end: height),
           duration: const Duration(milliseconds: 150),
           curve: Curves.easeInOut,
-
           builder: (context, value, child) {
             return SizedBox(
               height: value.sw,
@@ -165,8 +164,8 @@ class LedgerShowInputLine extends StatelessWidget {
             } else {
               return Container(
                 margin: EdgeInsets.only(
-                  top: 8.sw * value,
-                  bottom: 5.sw * value,
+                  top: 10.sw * value,
+                  bottom: 3.sw * value,
                 ),
                 child: Transform(
                   transform: Matrix4.diagonal3Values(value, value, 1.0),

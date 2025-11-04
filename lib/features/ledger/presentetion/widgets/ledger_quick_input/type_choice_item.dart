@@ -85,7 +85,7 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
 
         ///更新index
         vm.ChangeSelectedIndexActiveState(widget.index);
-        if (vm2.inputState == 0) {
+        if (vm2.inputState == 0 || vm2.inputState == 4) {
           vm2.changeState(2);
         }
       },

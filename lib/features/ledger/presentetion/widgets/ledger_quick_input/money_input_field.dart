@@ -40,32 +40,17 @@ class MoneyInputField extends StatefulWidget {
 }
 
 class _MoneyInputFieldState extends State<MoneyInputField> {
-  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final vm2 = context.read<MoneyCounterViewModel>();
     return Selector<MoneyCounterViewModel, double>(
       builder: (_, moneyNumber, _) {
-        _controller.text = moneyNumber == 0.0 ? '' : moneyNumber.toString();
-        final vm2 = context.read<MoneyCounterViewModel>();
-
         return TextFormField(
-          controller: _controller,
           showCursor: true,
           cursorColor: Colors.black,
           cursorRadius: Radius.circular(20),
-          // readOnly: true, // 禁止输入，不弹键盘
           onTap: () {
             final vm = context.read<ConfirmButtonState>();
             vm.changeState(2);
-          },
-          onChanged: (value) {
-            final parsed = double.tryParse(value);
-            if (parsed != null) {
-              vm2.changeMoneyNumber(parsed);
-            } else {
-              vm2.changeMoneyNumber(0.0);
-            }
           },
           style: TextStyle(fontWeight: FontWeight.w800),
           decoration: InputDecoration(

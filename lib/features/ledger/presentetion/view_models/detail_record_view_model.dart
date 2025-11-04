@@ -26,8 +26,6 @@ class DetailRecordViewModel extends ChangeNotifier {
 
   void changeHeight(value) {
     _height = value;
-    
-
     notifyListeners();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:lottie/lottie.dart';
 
 ///该组件中，展示的内容是，提示用户当前没有数据，可以输入数据
@@ -63,7 +64,13 @@ class TipInputMode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => controller.forward(),
+      onTap: () {
+        controller.forward();
+        final btVM = context.read<ConfirmButtonState>();
+        if (btVM.inputState == 0 || btVM.inputState == 4) {
+          btVM.changeState(2);
+        }
+      },
 
       child: _containerAnimationBuilder(),
     );
@@ -126,7 +133,6 @@ class TipInputMode extends StatelessWidget {
     );
   }
 
-  ///TODO 未来要抽出并为其写点击逻辑
   ///一个快速记录的动画ICon
   Widget _animationIcon() {
     return Expanded(

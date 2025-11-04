@@ -60,7 +60,7 @@ class NumberLevelLight extends StatelessWidget {
           );
         }
       },
-      selector: (_, vm) => vm.inedx,
+      selector: (_, vm) => vm.index,
     );
   }
 }

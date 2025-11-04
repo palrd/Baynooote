@@ -119,13 +119,15 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
                 alignment: Alignment.center,
                 children: [
                   ///默认展示提示用户对于今日记账的输入
-                  LedgerReadyInputdataPlaceholder(
-                    controller: _controller,
-                    scaleX: _anim.scaleAnimationXA,
-                    scaleY: _anim.scaleAnimationYA,
-                    scaleXT: _anim.scaleAnimationXAT,
-                    scaleYT: _anim.scaleAnimationYAT,
-                  ),
+                  _anim.scaleAnimationXA.value == 0.0
+                      ? SizedBox.shrink()
+                      : LedgerReadyInputdataPlaceholder(
+                          controller: _controller,
+                          scaleX: _anim.scaleAnimationXA,
+                          scaleY: _anim.scaleAnimationYA,
+                          scaleXT: _anim.scaleAnimationXAT,
+                          scaleYT: _anim.scaleAnimationYAT,
+                        ),
 
                   ///展示icon
                   _showIcon(),
@@ -140,14 +142,18 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
   }
 
   Widget _showIcon() {
-    return Transform(
-      alignment: Alignment.center,
-      transform: Matrix4.diagonal3Values(
-        _anim.scaleAnimationXB.value,
-        _anim.scaleAnimationYB.value,
-        1.0,
-      ),
-      child: LedgerShowInputLine(),
-    );
+    if (_anim.scaleAnimationXB.value > 0.0) {
+      return Transform(
+        alignment: Alignment.center,
+        transform: Matrix4.diagonal3Values(
+          _anim.scaleAnimationXB.value,
+          _anim.scaleAnimationYB.value,
+          1.0,
+        ),
+        child: LedgerShowInputLine(),
+      );
+    } else {
+      return SizedBox.shrink();
+    }
   }
 }

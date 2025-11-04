@@ -1,5 +1,6 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/money_counter_view_model.dart';
 import 'package:rive/rive.dart';
 
 class TheButton extends StatelessWidget {
@@ -10,8 +11,11 @@ class TheButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         final cmNM = context.read<ConfirmButtonState>();
-        if (cmNM.inputState == 1) {
+        if (cmNM.inputState == 0 || cmNM.inputState == 4) {
           cmNM.changeState(2);
+        } else if (cmNM.inputState == 3) {
+          context.read<MoneyCounterViewModel>().triggerSubmit();
+          cmNM.changeState(4);
         }
       },
       child: _theButton(),

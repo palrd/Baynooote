@@ -25,7 +25,9 @@ class LedgerDetailRecord extends StatelessWidget {
               } else {
                 vm.changeScale(1.0);
                 vm.changeHeight(50.0);
-                vm.changeMaxLine(3);
+                Future.delayed(const Duration(milliseconds: 600), () {
+                  vm.changeMaxLine(3);
+                });
               }
             },
             showCursor: true,
