@@ -4,10 +4,12 @@ class MoneyCounterViewModel extends ChangeNotifier {
   double _moneyNumber = 0.0;
   int _index = 0;
   bool _shouldSubmit = false;
+  bool _alreadFocused = false;
 
   double get moneyNumber => _moneyNumber;
   int get index => _index;
   bool get shouldSubmit => _shouldSubmit;
+  bool get alreadFocused => _alreadFocused;
 
   void changeMoneyNumber(value) {
     _moneyNumber = value;
@@ -31,5 +33,9 @@ class MoneyCounterViewModel extends ChangeNotifier {
 
   void resetSubmit() {
     _shouldSubmit = false;
+  }
+
+  void resetFocus() {
+    _alreadFocused = !_alreadFocused;
   }
 }

@@ -87,31 +87,34 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
             widthFactor: _anim.widthStrech.value,
             child: Selector<QuickAnimationActiveState, int>(
               builder: (_, index, child) {
-                return Container(
-                  margin: EdgeInsets.only(top: _anim.jump.value.sw),
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      50.sw * _anim.radiusChange.value,
-                    ),
-                  ),
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
-                    height: 200.sw,
+                return Align(
+                  alignment: _anim.jumpAlign.value,
+                  child: Container(
+                    margin: EdgeInsets.only(top: _anim.jumpMargin.value.sw),
                     clipBehavior: Clip.hardEdge,
-                    padding: EdgeInsets.symmetric(vertical: 10.sw),
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        ///颜色过渡
-                        colors: [
-                          LedgerChoiceTypeItems.iconColorsaBegin[index],
-                          LedgerChoiceTypeItems.iconColorsaEnd[index],
-                        ],
-                        begin: AlignmentGeometry.topCenter,
-                        end: AlignmentGeometry.bottomCenter,
+                      borderRadius: BorderRadius.circular(
+                        50.sw * _anim.radiusChange.value,
                       ),
                     ),
-                    child: child,
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      height: 200.sw,
+                      clipBehavior: Clip.hardEdge,
+                      padding: EdgeInsets.symmetric(vertical: 10.sw),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          ///颜色过渡
+                          colors: [
+                            LedgerChoiceTypeItems.iconColorsaBegin[index],
+                            LedgerChoiceTypeItems.iconColorsaEnd[index],
+                          ],
+                          begin: AlignmentGeometry.topCenter,
+                          end: AlignmentGeometry.bottomCenter,
+                        ),
+                      ),
+                      child: child,
+                    ),
                   ),
                 );
               },

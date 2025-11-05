@@ -26,12 +26,21 @@ class MoneyCounter extends StatefulWidget {
 
 class _MoneyCounterState extends State<MoneyCounter> {
   final TextEditingController _controller = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
-    _controller.text = context.read<MoneyCounterViewModel>().moneyNumber == 0.0
-        ? ''
-        : context.read<MoneyCounterViewModel>().moneyNumber.toString();
+    final vm = context.read<MoneyCounterViewModel>();
+    _controller.text = vm.moneyNumber == 0.0 ? '' : vm.moneyNumber.toString();
+    if (!widget.isSmall) {
+      if (!vm.alreadFocused) {
+        Future.delayed(const Duration(seconds: 1), () {
+          _focusNode.requestFocus();
+          vm.resetFocus();
+        });
+      }
+    }
   }
 
   @override
@@ -94,15 +103,18 @@ class _MoneyCounterState extends State<MoneyCounter> {
         _controller.clear();
         vm2.changeMoneyNumber(0.0);
         vm2.resetSubmit();
+        vm2.resetFocus();
       });
     }
     return Selector<MoneyCounterViewModel, double>(
       builder: (_, moneyNumber, _) {
         final sizeScale = moneyNumber > 999 ? 0.8 : 1.0;
+
         return Container(
           alignment: Alignment.centerLeft,
           child: TextField(
             controller: _controller,
+            focusNode: _focusNode,
             keyboardType: TextInputType.number,
             onChanged: (value) {
               final parsed = double.tryParse(value);

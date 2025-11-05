@@ -8,7 +8,8 @@ class Placeholderanimationset {
   ///外层盒子的动画S 0~0.5
   late Animation<double> scaleAnimationXS;
   late Animation<double> scaleAnimationYS;
-  late Animation<double> jump;
+  late Animation<double> jumpMargin;
+  late Animation<Alignment> jumpAlign;
   late Animation<double> widthStrech;
   late Animation<Color?> bgColorAnimationTop;
   late Animation<Color?> bgColorAnimationBottom;
@@ -219,38 +220,40 @@ class Placeholderanimationset {
           TweenSequenceItem(
             tween: Tween<double>(
               begin: 1.0,
-              end: 1.1,
+              end: 1.05,
             ).chain(CurveTween(curve: Curves.easeIn)),
             weight: 30,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 1.1,
-              end: 0.9,
+              begin: 1.05,
+              end: 0.95,
             ).chain(CurveTween(curve: Curves.easeOut)),
             weight: 30,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 0.9,
-              end: 0.9,
+              begin: 0.95,
+              end: 0.95,
             ).chain(CurveTween(curve: Curves.easeInOut)),
             weight: 10,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 0.9,
-              end: 1.1,
+              begin: 0.95,
+              end: 1.03,
             ).chain(CurveTween(curve: Curves.easeIn)),
             weight: 10,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 1.1,
+              begin: 1.03,
               end: 1.0,
             ).chain(CurveTween(curve: Curves.easeIn)),
             weight: 20,
           ),
+          
+        
         ]).animate(
           CurvedAnimation(parent: controller, curve: const Interval(0.4, 0.8)),
         );
@@ -259,35 +262,35 @@ class Placeholderanimationset {
         TweenSequence<double>([
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 1.0,
-              end: 0.9,
+              begin: 1.05,
+              end: 0.95,
             ).chain(CurveTween(curve: Curves.easeIn)),
             weight: 30,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 0.9,
-              end: 1.1,
+              begin: 0.95,
+              end: 1.05,
             ).chain(CurveTween(curve: Curves.easeOut)),
             weight: 30,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 1.1,
-              end: 1.1,
+              begin: 1.05,
+              end: 1.05,
             ).chain(CurveTween(curve: Curves.easeInOut)),
             weight: 10,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 1.1,
-              end: 0.9,
+              begin: 1.05,
+              end: 0.97,
             ).chain(CurveTween(curve: Curves.easeIn)),
             weight: 10,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 0.9,
+              begin: 0.97,
               end: 1.0,
             ).chain(CurveTween(curve: Curves.easeIn)),
             weight: 20,
@@ -296,29 +299,36 @@ class Placeholderanimationset {
           CurvedAnimation(parent: controller, curve: const Interval(0.4, 0.8)),
         );
 
-    jump =
+    jumpMargin =
         TweenSequence([
+          ///保持
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 150,
-              end: 150,
+              begin: 30,
+              end: 30,
             ).chain(CurveTween(curve: Curves.linear)),
             weight: 30,
           ),
+
+          ///起跳
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 150,
+              begin: 30,
               end: 30,
             ).chain(CurveTween(curve: Curves.easeInOut)),
             weight: 20,
           ),
+
+          ///跳到更高
           TweenSequenceItem(
             tween: Tween<double>(
               begin: 30,
               end: 20,
-            ).chain(CurveTween(curve: Curves.easeOut)),
+            ).chain(CurveTween(curve: Curves.easeIn)),
             weight: 10,
           ),
+
+          ///下落
           TweenSequenceItem(
             tween: Tween<double>(
               begin: 20,
@@ -326,12 +336,46 @@ class Placeholderanimationset {
             ).chain(CurveTween(curve: Curves.easeOut)),
             weight: 20,
           ),
+
+          ///落地保持
           TweenSequenceItem(
             tween: Tween<double>(
               begin: 30,
               end: 30,
-            ).chain(CurveTween(curve: Curves.easeOut)),
+            ).chain(CurveTween(curve: Curves.linear)),
             weight: 20,
+          ),
+        ]).animate(
+          CurvedAnimation(parent: controller, curve: const Interval(0.4, 0.8)),
+        );
+
+    jumpAlign =
+        TweenSequence<Alignment>([
+          ///保持
+          TweenSequenceItem(
+            tween: Tween<Alignment>(
+              begin: Alignment.center,
+              end: Alignment.center,
+            ).chain(CurveTween(curve: Curves.linear)),
+            weight: 30,
+          ),
+
+          ///起跳
+          TweenSequenceItem(
+            tween: Tween<Alignment>(
+              begin: Alignment.center,
+              end: Alignment.topCenter,
+            ).chain(CurveTween(curve: Curves.easeInOut)),
+            weight: 30,
+          ),
+
+          ///保持
+          TweenSequenceItem(
+            tween: Tween<Alignment>(
+              begin: Alignment.topCenter,
+              end: Alignment.topCenter,
+            ).chain(CurveTween(curve: Curves.linear)),
+            weight: 40,
           ),
         ]).animate(
           CurvedAnimation(parent: controller, curve: const Interval(0.4, 0.8)),
@@ -340,7 +384,7 @@ class Placeholderanimationset {
     widthStrech = Tween<double>(begin: 0.65, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: const Interval(0.75, 0.9, curve: Curves.easeInOut),
+        curve: const Interval(0.65, 0.75, curve: Curves.easeInOut),
       ),
     );
   }

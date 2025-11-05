@@ -12,12 +12,7 @@ class LedgerDataActivePlace extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        alignment: Alignment.topCenter,
-        child: Consumer<DataActivePlaceViewModel>(
-          builder: (ctx, vm, _) {
-            return vm.hasData ? Container() : LedgerDataPlaceholder();
-          },
-        ),
+        child: LedgerDataPlaceholder(),
       ),
     );
   }
