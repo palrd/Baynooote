@@ -2,8 +2,21 @@ import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/detail_record_view_model.dart';
 
 ///该组件用于记录记账详细
-class LedgerDetailRecord extends StatelessWidget {
+class LedgerDetailRecord extends StatefulWidget {
   const LedgerDetailRecord({super.key});
+
+  @override
+  State<LedgerDetailRecord> createState() => _LedgerDetailRecordState();
+}
+
+class _LedgerDetailRecordState extends State<LedgerDetailRecord> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 1), () {
+      context.read<DetailRecordViewModel>().changeMaxLine(3);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +38,7 @@ class LedgerDetailRecord extends StatelessWidget {
               } else {
                 vm.changeScale(1.0);
                 vm.changeHeight(50.0);
-                Future.delayed(const Duration(milliseconds: 600), () {
-                  vm.changeMaxLine(3);
-                });
+                vm.changeMaxLine(3);
               }
             },
             showCursor: true,

@@ -15,9 +15,11 @@ class LedgerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("脚手架重构！");
     return Scaffold(
       ///底层背景色
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      resizeToAvoidBottomInset: false,
 
       ///用于提供渐变背景和左右内边距
       body: Stack(
@@ -35,14 +37,16 @@ class LedgerPage extends StatelessWidget {
   ///下层的容器
   Widget centerContentContainer(BuildContext context) {
     final gradientTheme = Theme.of(context).extension<AppGradientTheme>();
+    print("centerContentContainer重构！");
 
     ///作为容器，占满屏幕、提供基础的左右padding约束、背景渐变色
     ///其中的内容拆分为单独widget逐个放入
-    return Container(
-      height: SizeFitUtil.screenHeight,
-      padding: EdgeInsets.only(left: 20.sw, right: 20.sw),
-      decoration: BoxDecoration(gradient: gradientTheme?.backgroundGradient),
-      child: Column(children: [LedgerQuickInput(), LedgerDataActivePlace()]),
+    return Positioned.fill(
+      child: Container(
+        padding: EdgeInsets.only(left: 20.sw, right: 20.sw),
+        decoration: BoxDecoration(gradient: gradientTheme?.backgroundGradient),
+        child: Column(children: [LedgerQuickInput(), LedgerDataActivePlace()]),
+      ),
     );
   }
 }

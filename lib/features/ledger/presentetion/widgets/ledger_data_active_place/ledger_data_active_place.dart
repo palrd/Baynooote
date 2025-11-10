@@ -10,6 +10,8 @@ class LedgerDataActivePlace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("LedgerDataActivePlace重构！");
+
     return Expanded(
       child: Container(
         child: LedgerDataPlaceholder(),

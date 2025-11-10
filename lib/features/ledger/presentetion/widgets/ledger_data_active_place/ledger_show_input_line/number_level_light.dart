@@ -5,7 +5,21 @@ import 'package:baynooote/features/ledger/presentetion/view_models/money_counter
 
 ///该组件用于展示当前金额的程度
 class NumberLevelLight extends StatelessWidget {
-  const NumberLevelLight({super.key});
+  final double width;
+  final double height;
+  final double lightWidth;
+  final double lightHeight;
+  final bool isDetail;
+  final Color bgColor;
+  const NumberLevelLight({
+    this.width = 0,
+    this.height = 0,
+    this.lightHeight = 0,
+    this.lightWidth = 0,
+    this.isDetail = false,
+    this.bgColor = Colors.white,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +28,11 @@ class NumberLevelLight extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
         child: Container(
-          width: 36.sw,
-          height: 15.sw,
+          width: isDetail ? width : 36.sw,
+          height: isDetail ? height : 15.sw,
           padding: EdgeInsets.symmetric(horizontal: 2.sw),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(60, 247, 247, 247),
+            color: isDetail ? bgColor : const Color.fromARGB(60, 247, 247, 247),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -39,8 +53,8 @@ class NumberLevelLight extends StatelessWidget {
         if (index == 4) {
           return AnimatedContainer(
             duration: Duration(milliseconds: 200),
-            width: 7.sw,
-            height: 7.sw,
+            width: isDetail ? lightWidth : 7.sw,
+            height: isDetail ? lightHeight : 7.sw,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.red,
@@ -50,8 +64,8 @@ class NumberLevelLight extends StatelessWidget {
         } else {
           return AnimatedContainer(
             duration: Duration(milliseconds: 200),
-            width: 7.sw,
-            height: 7.sw,
+            width: isDetail ? lightWidth : 7.sw,
+            height: isDetail ? lightHeight : 7.sw,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: now <= index ? color : AppTheme.unChooseColor,

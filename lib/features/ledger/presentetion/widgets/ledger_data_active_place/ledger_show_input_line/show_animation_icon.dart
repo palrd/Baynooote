@@ -15,6 +15,7 @@ class ShowAnimationIcon extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: LedgerChoiceTypeItems.iconColorsaBegin[index],
+              border: Border.all(color: Colors.white, width: 2),
               boxShadow: [
                 BoxShadow(
                   offset: Offset(0, 0),

@@ -4,6 +4,8 @@ import 'package:baynooote/core/util/size_fit_util.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/detail_record_view_model.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/money_counter_view_model.dart';
+import 'package:baynooote/shared/widgets/app_starter.dart';
+import 'package:baynooote/shared/widgets/baynooote.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/quick_input_animation_active_state.dart';
@@ -34,31 +36,3 @@ void main() async {
   );
 }
 
-class Baynooote extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    ///在这里进行尺寸适配初始化
-    final size = MediaQuery.of(context).size;
-    SizeFitUtil.init(size);
-    final vm = context.read<SizeGetNew>();
-
-    ///只在尺寸第一次拿到时执行一次
-    if (!vm.isNewSize) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        vm.setSize(size);
-      });
-    }
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-
-      ///初始化路由表
-      routes: AppRouter.routes,
-
-      ///初始化页面
-      initialRoute: "/ledger",
-
-      ///初始化主题数据
-      theme: AppTheme.lightTheme,
-    );
-  }
-}

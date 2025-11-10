@@ -48,5 +48,12 @@ class LedgerChoiceTypeItems {
     "assets/lottie/Bunny.json",
   ];
 
-  static final List<String> typeNames = ["美食", "娱乐", "运动", "艺术", "旅行", "日常"];
+  static final List<String> typeNames = [
+    "美食",
+    "娱乐",
+    "运动",
+    "艺术",
+    "旅行",
+    "日常",
+  ];
 }

@@ -1,5 +1,4 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
-import 'package:baynooote/features/ledger/presentetion/view_models/detail_record_view_model.dart';
 
 ///用来管理按钮样式的状态
 class ConfirmButtonState extends ChangeNotifier {

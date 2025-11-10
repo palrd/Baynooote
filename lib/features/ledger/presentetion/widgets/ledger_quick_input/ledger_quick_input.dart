@@ -11,6 +11,7 @@ class LedgerQuickInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("LedgerQuickInput重构！");
     
     ///最外层container用于设定上外边距
     return Container(
