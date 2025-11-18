@@ -26,11 +26,27 @@ class _AppStarterState extends State<AppStarter> {
 
     await WidgetsBinding.instance.endOfFrame;
 
-    Size? size = _safeSize();
+    Size? size;
+    const maxTry = 10;
+    const delay = Duration(milliseconds: 80);
+
+    ///轮询获取屏幕尺寸
+    for (int i = 0; i < maxTry; i++) {
+      size = _safeSize();
+
+      ///获取到了就跳出循环
+      if (size?.width != 0 && size?.height != 0) {
+        debugPrint("在第$i 次尝试中获取到了屏幕尺寸");
+        break;
+      }
+
+      ///否则等待一会儿再试
+      await Future.delayed(delay);
+    }
 
     ///还是空，那就再尝试一次
     if (size == null) {
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(Duration(milliseconds: 200));
       size = _safeSize();
     }
 

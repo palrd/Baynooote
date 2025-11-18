@@ -12,10 +12,11 @@ class Completedaniamtionset {
   late Animation<double> rotateXA;
   late Animation<double> rotateXB;
 
-  Completedaniamtionset(this.controller) {
+  Completedaniamtionset(this.controller){
     action1();
     action2();
   }
+
 
   void action1() {
     scaleX =
@@ -150,4 +151,7 @@ class Completedaniamtionset {
       ),
     );
   }
+
+
+ 
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
 class MoneyCounterViewModel extends ChangeNotifier {
   double _moneyNumber = 0.0;
@@ -27,8 +27,29 @@ class MoneyCounterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void triggerSubmit() {
+  ///触发提交时
+  void triggerSubmit(context) {
+    _confirmRecord(context);
     _shouldSubmit = true;
+  }
+
+  void _confirmRecord(BuildContext context) {
+    final confirmVM = context.read<RecordCompletedViewModel>();
+
+    ///数据载入
+    confirmVM
+      ..setUserName("Paladepa")
+      ..setComfirmedMoney(context.read<MoneyCounterViewModel>().moneyNumber)
+      ..setComfirmedIndex(
+        context.read<QuickAnimationActiveState>().selectedIndexActiveState,
+      )
+      ..setIsRecordDetail(true)
+      ..setConfirmedDate(
+        DateTime.now().hour.toString().padLeft(2,'0') + ":" + DateTime.now().minute.toString().padLeft(2,'0'),
+      )
+      ..setTimeUnit((DateTime.now().hour >= 12 ? "PM" : "AM").toString())
+      ..setIsInsertDB(true)
+      ..setConfirmedLightIndex(context.read<MoneyCounterViewModel>().index);
   }
 
   void resetSubmit() {

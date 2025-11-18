@@ -1,8 +1,7 @@
-
-
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAniamtionSet.dart';
+import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAniamtionSet2.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/PlaceholderAnimationSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_ready_inputData_placeholder.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/ledger_show_input_line.dart';
@@ -29,8 +28,10 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
   ///准备动画控制器
   late AnimationController _controller;
   late AnimationController _controller2;
+  late AnimationController _controller3;
   late Placeholderanimationset _anim;
   late Completedaniamtionset _anim2;
+  late Completedaniamtionset2 _anim3;
 
   @override
   void initState() {
@@ -42,11 +43,15 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
     ///初始化动画控制器
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1500),
+      duration: Duration(milliseconds: 1800),
     );
     _controller2 = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 1000),
+    );
+    _controller3 = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
     );
 
     final vm = context.read<QuickAnimationActiveState>();
@@ -57,17 +62,22 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
     });
     _anim = Placeholderanimationset(_controller, index);
     _anim2 = Completedaniamtionset(_controller2);
+    _anim3 = Completedaniamtionset2(_controller3);
   }
 
   @override
   Widget build(BuildContext context) {
     ///外层容器
     return Selector<ConfirmButtonState, int>(
-      builder: (context, inputState, _) {
+      builder: (context, inputState, child) {
         if (inputState == 2) {
           _controller.forward();
         } else if (inputState == 4) {
           _controller2.forward();
+          Future.delayed(
+            Duration(milliseconds: 700),
+            () => _controller3.forward(),
+          );
         }
         return _showSwich();
       },
@@ -76,7 +86,6 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
   }
 
   Widget _showSwich() {
-
     return AnimatedBuilder(
       animation: _controller2,
       builder: (context, _) {
@@ -89,21 +98,24 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
   }
 
   Widget _showLedgerRecordCompleted() {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        margin: EdgeInsets.only(top: 30.sw),
-        child: Transform(
-          alignment: Alignment.bottomCenter,
-          transform: Matrix4.diagonal3Values(
-            _anim2.scaleBX.value,
-            _anim2.scaleBY.value,
-            1.0,
-          )..rotateY(_anim2.rotateXB.value),
-          child: LedgerShowRecordCompleted(),
-        ),
-      ),
-    );
+    final vm = context.read<RecordCompletedViewModel>();
+    return _anim2.scaleBX.value == 0
+        ? SizedBox.shrink()
+        : Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              margin: EdgeInsets.only(top: 30.sw),
+              child: Transform(
+                alignment: Alignment.bottomCenter,
+                transform: Matrix4.diagonal3Values(
+                  _anim2.scaleBX.value,
+                  _anim2.scaleBY.value,
+                  1.0,
+                )..rotateY(_anim2.rotateXB.value),
+                child: LedgerShowRecordCompleted(vm: vm, anim: _anim3),
+              ),
+            ),
+          );
   }
 
   Widget _buildContainer() {

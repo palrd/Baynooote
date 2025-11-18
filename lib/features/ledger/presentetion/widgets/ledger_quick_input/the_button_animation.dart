@@ -14,7 +14,10 @@ class TheButton extends StatelessWidget {
         if (cmNM.inputState == 0 || cmNM.inputState == 4) {
           cmNM.changeState(2);
         } else if (cmNM.inputState == 3) {
-          context.read<MoneyCounterViewModel>().triggerSubmit();
+          
+
+          ///触发提交
+          context.read<MoneyCounterViewModel>().triggerSubmit(context);
           cmNM.changeState(4);
         }
       },
@@ -24,19 +27,25 @@ class TheButton extends StatelessWidget {
 
   ///按钮本身
   Widget _theButton() {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: AppTheme.iconBgColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(0x1A),
-            offset: Offset(0, 2),
-            blurRadius: 5,
+    return Selector<QuickAnimationActiveState, int>(
+      builder: (_, index, child) {
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: LedgerChoiceTypeItems.iconColorsaBegin[index],
+            boxShadow: [
+              BoxShadow(
+                color: const Color.fromARGB(15, 0, 0, 0),
+                blurRadius: 15,
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Center(child: RiveButton()),
+          child: child,
+        );
+      },
+      child: const Center(child: RiveButton()),
+      selector: (_, vm) => vm.selectedIndexActiveState,
     );
   }
 }

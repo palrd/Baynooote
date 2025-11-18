@@ -11,6 +11,7 @@ class NumberLevelLight extends StatelessWidget {
   final double lightHeight;
   final bool isDetail;
   final Color bgColor;
+  final int confirmIndex;
   const NumberLevelLight({
     this.width = 0,
     this.height = 0,
@@ -18,6 +19,7 @@ class NumberLevelLight extends StatelessWidget {
     this.lightWidth = 0,
     this.isDetail = false,
     this.bgColor = Colors.white,
+    this.confirmIndex = 0,
     super.key,
   });
 
@@ -37,9 +39,15 @@ class NumberLevelLight extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _sigalLight(Colors.green, 1),
-              _sigalLight(Colors.yellow, 2),
-              _sigalLight(Colors.red, 3),
+              isDetail
+                  ? _sigalLightWithDetailMode(Colors.green, 1, confirmIndex)
+                  : _sigalLight(Colors.green, 1),
+              isDetail
+                  ? _sigalLightWithDetailMode(Colors.yellow, 2, confirmIndex)
+                  : _sigalLight(Colors.yellow, 2),
+              isDetail
+                  ? _sigalLightWithDetailMode(Colors.red, 3, confirmIndex)
+                  : _sigalLight(Colors.red, 3),
             ],
           ),
         ),
@@ -76,5 +84,28 @@ class NumberLevelLight extends StatelessWidget {
       },
       selector: (_, vm) => vm.index,
     );
+  }
+
+  Widget _sigalLightWithDetailMode(Color color, int now, int index) {
+    if (index == 4) {
+      return AnimatedContainer(
+        duration: Duration(milliseconds: 200),
+        width: isDetail ? lightWidth : 7.sw,
+        height: isDetail ? lightHeight : 7.sw,
+        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+        child: Center(),
+      );
+    } else {
+      return AnimatedContainer(
+        duration: Duration(milliseconds: 200),
+        width: isDetail ? lightWidth : 7.sw,
+        height: isDetail ? lightHeight : 7.sw,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: now <= index ? color : AppTheme.unChooseColor,
+        ),
+        child: Center(),
+      );
+    }
   }
 }
