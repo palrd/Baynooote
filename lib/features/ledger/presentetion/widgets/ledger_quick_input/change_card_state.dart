@@ -74,7 +74,6 @@ class TextChoice extends StatelessWidget {
   Widget theBubble(double size, double position) {
     return Container(
       margin: EdgeInsets.only(top: position.sw),
-      ///TODO 可以抽出只计算一次
       height: size.sw,
       width: size.sw,
       decoration: BoxDecoration(
@@ -111,7 +110,7 @@ class TextChoice extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 5.sw, horizontal: 3.sw),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          ///TODO 确定文字列表后用List.generate
+
           children: [
             Text("记账", style: AppTextTheme.titleMedium),
             Text("笔记", style: AppTextTheme.titleMedium),
@@ -134,7 +133,7 @@ class ChangeStateButton extends StatelessWidget {
             ///展示右侧文字修改选项
             stVM.changeIsShowCardChoice();
             ///调用按钮动画
-            ///TODO 调用文字动画
+      
           },
           child: theBotton(),
         );
@@ -146,7 +145,7 @@ class ChangeStateButton extends StatelessWidget {
     return ///用来切换文字的一个按钮
     Container(
       margin: EdgeInsets.only(right: 3.sw),
-      ///TODO 可以抽出只计算一次
+
       width: 30.sw,
       height: 30.sw,
       decoration: BoxDecoration(

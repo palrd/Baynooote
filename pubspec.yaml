@@ -37,6 +37,7 @@ dependencies:
   provider: ^6.1.5+1
   rive: ^0.13.20
   lottie: ^3.3.2
+  flutter_svg: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,14 @@ flutter:
     - assets/lottie/Bunny.json
     - assets/Rives/baynoootebutton.riv
     - assets/Rives/ConfirmButton.riv
+    - assets/svgs/animals/bat.svg
+    - assets/svgs/animals/cat.svg
+    - assets/svgs/animals/dog.svg
+    - assets/svgs/animals/dolphin.svg
+    - assets/svgs/animals/elephant.svg
+    - assets/svgs/animals/hippo.svg
+    - assets/svgs/animals/monkey.svg
+    - assets/svgs/animals/pigeon.svg
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

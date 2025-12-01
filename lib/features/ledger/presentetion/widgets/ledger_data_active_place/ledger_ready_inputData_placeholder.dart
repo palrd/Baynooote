@@ -1,5 +1,6 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
+import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/PlaceholderAnimationSet.dart';
 import 'package:lottie/lottie.dart';
 
 ///该组件中，展示的内容是，提示用户当前没有数据，可以输入数据
@@ -7,65 +8,26 @@ import 'package:lottie/lottie.dart';
 ///状态1：默认准备为提示状态
 ///状态2：进入就绪状态
 class LedgerReadyInputdataPlaceholder extends StatelessWidget {
-  final AnimationController controller;
-  final Animation<double> scaleX;
-  final Animation<double> scaleY;
-  final Animation<double> scaleXT;
-  final Animation<double> scaleYT;
-  const LedgerReadyInputdataPlaceholder({
-    required this.controller,
-    required this.scaleX,
-    required this.scaleY,
-    required this.scaleXT,
-    required this.scaleYT,
 
-    super.key,
-  });
+  final Placeholderanimationset anim;
+  const LedgerReadyInputdataPlaceholder({required this.anim, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         ///默认为就绪
-        TipInputMode(
-          controller: controller,
-          scaleAnimationX: scaleX,
-          scaleAnimationY: scaleY,
-          scaleAnimationXT: scaleXT,
-          scaleAnimationYT: scaleYT,
-        ),
+        tipInputMode(context),
       ],
     );
   }
-}
 
-///提示状态1
-///描述一下这个组件的动画
-///使用一个状态来进行管理
-///当值改变时
-///首先：进行scale变换，横向拉伸，向下压缩
-///到一定时间纵向拉伸然后迅速收回，知道缩小为0，也就是不展示状态
-///时间节奏是慢快，曲线选择ease in out
-class TipInputMode extends StatelessWidget {
-  final AnimationController controller;
-  final Animation<double> scaleAnimationX;
-  final Animation<double> scaleAnimationY;
-  final Animation<double> scaleAnimationXT;
-  final Animation<double> scaleAnimationYT;
-  const TipInputMode({
-    required this.controller,
-    required this.scaleAnimationX,
-    required this.scaleAnimationY,
-    required this.scaleAnimationXT,
-    required this.scaleAnimationYT,
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
+
+  Widget tipInputMode(context) {
     return GestureDetector(
       onTap: () {
-        controller.forward();
+        anim.controller.forward();
         final btVM = context.read<ConfirmButtonState>();
         if (btVM.inputState == 0 || btVM.inputState == 4) {
           btVM.changeState(2);
@@ -84,16 +46,16 @@ class TipInputMode extends StatelessWidget {
   ///文字动画
   Widget _texyContainer() {
     return AnimatedBuilder(
-      animation: controller,
+      animation: anim.controller,
       builder: (context, _) {
         return Transform(
           alignment: Alignment.bottomCenter,
           transform: Matrix4.diagonal3Values(
             ///这个值控制X
-            scaleAnimationXT.value,
+            anim.scaleAnimationXAT.value,
 
             ///这个值控制Y
-            scaleAnimationYT.value,
+            anim.scaleAnimationYAT.value,
             1.0,
           ),
           child: Container(
@@ -140,10 +102,10 @@ class TipInputMode extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         transform: Matrix4.diagonal3Values(
           ///这个值控制X
-          scaleAnimationX.value,
+          anim.scaleAnimationXA.value,
 
           ///这个值控制Y
-          scaleAnimationY.value,
+          anim.scaleAnimationYA.value,
           1.0,
         ),
         child: Container(
@@ -154,4 +116,5 @@ class TipInputMode extends StatelessWidget {
       ),
     );
   }
+
 }

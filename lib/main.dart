@@ -2,6 +2,7 @@ import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/detail_record_view_model.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/money_counter_view_model.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/tip_content_view_model.dart';
 import 'package:baynooote/shared/widgets/baynooote.dart';
 
 import 'package:rive/rive.dart';
@@ -21,6 +22,12 @@ void main() async {
         ChangeNotifierProvider(create: (ctx) => MoneyCounterViewModel()),
         ChangeNotifierProvider(create: (ctx) => DetailRecordViewModel()),
         ChangeNotifierProvider(create: (ctx) => RecordCompletedViewModel()),
+        ChangeNotifierProvider(
+          create: (ctx) {
+            final vm = ctx.read<ConfirmButtonState>();
+            return TipContentViewModel(vm);
+          },
+        ),
       ],
       child: Baynooote(),
     ),

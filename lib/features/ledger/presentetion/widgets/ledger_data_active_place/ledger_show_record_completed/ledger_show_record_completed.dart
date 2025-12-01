@@ -294,7 +294,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
               "${vm.timeUnit}",
               style: TextStyle(
                 height: 1.0,
-                fontSize: 20.sp, // 推荐用 sp 而不是 sw
+                fontSize: 19.sp, // 推荐用 sp 而不是 sw
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 shadows: [
@@ -310,7 +310,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
               vm.confirmedDate,
               style: TextStyle(
                 height: 1.0,
-                fontSize: 20.sp,
+                fontSize: 19.sp,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 shadows: [

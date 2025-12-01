@@ -32,15 +32,16 @@ class _MoneyCounterState extends State<MoneyCounter> {
   void initState() {
     super.initState();
     final vm = context.read<MoneyCounterViewModel>();
+    final vmButton = context.read<ConfirmButtonState>();
+    // vmButton.addListener(() {
+    //   if (vmButton.inputState == 2 && !widget.isSmall && !vm.alreadFocused) {
+    //     Future.delayed(const Duration(milliseconds: 2000), () {
+    //       _focusNode.requestFocus();
+    //       vm.resetFocus();
+    //     });
+    //   }
+    // });
     _controller.text = vm.moneyNumber == 0.0 ? '' : vm.moneyNumber.toString();
-    if (!widget.isSmall) {
-      if (!vm.alreadFocused) {
-        Future.delayed(const Duration(seconds: 1), () {
-          _focusNode.requestFocus();
-          vm.resetFocus();
-        });
-      }
-    }
   }
 
   @override

@@ -13,9 +13,6 @@ class _LedgerDetailRecordState extends State<LedgerDetailRecord> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1), () {
-      context.read<DetailRecordViewModel>().changeMaxLine(3);
-    });
   }
 
   @override
@@ -44,7 +41,6 @@ class _LedgerDetailRecordState extends State<LedgerDetailRecord> {
             showCursor: true,
             cursorColor: Colors.white,
             cursorRadius: Radius.circular(20),
-            // readOnly: true, // 禁止输入，不弹键盘
             style: TextStyle(
               fontWeight: FontWeight.w800,
               color: Colors.white,

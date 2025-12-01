@@ -1,0 +1,81 @@
+///私有导入
+import 'package:baynooote/features/ledger/di/ledger_module.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/tip_content_view_model.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+///记账金额输入区
+class ShowTips extends StatelessWidget {
+  const ShowTips({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 15.sw, bottom: 8.sw, right: 15.sw),
+      height: 50.sw,
+      child: Row(children: [ShowTipsIcon(), ShowTipsText()]),
+    );
+  }
+}
+
+class ShowTipsIcon extends StatelessWidget {
+  const ShowTipsIcon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 30.sw,
+      height: 30.sw,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: const Color.fromARGB(255, 255, 255, 255),
+        border: Border.all(
+          color: LedgerChoiceTypeItems.iconColorsaBegin[0],
+          width: 2,
+        ),
+      ),
+      child: Center(
+        child: SvgPicture.asset(
+          'assets/svgs/animals/dog.svg',
+          width: 20.sw,
+          height: 20.sw,
+          colorFilter: ColorFilter.mode(
+            LedgerChoiceTypeItems.iconColorsaBegin[0],
+            BlendMode.srcIn,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ShowTipsText extends StatelessWidget {
+  const ShowTipsText({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.only(left: 15.sw),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Selector<TipContentViewModel, String>(
+              builder: (_, content, _) {
+                return Text(
+                  content,
+                  style: TextStyle(
+                    fontSize: 15.sw,
+                    color: const Color.fromARGB(255, 199, 112, 58),
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+              },
+              selector: (_, vm) => vm.content,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

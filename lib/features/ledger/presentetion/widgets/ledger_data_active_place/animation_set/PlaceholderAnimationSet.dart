@@ -2,7 +2,7 @@ import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
 class Placeholderanimationset {
   late AnimationController controller;
-  late int index;
+
 
   ///准备动画变化值
   ///外层盒子的动画S 0~0.5
@@ -26,21 +26,16 @@ class Placeholderanimationset {
 
   late Animation<double> radiusChange;
 
-  Placeholderanimationset(this.controller, this.index) {
+  Placeholderanimationset(this.controller) {
     action1();
     action2();
-    action3(index);
+    action3();
     action4();
   }
 
-  void rebuild(controller, index) {
-    action1();
-    action2();
-    action3(index);
-    action4();
-  }
+ 
 
-  void action1() {
+ void action1() {
     ///内部盒子的动画A
     //向下压缩-慢
     scaleAnimationXA =
@@ -48,13 +43,13 @@ class Placeholderanimationset {
           TweenSequenceItem(
             tween: Tween<double>(
               begin: 1.0,
-              end: 1.2,
+              end: 1.1,
             ).chain(CurveTween(curve: Curves.easeIn)),
-            weight: 30,
+            weight: 40,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 1.2,
+              begin: 1.1,
               end: 0.8,
             ).chain(CurveTween(curve: Curves.easeOut)),
             weight: 30,
@@ -62,12 +57,19 @@ class Placeholderanimationset {
           TweenSequenceItem(
             tween: Tween<double>(
               begin: 0.8,
-              end: 0,
+              end: 1.0,
             ).chain(CurveTween(curve: Curves.easeInOutCubic)),
-            weight: 40,
+            weight: 15,
+          ),
+          TweenSequenceItem(
+            tween: Tween<double>(
+              begin: 1.0,
+              end: 0,
+            ).chain(CurveTween(curve: Curves.easeIn)),
+            weight: 15,
           ),
         ]).animate(
-          CurvedAnimation(parent: controller, curve: const Interval(0.0, 0.25)),
+          CurvedAnimation(parent: controller, curve: const Interval(0.0, 0.2)),
         );
 
     scaleAnimationYA =
@@ -77,37 +79,44 @@ class Placeholderanimationset {
               begin: 1.0,
               end: 0.8,
             ).chain(CurveTween(curve: Curves.easeIn)),
-            weight: 30,
+            weight: 40,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
               begin: 0.8,
-              end: 1.2,
+              end: 1.1,
             ).chain(CurveTween(curve: Curves.easeOut)),
             weight: 30,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 1.2,
-              end: 0,
+              begin: 1.1,
+              end: 1.0,
             ).chain(CurveTween(curve: Curves.easeInOutCubic)),
-            weight: 40,
+            weight: 15,
+          ),
+          TweenSequenceItem(
+            tween: Tween<double>(
+              begin: 1.0,
+              end: 0,
+            ).chain(CurveTween(curve: Curves.easeIn)),
+            weight: 15,
           ),
         ]).animate(
-          CurvedAnimation(parent: controller, curve: const Interval(0.0, 0.25)),
+          CurvedAnimation(parent: controller, curve: const Interval(0.0, 0.2)),
         );
 
     ///针对文字的动画
     scaleAnimationXAT = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: const Interval(0.16, 0.25, curve: Curves.easeInOut),
+        curve: const Interval(0.16, 0.2, curve: Curves.easeInOut),
       ),
     );
     scaleAnimationYAT = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: const Interval(0.16, 0.25, curve: Curves.easeInOut),
+        curve: const Interval(0.16, 0.2, curve: Curves.easeInOut),
       ),
     );
   }
@@ -120,26 +129,26 @@ class Placeholderanimationset {
           TweenSequenceItem(
             tween: Tween<double>(
               begin: 0.0,
-              end: 1.2,
+              end: 1.1,
             ).chain(CurveTween(curve: Curves.easeIn)),
             weight: 20,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 1.2,
-              end: 0.8,
+              begin: 1.1,
+              end: 0.9,
             ).chain(CurveTween(curve: Curves.easeOut)),
             weight: 20,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 0.8,
+              begin: 0.9,
               end: 1.0,
             ).chain(CurveTween(curve: Curves.easeInOut)),
             weight: 60,
           ),
         ]).animate(
-          CurvedAnimation(parent: controller, curve: const Interval(0.25, 0.5)),
+          CurvedAnimation(parent: controller, curve: const Interval(0.2, 0.5)),
         );
 
     scaleAnimationYB =
@@ -147,50 +156,31 @@ class Placeholderanimationset {
           TweenSequenceItem(
             tween: Tween<double>(
               begin: 0.0,
-              end: 0.8,
+              end: 0.9,
             ).chain(CurveTween(curve: Curves.easeIn)),
             weight: 20,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 0.8,
-              end: 1.2,
+              begin: 0.9,
+              end: 1.1,
             ).chain(CurveTween(curve: Curves.easeOut)),
             weight: 20,
           ),
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 1.2,
+              begin: 1.1,
               end: 1.0,
             ).chain(CurveTween(curve: Curves.easeInOut)),
             weight: 60,
           ),
         ]).animate(
-          CurvedAnimation(parent: controller, curve: const Interval(0.25, 0.5)),
+          CurvedAnimation(parent: controller, curve: const Interval(0.2, 0.5)),
         );
   }
 
-  void action3(int index) {
-    bgColorAnimationTop =
-        ColorTween(
-          begin: Color(0x80539EF9),
-          end: LedgerChoiceTypeItems.iconColorsaBegin[index],
-        ).animate(
-          CurvedAnimation(
-            parent: controller,
-            curve: const Interval(0.25, 0.6, curve: Curves.easeInOut),
-          ),
-        );
-    bgColorAnimationBottom =
-        ColorTween(
-          begin: Color(0x4C61C5F9),
-          end: LedgerChoiceTypeItems.iconColorsaEnd[index],
-        ).animate(
-          CurvedAnimation(
-            parent: controller,
-            curve: const Interval(0.25, 0.6, curve: Curves.easeInOut),
-          ),
-        );
+  void action3() {
+   
     radiusChange = Tween<double>(begin: 0.4, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
@@ -332,7 +322,7 @@ class Placeholderanimationset {
             weight: 20,
           ),
         ]).animate(
-          CurvedAnimation(parent: controller, curve: const Interval(0.4, 0.8)),
+          CurvedAnimation(parent: controller, curve: const Interval(0.4, 0.7)),
         );
 
     jumpAlign =
@@ -364,7 +354,7 @@ class Placeholderanimationset {
             weight: 40,
           ),
         ]).animate(
-          CurvedAnimation(parent: controller, curve: const Interval(0.4, 0.8)),
+          CurvedAnimation(parent: controller, curve: const Interval(0.4, 0.7)),
         );
 
     widthStrech = Tween<double>(begin: 0.65, end: 1.0).animate(

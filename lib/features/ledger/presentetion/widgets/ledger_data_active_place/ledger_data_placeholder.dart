@@ -2,6 +2,7 @@ import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAniamtionSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAniamtionSet2.dart';
+import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAnimationSet3.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/PlaceholderAnimationSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_ready_inputData_placeholder.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/ledger_show_input_line.dart';
@@ -29,9 +30,11 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
   late AnimationController _controller;
   late AnimationController _controller2;
   late AnimationController _controller3;
+  late AnimationController _controller4;
   late Placeholderanimationset _anim;
   late Completedaniamtionset _anim2;
   late Completedaniamtionset2 _anim3;
+  late Completedanimationset3 _anim4;
 
   @override
   void initState() {
@@ -53,39 +56,39 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
-
-    final vm = context.read<QuickAnimationActiveState>();
-    final index = vm.selectedIndexActiveState;
-    vm.addListener(() {
-      final newIndex = vm.selectedIndexActiveState;
-      _anim.rebuild(_controller, newIndex);
-    });
-    _anim = Placeholderanimationset(_controller, index);
+    _controller4 = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    );
+    _anim = Placeholderanimationset(_controller);
     _anim2 = Completedaniamtionset(_controller2);
     _anim3 = Completedaniamtionset2(_controller3);
+    _anim4 = Completedanimationset3(_controller4);
+    final vmButton = context.read<ConfirmButtonState>();
+    vmButton.addListener(() {
+      if (vmButton.inputState == 2) {
+        _controller.forward();
+      } else if (vmButton.inputState == 4) {
+        _controller2.forward();
+      }
+    });
+    _controller2.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controller3.forward();
+      }
+    });
+    _controller3.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        Future.delayed(const Duration(milliseconds: 300), () {
+          _controller4.forward();
+        });
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     ///外层容器
-    return Selector<ConfirmButtonState, int>(
-      builder: (context, inputState, child) {
-        if (inputState == 2) {
-          _controller.forward();
-        } else if (inputState == 4) {
-          _controller2.forward();
-          Future.delayed(
-            Duration(milliseconds: 700),
-            () => _controller3.forward(),
-          );
-        }
-        return _showSwich();
-      },
-      selector: (context, vm) => vm.inputState,
-    );
-  }
-
-  Widget _showSwich() {
     return AnimatedBuilder(
       animation: _controller2,
       builder: (context, _) {
@@ -99,122 +102,117 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
 
   Widget _showLedgerRecordCompleted() {
     final vm = context.read<RecordCompletedViewModel>();
-    return _anim2.scaleBX.value == 0
-        ? SizedBox.shrink()
-        : Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              margin: EdgeInsets.only(top: 30.sw),
-              child: Transform(
-                alignment: Alignment.bottomCenter,
-                transform: Matrix4.diagonal3Values(
-                  _anim2.scaleBX.value,
-                  _anim2.scaleBY.value,
-                  1.0,
-                )..rotateY(_anim2.rotateXB.value),
-                child: LedgerShowRecordCompleted(vm: vm, anim: _anim3),
-              ),
-            ),
-          );
+    return AnimatedBuilder(
+      animation: _controller4,
+      builder: (context, child) {
+        return Transform(
+          alignment: Alignment.centerLeft,
+          transform: Matrix4.diagonal3Values(
+            _anim4.scaleX.value,
+            _anim4.scaleY.value,
+            1.0,
+          )..setTranslationRaw(_anim4.offsetX.value, 0.0, 0.0),
+          child: child,
+        );
+      },
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Container(
+          margin: EdgeInsets.only(top: 30.sw),
+          child: Transform(
+            alignment: Alignment.bottomCenter,
+            transform: Matrix4.diagonal3Values(
+              _anim2.scaleBX.value,
+              _anim2.scaleBY.value,
+              1.0,
+            )..rotateY(_anim2.rotateXB.value),
+            child: LedgerShowRecordCompleted(vm: vm, anim: _anim3),
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _buildContainer() {
-    return _anim2.scaleX.value > 0
-        ? AnimatedBuilder(
-            animation: _controller,
-            builder: (context, _) {
-              return Transform(
-                alignment: Alignment.bottomCenter,
-                transform: Matrix4.diagonal3Values(
-                  _anim.scaleAnimationXS.value,
-                  _anim.scaleAnimationYS.value,
-                  1.0,
-                ),
-                child: FractionallySizedBox(
-                  widthFactor: _anim.widthStrech.value,
-                  child: Selector<QuickAnimationActiveState, int>(
-                    builder: (_, index, child) {
-                      return Align(
-                        alignment: _anim.jumpAlign.value,
-                        child: Transform(
-                          alignment: Alignment.bottomCenter,
-                          transform: Matrix4.diagonal3Values(
-                            _anim2.scaleX.value,
-                            _anim2.scaleY.value,
-                            1.0,
-                          ),
-                          child: Container(
-                            margin: EdgeInsets.only(
-                              top: _anim.jumpMargin.value.sw,
-                            ),
-                            clipBehavior: Clip.hardEdge,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                50.sw * _anim.radiusChange.value,
-                              ),
-                            ),
-                            child: AnimatedContainer(
-                              duration: Duration(milliseconds: 200),
-                              height: 200.sw,
-                              clipBehavior: Clip.hardEdge,
-                              padding: EdgeInsets.symmetric(vertical: 10.sw),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  ///颜色过渡
-                                  colors: [
-                                    LedgerChoiceTypeItems
-                                        .iconColorsaBegin[index],
-                                    LedgerChoiceTypeItems.iconColorsaEnd[index],
-                                  ],
-                                  begin: AlignmentGeometry.topCenter,
-                                  end: AlignmentGeometry.bottomCenter,
-                                ),
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  ///默认展示提示用户对于今日记账的输入
-                                  _anim.scaleAnimationXA.value == 0.0
-                                      ? SizedBox.shrink()
-                                      : LedgerReadyInputdataPlaceholder(
-                                          controller: _controller,
-                                          scaleX: _anim.scaleAnimationXA,
-                                          scaleY: _anim.scaleAnimationYA,
-                                          scaleXT: _anim.scaleAnimationXAT,
-                                          scaleYT: _anim.scaleAnimationYAT,
-                                        ),
-
-                                  ///展示icon
-                                  _showIcon(),
-                                ],
-                              ),
-                            ),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        return Transform(
+          alignment: Alignment.bottomCenter,
+          transform: Matrix4.diagonal3Values(
+            _anim.scaleAnimationXS.value,
+            _anim.scaleAnimationYS.value,
+            1.0,
+          ),
+          child: FractionallySizedBox(
+            widthFactor: _anim.widthStrech.value,
+            child: Selector<QuickAnimationActiveState, int>(
+              builder: (_, index, child) {
+                return Align(
+                  alignment: _anim.jumpAlign.value,
+                  child: Transform(
+                    alignment: Alignment.bottomCenter,
+                    transform: Matrix4.diagonal3Values(
+                      _anim2.scaleX.value,
+                      _anim2.scaleY.value,
+                      1.0,
+                    ),
+                    child: Container(
+                      margin: EdgeInsets.only(top: _anim.jumpMargin.value.sw),
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          50.sw * _anim.radiusChange.value,
+                        ),
+                      ),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        height: 200.sw,
+                        clipBehavior: Clip.hardEdge,
+                        padding: EdgeInsets.symmetric(vertical: 10.sw),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            ///颜色过渡
+                            colors: [
+                              LedgerChoiceTypeItems.iconColorsaBegin[index],
+                              LedgerChoiceTypeItems.iconColorsaEnd[index],
+                            ],
+                            begin: AlignmentGeometry.topCenter,
+                            end: AlignmentGeometry.bottomCenter,
                           ),
                         ),
-                      );
-                    },
-                    selector: (_, vm) => vm.selectedIndexActiveState,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            ///默认展示提示用户对于今日记账的输入
+                            LedgerReadyInputdataPlaceholder(anim: _anim),
+
+                            ///展示icon
+                            _showIcon(),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              );
-            },
-          )
-        : SizedBox.shrink();
+                );
+              },
+              selector: (_, vm) => vm.selectedIndexActiveState,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget _showIcon() {
-    if (_anim.scaleAnimationXB.value > 0.0) {
-      return Transform(
-        alignment: Alignment.center,
-        transform: Matrix4.diagonal3Values(
-          _anim.scaleAnimationXB.value,
-          _anim.scaleAnimationYB.value,
-          1.0,
-        ),
-        child: LedgerShowInputLine(),
-      );
-    } else {
-      return SizedBox.shrink();
-    }
+    return Transform(
+      alignment: Alignment.bottomCenter,
+      transform: Matrix4.diagonal3Values(
+        _anim.scaleAnimationXB.value,
+        _anim.scaleAnimationYB.value,
+        1.0,
+      ),
+      child: LedgerShowInputLine(),
+    );
   }
 }

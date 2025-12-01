@@ -11,7 +11,16 @@ class LedgerChoiceTypeItems {
     Icons.lunch_dining_outlined,
     Icons.lunch_dining_outlined,
   ];
-  
+  static final List svgs = [
+    'assets/svgs/animals/pigeon.svg',
+    'assets/svgs/animals/cat.svg',
+    'assets/svgs/animals/dog.svg',
+    'assets/svgs/animals/dolphin.svg',
+    'assets/svgs/animals/elephant.svg',
+    'assets/svgs/animals/hippo.svg',
+    'assets/svgs/animals/monkey.svg',
+    
+  ];
 
   static final List<Color> iconColorsaBegin = [
     Color.fromRGBO(181, 198, 196, 0.698),
@@ -49,12 +58,5 @@ class LedgerChoiceTypeItems {
     "assets/lottie/Bunny.json",
   ];
 
-  static final List<String> typeNames = [
-    "美食",
-    "娱乐",
-    "运动",
-    "艺术",
-    "旅行",
-    "日常",
-  ];
+  static final List<String> typeNames = ["美食", "娱乐", "运动", "艺术", "旅行", "日常"];
 }

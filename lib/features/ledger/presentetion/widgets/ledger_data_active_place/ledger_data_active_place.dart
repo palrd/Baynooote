@@ -14,7 +14,27 @@ class LedgerDataActivePlace extends StatelessWidget {
 
     return Expanded(
       child: Container(
-        child: LedgerDataPlaceholder(),
+        // color: Colors.amber,
+        child: Stack(
+          children: [
+            Visibility(visible: true, child: LedgerDataPlaceholder()),
+            // _list(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _list() {
+    return FractionallySizedBox(
+      widthFactor: 1.0,
+      heightFactor: 1.0,
+      child: Container(
+        color: Colors.red,
+        padding: EdgeInsets.only(top: 40.sw),
+        child: Center(
+          child: Container(color: Colors.amber, child: Center()),
+        ),
       ),
     );
   }

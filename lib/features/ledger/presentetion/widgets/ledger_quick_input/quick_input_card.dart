@@ -1,11 +1,10 @@
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_quick_input/type_choice_bar.dart';
 
-
 ///私有导入
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
 ////组件导入
-import 'money_input_field.dart';
+import 'show_tips.dart';
 
 import 'confirm_button.dart';
 
@@ -42,7 +41,6 @@ class InputSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     ///因为要分左右区域所以使用Expanded
     return Expanded(
       flex: 7,
@@ -50,7 +48,7 @@ class InputSection extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
 
         ///为左侧的上下两层写 Widget
-        children: [TypeChoiceBar(), MoneyCountInput()],
+        children: [TypeChoiceBar(), ShowTips()],
       ),
     );
   }

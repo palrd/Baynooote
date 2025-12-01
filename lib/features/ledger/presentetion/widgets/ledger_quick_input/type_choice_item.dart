@@ -1,6 +1,7 @@
 ///私有导入
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 ////可选择的单个icon
 class TypeChoiceItem extends StatefulWidget {
@@ -119,11 +120,16 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
           return AnimatedOpacity(
             opacity: isChoice ? 1.0 : 0.5,
             duration: const Duration(milliseconds: 280),
-            child: Icon(
-              widget.iconName,
-              fontWeight: FontWeight.w300,
-              size: 22.sw,
-              color: AppTheme.typeIconColor,
+            child: Center(
+              child: SvgPicture.asset(
+                LedgerChoiceTypeItems.svgs[widget.index],
+                width: 22.sw,
+                height: 22.sw,
+                colorFilter: ColorFilter.mode(
+                  AppTheme.typeIconColor,
+                  BlendMode.srcIn,
+                ),
+              ),
             ),
           );
         },
