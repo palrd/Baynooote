@@ -24,12 +24,24 @@ class LedgerPage extends StatelessWidget {
       ///用于提供渐变背景和左右内边距
       body: Stack(
         children: [
+          ///最底部的背景
+          backGround(),
+
           ///下方内容的容器
           centerContentContainer(context),
 
           ///顶部标签
           Positioned(top: 0, left: 0, right: 0, child: LedgerHeader()),
         ],
+      ),
+    );
+  }
+
+  Widget backGround() {
+    return Positioned.fill(
+      child: Image.asset(
+        "assets/images/png/wallpaper3.png",
+        fit: BoxFit.cover,
       ),
     );
   }

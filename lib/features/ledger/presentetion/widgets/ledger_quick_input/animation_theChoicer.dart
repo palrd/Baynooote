@@ -45,17 +45,17 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
   void _initAnimation() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 280),
-      reverseDuration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 250),
+      reverseDuration: const Duration(milliseconds: 250),
     );
 
     ///开始为各个属性添加动画并绑定曲线
     ///第一步进到目标容器边缘
     ///到边缘
-    _positionAnimation1 = Tween<double>(begin: 0, end: 10.sw).animate(
+    _positionAnimation1 = Tween<double>(begin: 0, end: 40.sw).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0, 0.3, curve: Curves.easeInCubic),
+        curve: const Interval(0, 1.0, curve: Curves.easeInCubic),
       ),
     );
 
@@ -74,15 +74,6 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
         curve: Interval(0.5, 1.0, curve: Curves.easeInOutCubic),
       ),
     );
-
-    ///移动到目标位置
-    _positionAnimation2 = Tween<double>(begin: 10.sw, end: 40.sw).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.3, 0.6, curve: Curves.easeOutCubic),
-      ),
-    );
-
     ///第三步开始透明度下降
     _opacityAnimation = Tween<double>(begin: 1.0, end: 1.0).animate(
       CurvedAnimation(
@@ -115,15 +106,11 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
   }
 
   Widget _animationBuilderContainer() {
-    ///两个阶段的动画连接
-    double _left = _controller.value < 0.3
-        ? _positionAnimation1.value
-        : _positionAnimation2.value;
     return Opacity(
       opacity: _opacityAnimation.value,
       child: Container(
         ///绑定位置移动
-        margin: EdgeInsets.only(left: _left),
+        margin: EdgeInsets.only(left: _positionAnimation1.value),
         decoration: BoxDecoration(
           color: const Color.fromARGB(80, 197, 201, 204),
           borderRadius: BorderRadius.circular(_borderRadiusAnimation.value),

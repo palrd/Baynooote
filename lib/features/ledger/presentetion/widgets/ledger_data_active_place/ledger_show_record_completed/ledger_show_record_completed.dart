@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAniamtionSet2.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/number_level_light.dart';
@@ -12,30 +14,41 @@ class LedgerShowRecordCompleted extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250.sw,
-      height: 250.sw,
       decoration: BoxDecoration(
-        color: LedgerChoiceTypeItems.iconColorsaBegin[vm.comfirmedIndex],
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white, width: 4),
-        boxShadow: [
-          BoxShadow(
-            color: const Color.fromARGB(57, 0, 0, 0),
-            spreadRadius: 2,
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
       ),
-      padding: EdgeInsets.all(5.sw),
-      child: Column(
-        children: [
-          _typeIcon(),
-          _moneyNumber(),
-          _line3Wrapper(),
-          _userName(),
-          _recordTime(),
-        ],
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(125.sw),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+          child: Container(
+            width: 250.sw,
+            height: 250.sw,
+            decoration: BoxDecoration(
+              color: LedgerChoiceTypeItems.iconColorsaBegin[vm.comfirmedIndex],
+
+              boxShadow: [
+                BoxShadow(
+                  color: const Color.fromARGB(57, 0, 0, 0),
+                  spreadRadius: 2,
+                  blurRadius: 10,
+                  offset: Offset(0, 5),
+                ),
+              ],
+            ),
+            padding: EdgeInsets.all(5.sw),
+            child: Column(
+              children: [
+                _typeIcon(),
+                _moneyNumber(),
+                _line3Wrapper(),
+                _userName(),
+                _recordTime(),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -64,7 +77,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
       Container(
         width: 90.sw,
         height: 90.sw,
-        child: ShowAnimationIcon(index: vm.comfirmedIndex,isCompleted: true,),
+        child: ShowAnimationIcon(index: vm.comfirmedIndex, isCompleted: true),
       ),
     );
   }
@@ -86,6 +99,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
               fontSize: 40.sw,
               fontWeight: FontWeight.bold,
               height: 1.0,
+              fontFamily: 'Qinfen',
               shadows: [
                 BoxShadow(
                   color: const Color.fromARGB(40, 0, 0, 0),
@@ -159,12 +173,12 @@ class LedgerShowRecordCompleted extends StatelessWidget {
         ? _rotateContainer(
             anim.rotateXAfter3,
             Container(
-              width: 8.sw,
-              height: 8.sw,
+              width: 12.sw,
+              height: 12.sw,
               child: Icon(
-                Icons.star_rounded,
-                size: 8.sw,
-                color: Color.fromARGB(255, 0, 255, 60),
+                Icons.check_rounded,
+                size: 12.sw,
+                color: Colors.green,
               ),
             ),
           )
@@ -196,6 +210,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
                     child: Text(
                       "R",
                       style: TextStyle(
+                        fontFamily: 'Qinfen',
                         color: Colors.white,
                         fontSize: 6.sw,
                         fontWeight: FontWeight.bold,
@@ -266,6 +281,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
                 child: Text(
                   vm.userName,
                   style: TextStyle(
+                    fontFamily: 'Qinfen',
                     fontSize: 13.sw,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -293,6 +309,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
             Text(
               "${vm.timeUnit}",
               style: TextStyle(
+                fontFamily: 'Qinfen',
                 height: 1.0,
                 fontSize: 19.sp, // 推荐用 sp 而不是 sw
                 color: Colors.white,
@@ -309,6 +326,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
             Text(
               vm.confirmedDate,
               style: TextStyle(
+                fontFamily: 'Qinfen',
                 height: 1.0,
                 fontSize: 19.sp,
                 color: Colors.white,

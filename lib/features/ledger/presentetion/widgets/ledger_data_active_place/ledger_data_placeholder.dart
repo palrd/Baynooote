@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAniamtionSet.dart';
@@ -159,37 +161,42 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
                     ),
                     child: Container(
                       margin: EdgeInsets.only(top: _anim.jumpMargin.value.sw),
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(
                           50.sw * _anim.radiusChange.value,
                         ),
-                      ),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        height: 200.sw,
-                        clipBehavior: Clip.hardEdge,
-                        padding: EdgeInsets.symmetric(vertical: 10.sw),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            ///颜色过渡
-                            colors: [
-                              LedgerChoiceTypeItems.iconColorsaBegin[index],
-                              LedgerChoiceTypeItems.iconColorsaEnd[index],
-                            ],
-                            begin: AlignmentGeometry.topCenter,
-                            end: AlignmentGeometry.bottomCenter,
-                          ),
-                        ),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            ///默认展示提示用户对于今日记账的输入
-                            LedgerReadyInputdataPlaceholder(anim: _anim),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          child: Container(
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              height: 200.sw,
+                              clipBehavior: Clip.hardEdge,
+                              padding: EdgeInsets.symmetric(vertical: 10.sw),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  ///颜色过渡
+                                  colors: [
+                                    LedgerChoiceTypeItems
+                                        .iconColorsaBegin[index],
+                                    LedgerChoiceTypeItems.iconColorsaEnd[index],
+                                  ],
+                                  begin: AlignmentGeometry.topCenter,
+                                  end: AlignmentGeometry.bottomCenter,
+                                ),
+                              ),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  ///默认展示提示用户对于今日记账的输入
+                                  LedgerReadyInputdataPlaceholder(anim: _anim),
 
-                            ///展示icon
-                            _showIcon(),
-                          ],
+                                  ///展示icon
+                                  _showIcon(),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
