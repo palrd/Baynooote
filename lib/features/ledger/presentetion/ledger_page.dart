@@ -1,6 +1,5 @@
-import 'package:baynooote/core/util/size_fit_util.dart';
-
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_data_active_place.dart';
+import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_list/ledger_data_list.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_header/ledger_header.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_quick_input/ledger_quick_input.dart';
 
@@ -39,10 +38,7 @@ class LedgerPage extends StatelessWidget {
 
   Widget backGround() {
     return Positioned.fill(
-      child: Image.asset(
-        "assets/images/png/wallpaper3.png",
-        fit: BoxFit.cover,
-      ),
+      child: Image.asset("assets/images/png/wallpaper3.png", fit: BoxFit.cover),
     );
   }
 
@@ -54,10 +50,21 @@ class LedgerPage extends StatelessWidget {
     ///作为容器，占满屏幕、提供基础的左右padding约束、背景渐变色
     ///其中的内容拆分为单独widget逐个放入
     return Positioned.fill(
-      child: Container(
-        padding: EdgeInsets.only(left: 20.sw, right: 20.sw),
-        decoration: BoxDecoration(gradient: gradientTheme?.backgroundGradient),
-        child: Column(children: [LedgerQuickInput(), LedgerDataActivePlace()]),
+      child: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 20.sw, right: 20.sw),
+            decoration: BoxDecoration(
+              gradient: gradientTheme?.backgroundGradient,
+            ),
+            child: Column(
+              children: [LedgerQuickInput(), LedgerDataActivePlace()],
+            ),
+          ),
+         LedgerDataList(),
+  
+          
+        ],
       ),
     );
   }

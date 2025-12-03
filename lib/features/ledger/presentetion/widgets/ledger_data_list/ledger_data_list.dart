@@ -7,29 +7,32 @@ class LedgerDataList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
-      widthFactor: 1.0,
-      heightFactor: 1.0,
-      child: Container(
-        // color: Colors.red,
-        padding: EdgeInsets.only(top: 30.sw),
-        child: Container(
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 255, 255, 255),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.sw),
-              topRight: Radius.circular(30.sw),
+    return DraggableScrollableSheet(
+      initialChildSize: 0.7,
+      minChildSize: 0.7,
+      maxChildSize: 1.0,
+      builder: (context, scrollController) {
+        return Container(
+          // color: Colors.red,
+          // padding: EdgeInsets.only(left: 20.sw, right: 20.sw),
+          child: Container(
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 255, 255, 255),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30.sw),
+                topRight: Radius.circular(30.sw),
+              ),
+            ),
+            child: Stack(
+              children: [
+                DataListInfo(scrollController: scrollController),
+                Positioned(top: 0, left: 0, right: 0, child: ListDataTime()),
+              ],
             ),
           ),
-          child: Stack(
-            children: [
-              DataListInfo(),
-              Positioned(top: 0, left: 0, right: 0, child: ListDataTime()),
-            ],
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -52,7 +55,7 @@ class ListDataTime extends StatelessWidget {
                 Image.asset('assets/images/png/DataTimeDown.png'),
                 Image.asset('assets/images/png/DataTimeDown2.png'),
                 Text(
-                  "2025-12-01",
+                  "2025-12-02",
                   style: TextStyle(
                     color: const Color.fromARGB(255, 123, 177, 62),
                     fontWeight: FontWeight.w900,
@@ -71,7 +74,8 @@ class ListDataTime extends StatelessWidget {
 }
 
 class DataListInfo extends StatelessWidget {
-  const DataListInfo({super.key});
+  final ScrollController scrollController;
+  const DataListInfo({required this.scrollController, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +83,11 @@ class DataListInfo extends StatelessWidget {
       child: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: CustomScrollView(
+          controller: scrollController,
           slivers: [
+            SliverPadding(
+              padding: EdgeInsetsGeometry.only(left: 20, right: 20),
+            ),
             SliverToBoxAdapter(child: SizedBox(height: 50.sw)),
             SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
@@ -202,7 +210,8 @@ class DataHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 25.sw,
+      height: 26.sw,
+      color: Colors.amber,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [_buildCountAndNotice(), _buildDataBaseNoticeAndTimeNotice()],
@@ -217,19 +226,17 @@ class DataHeader extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Flexible(
-              child: Container(
-                padding: EdgeInsets.only(right: 3.sw),
-                child: Text(
-                  "\$9984",
-                  maxLines: 1,
-                  style: TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 23.sw,
-                    height: 1.0,
-                    fontFamily: 'Qinfen',
-                  ),
+            Container(
+              padding: EdgeInsets.only(right: 3.sw),
+              constraints: BoxConstraints(maxWidth: 130.sw),
+              child: Text(
+                "\$9984222222444.22",
+                maxLines: 1,
+                style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 21.sw,
+                  fontFamily: 'Qinfen',
                 ),
               ),
             ),
@@ -276,7 +283,7 @@ class DataHeader extends StatelessWidget {
             margin: EdgeInsets.only(right: 3.sw),
             child: Icon(
               Icons.check,
-              size: 12.sw,
+              size: 11.sw,
               color: Colors.green,
               fontWeight: FontWeight.w900,
             ),
@@ -293,7 +300,6 @@ class DataHeader extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Qinfen',
                 color: const Color.fromARGB(255, 130, 130, 130),
-                height: 1.0,
               ),
             ),
           ),
@@ -309,21 +315,21 @@ class TypeNameAndTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 21.sw,
+      color: Colors.red,
+      height: 22.sw,
       child: Row(
         children: [
-          Flexible(
-            child: Container(
-              padding: EdgeInsets.only(right: 5.sw),
-              child: Text(
-                "这是一个记账ggwqrqwrqwrqwrqwrqrwwq",
-                maxLines: 1,
-                style: TextStyle(
-                  overflow: TextOverflow.ellipsis,
-                  fontSize: 16.sw,
-                  fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 0, 0, 0),
-                ),
+          Container(
+            constraints: BoxConstraints(maxWidth: 130.sw),
+            padding: EdgeInsets.only(right: 5.sw),
+            child: Text(
+              "这是一个weggggw记账",
+              maxLines: 1,
+              style: TextStyle(
+                overflow: TextOverflow.ellipsis,
+                fontSize: 16.sw,
+                fontWeight: FontWeight.bold,
+                color: const Color.fromARGB(255, 0, 0, 0),
               ),
             ),
           ),
@@ -352,7 +358,8 @@ class DataDesc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 22.sw,
+      color: Colors.blue,
+      height: 21.sw,
       alignment: Alignment.centerLeft,
       child: Text(
         "LedgerDescLedgerLedgerDescLedgerLedgerDescLedger",

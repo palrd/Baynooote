@@ -1,6 +1,5 @@
 //依赖注入
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
-import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_list/ledger_data_list.dart';
 
 ///组件
 import 'ledger_data_placeholder.dart';
@@ -19,7 +18,7 @@ class LedgerDataActivePlace extends StatelessWidget {
         child: Stack(
           children: [
             Visibility(visible: true, child: LedgerDataPlaceholder()),
-            // LedgerDataList()
+            
           ],
         ),
       ),

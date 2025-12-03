@@ -13,7 +13,6 @@ class SizeFitUtil {
   //定义初始化方法
   static void init(Size size) {
     //通过mediaquery拿到屏幕宽度
-
     screenWidth = size.width;
     screenHeight = size.height;
     //计算缩放因子
@@ -37,5 +36,6 @@ class SizeFitUtil {
   static double sp(double width) {
     return width * _scaleWidth;
   }
+  
 }
   
