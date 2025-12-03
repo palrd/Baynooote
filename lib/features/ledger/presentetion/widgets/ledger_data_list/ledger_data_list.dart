@@ -14,14 +14,14 @@ class LedgerDataList extends StatelessWidget {
       builder: (context, scrollController) {
         return Container(
           // color: Colors.red,
-          // padding: EdgeInsets.only(left: 20.sw, right: 20.sw),
+          // padding: EdgeInsets.only(left: 20, right: 20),
           child: Container(
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 255, 255, 255),
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30.sw),
-                topRight: Radius.circular(30.sw),
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
               ),
             ),
             child: Stack(
@@ -46,7 +46,7 @@ class ListDataTime extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
         child: Container(
-          height: 50.sw,
+          height: 50,
           color: Colors.white38,
           child: Center(
             child: Stack(
@@ -59,7 +59,7 @@ class ListDataTime extends StatelessWidget {
                   style: TextStyle(
                     color: const Color.fromARGB(255, 123, 177, 62),
                     fontWeight: FontWeight.w900,
-                    fontSize: 30.sw,
+                    fontSize: 30,
                     fontFamily: 'Qinfen',
                   ),
                 ),
@@ -85,16 +85,13 @@ class DataListInfo extends StatelessWidget {
         child: CustomScrollView(
           controller: scrollController,
           slivers: [
-            SliverPadding(
-              padding: EdgeInsetsGeometry.only(left: 20, right: 20),
-            ),
-            SliverToBoxAdapter(child: SizedBox(height: 50.sw)),
+            SliverToBoxAdapter(child: SizedBox(height: 50)),
             SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
                 return SigalLedgerData();
               }, childCount: 10),
             ),
-            SliverToBoxAdapter(child: SizedBox(height: 30.sw)),
+            SliverToBoxAdapter(child: SizedBox(height: 30)),
           ],
         ),
       ),
@@ -130,8 +127,8 @@ class SigalLedgerData extends StatelessWidget {
   Widget _left() {
     return Container(
       alignment: Alignment.center,
-      width: 90.sw,
-      height: 90.sw,
+      width: 90,
+      height: 90,
       child: LedgerDataHeader(width: 65, height: 65),
     );
   }
@@ -139,8 +136,8 @@ class SigalLedgerData extends StatelessWidget {
   Widget _right() {
     return Expanded(
       child: Container(
-        height: 90.sw,
-        padding: EdgeInsets.only(top: 10.sw, bottom: 10.sw, right: 10.sw),
+        height: 90,
+        padding: EdgeInsets.only(top: 10, bottom: 10, right: 10),
         child: LedgerDataMainData(),
       ),
     );
@@ -165,8 +162,8 @@ class LedgerDataHeader extends StatelessWidget {
 
   Widget _buildHeader() {
     return Container(
-      width: width.sw,
-      height: height.sw,
+      width: width,
+      height: height,
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: [Colors.lightGreen, Colors.lightBlue]),
         shape: BoxShape.circle,
@@ -177,12 +174,12 @@ class LedgerDataHeader extends StatelessWidget {
 
   Widget _buildLight() {
     return Container(
-      width: 21.sw,
-      height: 21.sw,
+      width: 21,
+      height: 21,
       decoration: BoxDecoration(
         color: Colors.green,
         shape: BoxShape.circle,
-        border: Border.all(color: Colors.white, width: 2.sw),
+        border: Border.all(color: Colors.white, width: 2),
       ),
       child: Center(),
     );
@@ -210,10 +207,11 @@ class DataHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 26.sw,
+      height: 26,
       color: Colors.amber,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        
         children: [_buildCountAndNotice(), _buildDataBaseNoticeAndTimeNotice()],
       ),
     );
@@ -222,20 +220,19 @@ class DataHeader extends StatelessWidget {
   Widget _buildCountAndNotice() {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.only(right: 1.sw),
+        padding: EdgeInsets.only(right: 1),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: EdgeInsets.only(right: 3.sw),
-              constraints: BoxConstraints(maxWidth: 130.sw),
+              padding: EdgeInsets.only(right: 3),
               child: Text(
-                "\$9984222222444.22",
+                "\$9984.22",
                 maxLines: 1,
                 style: TextStyle(
                   overflow: TextOverflow.ellipsis,
                   fontWeight: FontWeight.bold,
-                  fontSize: 21.sw,
+                  fontSize: 21,
                   fontFamily: 'Qinfen',
                 ),
               ),
@@ -244,8 +241,8 @@ class DataHeader extends StatelessWidget {
               alignment: AlignmentGeometry.topCenter,
               child: Container(
                 alignment: Alignment.center,
-                width: 13.sw,
-                height: 13.sw,
+                width: 13,
+                height: 13,
                 decoration: BoxDecoration(
                   color: const Color(0XFF67ABFF),
 
@@ -256,7 +253,7 @@ class DataHeader extends StatelessWidget {
                   style: TextStyle(
                     overflow: TextOverflow.ellipsis,
                     fontWeight: FontWeight.bold,
-                    fontSize: 9.sw,
+                    fontSize: 9,
                     height: 1.0,
                     fontFamily: 'Qinfen',
                     color: Colors.white,
@@ -278,12 +275,12 @@ class DataHeader extends StatelessWidget {
           alignment: AlignmentGeometry.topCenter,
           child: Container(
             alignment: Alignment.topCenter,
-            width: 20.sw,
-            height: 12.sw,
-            margin: EdgeInsets.only(right: 3.sw),
+            width: 20,
+            height: 12,
+            margin: EdgeInsets.only(right: 3),
             child: Icon(
               Icons.check,
-              size: 11.sw,
+              size: 11,
               color: Colors.green,
               fontWeight: FontWeight.w900,
             ),
@@ -292,11 +289,11 @@ class DataHeader extends StatelessWidget {
         Align(
           alignment: AlignmentGeometry.topCenter,
           child: Container(
-            height: 15.sw,
+            height: 15,
             child: Text(
               "AM 10:10",
               style: TextStyle(
-                fontSize: 12.sw,
+                fontSize: 12,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Qinfen',
                 color: const Color.fromARGB(255, 130, 130, 130),
@@ -316,18 +313,17 @@ class TypeNameAndTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.red,
-      height: 22.sw,
+      height: 22,
       child: Row(
         children: [
           Container(
-            constraints: BoxConstraints(maxWidth: 130.sw),
-            padding: EdgeInsets.only(right: 5.sw),
+            padding: EdgeInsets.only(right: 5),
             child: Text(
-              "这是一个weggggw记账",
+              "这是一个记账",
               maxLines: 1,
               style: TextStyle(
                 overflow: TextOverflow.ellipsis,
-                fontSize: 16.sw,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(255, 0, 0, 0),
               ),
@@ -336,12 +332,12 @@ class TypeNameAndTitle extends StatelessWidget {
           Align(
             alignment: AlignmentGeometry.topCenter,
             child: Container(
-              width: 25.sw,
-              height: 12.sw,
+              width: 25,
+              height: 12,
               margin: EdgeInsets.only(top: 5),
               decoration: BoxDecoration(
                 color: Colors.blue,
-                borderRadius: BorderRadius.circular(10.sw),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Center(),
             ),
@@ -359,14 +355,14 @@ class DataDesc extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.blue,
-      height: 21.sw,
+      height: 21,
       alignment: Alignment.centerLeft,
       child: Text(
         "LedgerDescLedgerLedgerDescLedgerLedgerDescLedger",
         maxLines: 1,
         style: TextStyle(
           overflow: TextOverflow.ellipsis,
-          fontSize: 15.sw,
+          fontSize: 15,
           color: const Color.fromARGB(255, 95, 95, 95),
         ),
       ),

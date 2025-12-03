@@ -17,7 +17,6 @@ void main() async {
         ChangeNotifierProvider(create: (ctx) => StateCardViewModel()),
         ChangeNotifierProvider(create: (ctx) => DataActivePlaceViewModel()),
         ChangeNotifierProvider(create: (ctx) => QuickAnimationActiveState()),
-        ChangeNotifierProvider(create: (ctx) => SizeGetNew()),
         ChangeNotifierProvider(create: (ctx) => ConfirmButtonState()),
         ChangeNotifierProvider(create: (ctx) => MoneyCounterViewModel()),
         ChangeNotifierProvider(create: (ctx) => DetailRecordViewModel()),

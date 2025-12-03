@@ -111,9 +111,9 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
 
   Widget _buildIcon() {
     return Container(
-      width: 30.sw,
-      height: 30.sw,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.sw)),
+      width: 30,
+      height: 30,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
       child: Selector<QuickAnimationActiveState, bool>(
         shouldRebuild: (previous, next) => previous != next,
         builder: (_, isChoice, _) {
@@ -123,8 +123,8 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
             child: Center(
               child: SvgPicture.asset(
                 LedgerChoiceTypeItems.svgs[widget.index],
-                width: 22.sw,
-                height: 22.sw,
+                width: 22,
+                height: 22,
                 colorFilter: ColorFilter.mode(
                   AppTheme.typeIconColor,
                   BlendMode.srcIn,
@@ -149,8 +149,8 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
               color: Color.fromARGB(255, 197, 201, 204),
               shape: BoxShape.circle,
             ),
-            width: 30.sw,
-            height: 30.sw,
+            width: 30,
+            height: 30,
             child: Center(),
           ),
         );

@@ -14,10 +14,10 @@ class LedgerShowInputLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        top: 20.sw,
-        left: 20.sw,
-        right: 17.5.sw,
-        bottom: 20.sw,
+        top: 20,
+        left: 20,
+        right: 17.5,
+        bottom: 20,
       ),
       child: Row(children: [_leftWrapper(), _rightWrapper()]),
     );
@@ -79,7 +79,7 @@ class LedgerShowInputLine extends StatelessWidget {
         duration: const Duration(milliseconds: 150),
         curve: Curves.easeInOut,
         child: Container(
-          margin: EdgeInsets.only(top: 3.sw),
+          margin: EdgeInsets.only(top: 3),
           child: Column(children: [ClipLine(), LedgerDetailRecord()]),
         ),
       ),
@@ -96,7 +96,7 @@ class LedgerShowInputLine extends StatelessWidget {
           curve: Curves.easeInOut,
           builder: (context, value, child) {
             return SizedBox(
-              height: value.sw,
+              height: value,
               child: Row(
                 children: [
                   _numberTWrapper(),
@@ -164,8 +164,8 @@ class LedgerShowInputLine extends StatelessWidget {
             } else {
               return Container(
                 margin: EdgeInsets.only(
-                  top: 10.sw * value,
-                  bottom: 3.sw * value,
+                  top: 10 * value,
+                  bottom: 3 * value,
                 ),
                 child: Transform(
                   transform: Matrix4.diagonal3Values(value, value, 1.0),

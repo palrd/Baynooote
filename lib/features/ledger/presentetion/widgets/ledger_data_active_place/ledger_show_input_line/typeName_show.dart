@@ -36,17 +36,17 @@ class TypenameShow extends StatelessWidget {
   Widget buildWithComplete() {
     return Container(
       alignment: Alignment.center,
-      width: isCompleted ? witdh : 36.sw,
-      height: isCompleted ? height : 20.sw * scale,
+      width: isCompleted ? witdh : 36,
+      height: isCompleted ? height : 20 * scale,
       decoration: BoxDecoration(
         color: bgColor,
-        borderRadius: BorderRadius.circular(20.sw),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
         LedgerChoiceTypeItems.typeNames[text],
         style: TextStyle(
           color: textColor,
-          fontSize: isCompleted ? fontSize : 14.sw,
+          fontSize: isCompleted ? fontSize : 14,
           fontWeight: useBold ? FontWeight.w900 : FontWeight.bold,
           height: 1.0,
           shadows: [
@@ -64,13 +64,13 @@ class TypenameShow extends StatelessWidget {
   Widget buildWithNoComplete() {
     return useBlur
         ? ClipRRect(
-            borderRadius: BorderRadius.circular(20.sw),
+            borderRadius: BorderRadius.circular(20),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
               child: Container(
                 alignment: Alignment.center,
-                width: isCompleted ? witdh : 36.sw,
-                height: isCompleted ? height : 20.sw * scale,
+                width: isCompleted ? witdh : 36,
+                height: isCompleted ? height : 20 * scale,
                 decoration: BoxDecoration(color: bgColor),
                 child: Selector<QuickAnimationActiveState, int>(
                   builder: (_, index, _) {
@@ -78,7 +78,7 @@ class TypenameShow extends StatelessWidget {
                       LedgerChoiceTypeItems.typeNames[index],
                       style: TextStyle(
                         color: textColor,
-                        fontSize: isCompleted ? fontSize : 14.sw,
+                        fontSize: isCompleted ? fontSize : 14,
                         fontWeight: useBold ? FontWeight.w900 : FontWeight.bold,
                         height: 1.0,
                         shadows: [
@@ -98,11 +98,11 @@ class TypenameShow extends StatelessWidget {
           )
         : Container(
             alignment: Alignment.center,
-            width: isCompleted ? witdh : 36.sw,
-            height: isCompleted ? height : 20.sw * scale,
+            width: isCompleted ? witdh : 36,
+            height: isCompleted ? height : 20 * scale,
             decoration: BoxDecoration(
               color: bgColor,
-              borderRadius: BorderRadius.circular(20.sw),
+              borderRadius: BorderRadius.circular(20),
             ),
             child: Selector<QuickAnimationActiveState, int>(
               builder: (_, index, _) {
@@ -110,7 +110,7 @@ class TypenameShow extends StatelessWidget {
                   LedgerChoiceTypeItems.typeNames[index],
                   style: TextStyle(
                     color: textColor,
-                    fontSize: isCompleted ? fontSize : 14.sw,
+                    fontSize: isCompleted ? fontSize : 14,
                     fontWeight: useBold ? FontWeight.w900 : FontWeight.bold,
                     height: 1.0,
                     shadows: [

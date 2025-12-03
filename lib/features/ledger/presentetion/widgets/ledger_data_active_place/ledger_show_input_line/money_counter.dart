@@ -47,8 +47,8 @@ class _MoneyCounterState extends State<MoneyCounter> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50.sw * widget.scale,
-      margin: EdgeInsets.only(left: widget.margin.sw),
+      height: 50 * widget.scale,
+      margin: EdgeInsets.only(left: widget.margin),
       child: Row(
         children: [
           Expanded(
@@ -56,7 +56,7 @@ class _MoneyCounterState extends State<MoneyCounter> {
               alignment: widget.isSmall
                   ? Alignment.center
                   : Alignment.centerLeft,
-              width: 35.sw,
+              width: 35,
               child: _moneyNumber(),
             ),
           ),
@@ -69,14 +69,14 @@ class _MoneyCounterState extends State<MoneyCounter> {
   @Deprecated("该方法已被弃用")
   Widget _moneyUnit() {
     return Container(
-      width: widget.isSmall ? 16.sw : 27.sw,
+      width: widget.isSmall ? 16 : 27,
       alignment: Alignment.center,
       child: Text(
         widget.moneyType,
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
-          fontSize: widget.fontsize.sw,
+          fontSize: widget.fontsize,
           height: 1.0,
           shadows: [
             BoxShadow(
@@ -89,7 +89,7 @@ class _MoneyCounterState extends State<MoneyCounter> {
         strutStyle: StrutStyle(
           forceStrutHeight: true,
           height: 1.0,
-          fontSize: widget.fontsize.sw,
+          fontSize: widget.fontsize,
         ),
       ),
     );
@@ -141,14 +141,14 @@ class _MoneyCounterState extends State<MoneyCounter> {
             showCursor: true,
             cursorColor: Colors.white,
             cursorRadius: Radius.circular(20),
-            cursorWidth: 3.sw,
-            cursorHeight: widget.fontsize.sw,
+            cursorWidth: 3,
+            cursorHeight: widget.fontsize,
             cursorOpacityAnimates: true,
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom: 3.sw, top: 3.sw),
+              contentPadding: EdgeInsets.only(bottom: 3, top: 3),
               isCollapsed: true,
             ),
             maxLines: 1,
@@ -157,7 +157,7 @@ class _MoneyCounterState extends State<MoneyCounter> {
               overflow: TextOverflow.clip,
               color: Colors.white,
               fontWeight: FontWeight.bold,
-              fontSize: widget.fontsize.sw * sizeScale,
+              fontSize: widget.fontsize * sizeScale,
               shadows: [
                 BoxShadow(
                   color: const Color.fromARGB(26, 0, 0, 0),
@@ -169,7 +169,7 @@ class _MoneyCounterState extends State<MoneyCounter> {
             strutStyle: StrutStyle(
               forceStrutHeight: true,
               height: 1.0,
-              fontSize: widget.fontsize.sw * sizeScale,
+              fontSize: widget.fontsize * sizeScale,
             ),
           ),
         );

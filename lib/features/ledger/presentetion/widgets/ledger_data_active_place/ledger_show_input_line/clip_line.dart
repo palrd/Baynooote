@@ -21,9 +21,9 @@ class ClipLine extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: lineColor,
-            borderRadius: BorderRadius.circular(20.sw),
+            borderRadius: BorderRadius.circular(20),
           ),
-          child: SizedBox(height: lineHeight.sw),
+          child: SizedBox(height: lineHeight),
         ),
       ),
     );

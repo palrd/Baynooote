@@ -22,7 +22,6 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
 
   ///容器的位置动画绑定
   late Animation<double> _positionAnimation1;
-  late Animation<double> _positionAnimation2;
 
   ///容器的宽度
   late Animation<double> _widthAnimation;
@@ -52,7 +51,7 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
     ///开始为各个属性添加动画并绑定曲线
     ///第一步进到目标容器边缘
     ///到边缘
-    _positionAnimation1 = Tween<double>(begin: 0, end: 40.sw).animate(
+    _positionAnimation1 = Tween<double>(begin: 0, end: 40).animate(
       CurvedAnimation(
         parent: _controller,
         curve: const Interval(0, 1.0, curve: Curves.easeInCubic),
@@ -60,15 +59,15 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
     );
 
     ///开始变宽
-    _widthAnimation = Tween<double>(begin: 30.sw, end: 165.sw).animate(
+    _widthAnimation = Tween<double>(begin: 30, end: 180).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(0.0, 1.0, curve: Curves.easeInOutCubic),
+        curve: Interval(0.0, 0.6, curve: Curves.easeInOutCubic),
       ),
     );
 
     ///第二步开始变形
-    _borderRadiusAnimation = Tween<double>(begin: 10.sw, end: 20.sw).animate(
+    _borderRadiusAnimation = Tween<double>(begin: 10, end: 20).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Interval(0.5, 1.0, curve: Curves.easeInOutCubic),
@@ -118,7 +117,7 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
 
         ///绑定宽度
         width: _widthAnimation.value,
-        height: 30.sw,
+        height: 30,
         child: Center(),
       ),
     );

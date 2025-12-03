@@ -10,8 +10,8 @@ class ShowTips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 15.sw, bottom: 8.sw, right: 15.sw),
-      height: 50.sw,
+      padding: EdgeInsets.only(left: 15, bottom: 8, right: 15),
+      height: 50,
       child: Row(children: [ShowTipsIcon(), ShowTipsText()]),
     );
   }
@@ -23,8 +23,8 @@ class ShowTipsIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 30.sw,
-      height: 30.sw,
+      width: 30,
+      height: 30,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: const Color.fromARGB(255, 255, 255, 255),
@@ -36,8 +36,8 @@ class ShowTipsIcon extends StatelessWidget {
       child: Center(
         child: SvgPicture.asset(
           'assets/svgs/animals/dog.svg',
-          width: 20.sw,
-          height: 20.sw,
+          width: 20,
+          height: 20,
           colorFilter: ColorFilter.mode(
             LedgerChoiceTypeItems.iconColorsaBegin[0],
             BlendMode.srcIn,
@@ -55,7 +55,7 @@ class ShowTipsText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: EdgeInsets.only(left: 15.sw),
+        margin: EdgeInsets.only(left: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +65,7 @@ class ShowTipsText extends StatelessWidget {
                 return Text(
                   content,
                   style: TextStyle(
-                    fontSize: 15.sw,
+                    fontSize: 15,
                     color: const Color.fromARGB(255, 199, 112, 58),
                     fontWeight: FontWeight.bold,
                   ),

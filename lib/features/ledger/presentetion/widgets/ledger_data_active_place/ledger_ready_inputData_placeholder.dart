@@ -82,7 +82,7 @@ class LedgerReadyInputdataPlaceholder extends StatelessWidget {
   ///提示记录方式,以及开始记录
   Widget tipStartLedgerText() {
     return Container(
-      margin: EdgeInsets.only(top: 8.sw),
+      margin: EdgeInsets.only(top: 8),
       child: Text(
         "点击铅笔或点击下方快速记账。",
         style: TextStyle(
@@ -109,7 +109,7 @@ class LedgerReadyInputdataPlaceholder extends StatelessWidget {
           1.0,
         ),
         child: Container(
-          padding: EdgeInsets.all(15.sw),
+          padding: EdgeInsets.all(15),
           alignment: Alignment.center,
           child: Lottie.asset(LedgerChoiceTypeItems.lottieJsons[0]),
         ),

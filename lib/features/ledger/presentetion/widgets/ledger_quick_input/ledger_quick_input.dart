@@ -15,7 +15,7 @@ class LedgerQuickInput extends StatelessWidget {
     
     ///最外层container用于设定上外边距
     return Container(
-      margin: EdgeInsets.only(top: 100.sw),
+      margin: EdgeInsets.only(top: 100),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [ChangeCardState(), QuickInputCard()],

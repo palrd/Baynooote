@@ -55,7 +55,7 @@ class _LedgerDetailRecordState extends State<LedgerDetailRecord> {
             decoration: InputDecoration(
               hintText: "点击输入记账详细",
               hintStyle: TextStyle(
-                fontSize: AppTheme.thridTitle.sp,
+                fontSize: AppTheme.thridTitle,
                 color: const Color.fromARGB(255, 255, 255, 255),
                 shadows: [
                   BoxShadow(

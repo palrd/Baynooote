@@ -19,12 +19,12 @@ class LedgerShowRecordCompleted extends StatelessWidget {
         border: Border.all(color: Colors.white, width: 4),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(125.sw),
+        borderRadius: BorderRadius.circular(125),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
           child: Container(
-            width: 250.sw,
-            height: 250.sw,
+            width: 250,
+            height: 250,
             decoration: BoxDecoration(
               color: LedgerChoiceTypeItems.iconColorsaBegin[vm.comfirmedIndex],
 
@@ -37,7 +37,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
                 ),
               ],
             ),
-            padding: EdgeInsets.all(5.sw),
+            padding: EdgeInsets.all(5),
             child: Column(
               children: [
                 _typeIcon(),
@@ -75,8 +75,8 @@ class LedgerShowRecordCompleted extends StatelessWidget {
     return _rotateContainer(
       anim.rotateXAfter1,
       Container(
-        width: 90.sw,
-        height: 90.sw,
+        width: 90,
+        height: 90,
         child: ShowAnimationIcon(index: vm.comfirmedIndex, isCompleted: true),
       ),
     );
@@ -90,13 +90,13 @@ class LedgerShowRecordCompleted extends StatelessWidget {
         anim.rotateXAfter1,
         Container(
           alignment: Alignment.center,
-          height: 50.sw,
-          padding: EdgeInsets.all(5.sw),
+          height: 50,
+          padding: EdgeInsets.all(5),
           child: Text(
             "\$${vm.comfirmedMoney}",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 40.sw,
+              fontSize: 40,
               fontWeight: FontWeight.bold,
               height: 1.0,
               fontFamily: 'Qinfen',
@@ -117,21 +117,21 @@ class LedgerShowRecordCompleted extends StatelessWidget {
   ///用来包裹类型名称，数据库，详细，警示灯
   Widget _line3Wrapper() {
     return Container(
-      width: 90.sw,
-      height: 30.sw,
+      width: 90,
+      height: 30,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _typeName(),
           Container(
-            height: 25.sw,
+            height: 25,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: EdgeInsets.only(left: 2.sw),
-                  width: 30.sw,
-                  height: 10.sw,
+                  padding: EdgeInsets.only(left: 2),
+                  width: 30,
+                  height: 10,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [_haveInsertDB(), _isDetail()],
@@ -151,17 +151,17 @@ class LedgerShowRecordCompleted extends StatelessWidget {
     return _rotateContainer(
       anim.rotateXAfter2,
       Container(
-        margin: EdgeInsets.only(top: 3.sw),
+        margin: EdgeInsets.only(top: 3),
         child: TypenameShow(
           text: vm.comfirmedIndex,
           isCompleted: true,
           textColor: Colors.black,
           bgColor: const Color.fromARGB(204, 255, 255, 255),
-          witdh: 50.sw,
-          height: 22.sw,
+          witdh: 50,
+          height: 22,
           useBlur: false,
           useBold: true,
-          fontSize: 14.sw,
+          fontSize: 14,
         ),
       ),
     );
@@ -173,11 +173,11 @@ class LedgerShowRecordCompleted extends StatelessWidget {
         ? _rotateContainer(
             anim.rotateXAfter3,
             Container(
-              width: 12.sw,
-              height: 12.sw,
+              width: 12,
+              height: 12,
               child: Icon(
                 Icons.check_rounded,
-                size: 12.sw,
+                size: 12,
                 color: Colors.green,
               ),
             ),
@@ -198,8 +198,8 @@ class LedgerShowRecordCompleted extends StatelessWidget {
                     color: Color.fromARGB(255, 0, 187, 255),
                     shape: BoxShape.circle,
                   ),
-                  width: 12.sw,
-                  height: 12.sw,
+                  width: 12,
+                  height: 12,
                   child: Center(),
                 ),
               ),
@@ -212,7 +212,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: 'Qinfen',
                         color: Colors.white,
-                        fontSize: 6.sw,
+                        fontSize: 6,
                         fontWeight: FontWeight.bold,
                         height: 1.0,
                       ),
@@ -232,10 +232,10 @@ class LedgerShowRecordCompleted extends StatelessWidget {
       Container(
         child: NumberLevelLight(
           isDetail: true,
-          width: 30.sw,
-          height: 12.sw,
-          lightHeight: 5.5.sw,
-          lightWidth: 5.5.sw,
+          width: 30,
+          height: 12,
+          lightHeight: 5.5,
+          lightWidth: 5.5,
           bgColor: const Color.fromARGB(204, 255, 255, 255),
           confirmIndex: vm.confirmedLightIndex,
         ),
@@ -246,8 +246,8 @@ class LedgerShowRecordCompleted extends StatelessWidget {
   ///记录者名称
   Widget _userName() {
     return Container(
-      width: 90.sw,
-      height: 30.sw,
+      width: 90,
+      height: 30,
       child: Row(
         children: [
           _rotateContainer(
@@ -257,12 +257,12 @@ class LedgerShowRecordCompleted extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Colors.black,
               ),
-              width: 20.sw,
-              height: 20.sw,
+              width: 20,
+              height: 20,
 
               child: Icon(
                 Icons.alternate_email,
-                size: 18.sw,
+                size: 18,
                 color: Colors.white,
               ),
             ),
@@ -273,16 +273,16 @@ class LedgerShowRecordCompleted extends StatelessWidget {
               Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.sw),
+                  borderRadius: BorderRadius.circular(20),
                   color: Colors.black,
                 ),
-                margin: EdgeInsets.only(left: 2.sw),
-                height: 20.sw,
+                margin: EdgeInsets.only(left: 2),
+                height: 20,
                 child: Text(
                   vm.userName,
                   style: TextStyle(
                     fontFamily: 'Qinfen',
-                    fontSize: 13.sw,
+                    fontSize: 13,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     height: 1.0,
@@ -301,8 +301,8 @@ class LedgerShowRecordCompleted extends StatelessWidget {
     return _rotateContainer(
       anim.rotateXAfter4,
       SizedBox(
-        height: 24.sw,
-        width: 90.sw,
+        height: 24,
+        width: 90,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -311,7 +311,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'Qinfen',
                 height: 1.0,
-                fontSize: 19.sp, // 推荐用 sp 而不是 sw
+                fontSize: 19, // 推荐用 sp 而不是 sw
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 shadows: [
@@ -328,7 +328,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'Qinfen',
                 height: 1.0,
-                fontSize: 19.sp,
+                fontSize: 19,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 shadows: [

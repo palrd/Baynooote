@@ -120,7 +120,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
       child: Align(
         alignment: Alignment.topCenter,
         child: Container(
-          margin: EdgeInsets.only(top: 30.sw),
+          margin: EdgeInsets.only(top: 30),
           child: Transform(
             alignment: Alignment.bottomCenter,
             transform: Matrix4.diagonal3Values(
@@ -160,19 +160,19 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
                       1.0,
                     ),
                     child: Container(
-                      margin: EdgeInsets.only(top: _anim.jumpMargin.value.sw),
+                      margin: EdgeInsets.only(top: _anim.jumpMargin.value),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(
-                          50.sw * _anim.radiusChange.value,
+                          50 * _anim.radiusChange.value,
                         ),
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                           child: Container(
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
-                              height: 200.sw,
+                              height: 200,
                               clipBehavior: Clip.hardEdge,
-                              padding: EdgeInsets.symmetric(vertical: 10.sw),
+                              padding: EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   ///颜色过渡

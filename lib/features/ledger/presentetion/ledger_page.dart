@@ -53,7 +53,7 @@ class LedgerPage extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.only(left: 20.sw, right: 20.sw),
+            padding: EdgeInsets.only(left: 20, right: 20),
             decoration: BoxDecoration(
               gradient: gradientTheme?.backgroundGradient,
             ),
@@ -61,9 +61,7 @@ class LedgerPage extends StatelessWidget {
               children: [LedgerQuickInput(), LedgerDataActivePlace()],
             ),
           ),
-         LedgerDataList(),
-  
-          
+          LedgerDataList(),
         ],
       ),
     );

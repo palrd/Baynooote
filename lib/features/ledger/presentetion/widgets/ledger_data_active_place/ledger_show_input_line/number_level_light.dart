@@ -26,13 +26,13 @@ class NumberLevelLight extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20.sw),
+      borderRadius: BorderRadius.circular(20),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
         child: Container(
-          width: isDetail ? width : 36.sw,
-          height: isDetail ? height : 15.sw,
-          padding: EdgeInsets.symmetric(horizontal: 2.sw),
+          width: isDetail ? width : 36,
+          height: isDetail ? height : 15,
+          padding: EdgeInsets.symmetric(horizontal: 2),
           decoration: BoxDecoration(
             color: isDetail ? bgColor : const Color.fromARGB(60, 247, 247, 247),
           ),
@@ -61,8 +61,8 @@ class NumberLevelLight extends StatelessWidget {
         if (index == 4) {
           return AnimatedContainer(
             duration: Duration(milliseconds: 200),
-            width: isDetail ? lightWidth : 7.sw,
-            height: isDetail ? lightHeight : 7.sw,
+            width: isDetail ? lightWidth : 7,
+            height: isDetail ? lightHeight : 7,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.red,
@@ -72,8 +72,8 @@ class NumberLevelLight extends StatelessWidget {
         } else {
           return AnimatedContainer(
             duration: Duration(milliseconds: 200),
-            width: isDetail ? lightWidth : 7.sw,
-            height: isDetail ? lightHeight : 7.sw,
+            width: isDetail ? lightWidth : 7,
+            height: isDetail ? lightHeight : 7,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: now <= index ? color : AppTheme.unChooseColor,
@@ -90,16 +90,16 @@ class NumberLevelLight extends StatelessWidget {
     if (index == 4) {
       return AnimatedContainer(
         duration: Duration(milliseconds: 200),
-        width: isDetail ? lightWidth : 7.sw,
-        height: isDetail ? lightHeight : 7.sw,
+        width: isDetail ? lightWidth : 7,
+        height: isDetail ? lightHeight : 7,
         decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
         child: Center(),
       );
     } else {
       return AnimatedContainer(
         duration: Duration(milliseconds: 200),
-        width: isDetail ? lightWidth : 7.sw,
-        height: isDetail ? lightHeight : 7.sw,
+        width: isDetail ? lightWidth : 7,
+        height: isDetail ? lightHeight : 7,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: now <= index ? color : AppTheme.unChooseColor,

@@ -10,7 +10,7 @@ class ConfirmButton extends StatelessWidget {
     return Expanded(
       flex: 3,
       child: Container(
-        padding: EdgeInsets.all(15.sw),
+        padding: EdgeInsets.all(15),
         child: Center(child: TheButton()),
       ),
     );

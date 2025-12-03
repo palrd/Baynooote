@@ -1,12 +1,11 @@
 import 'package:baynooote/app/app_theme.dart';
-import 'package:baynooote/shared/extensions/double_extenson.dart';
 import 'package:flutter/material.dart';
 
 ///一个专门用于字号设置的类
 class AppTextTheme {
   ///最大的标题设置
   static TextStyle get displayLarge => TextStyle(
-    fontSize: AppTheme.biggestTitle.sp,
+    fontSize: AppTheme.biggestTitle,
     color: AppTheme.titleColor,
     fontWeight: FontWeight.bold,
 
@@ -21,7 +20,7 @@ class AppTextTheme {
 
   ///二级标题的设置
   static TextStyle get titleMedium => TextStyle(
-    fontSize: AppTheme.secondaryTitle.sp,
+    fontSize: AppTheme.secondaryTitle,
     color: AppTheme.titleColor,
     fontWeight: FontWeight.bold,
     shadows: [
@@ -35,17 +34,17 @@ class AppTextTheme {
 
   ///三级标题的设置
   static TextStyle get titleLarge => TextStyle(
-    fontSize: AppTheme.thridTitle.sp,
+    fontSize: AppTheme.thridTitle,
     color: AppTheme.secondaryTitleColor,
   );
 
   ///时间文字大小
   static TextStyle get bodyMedium =>
-      TextStyle(fontSize: AppTheme.timeText.sp, color: AppTheme.timeColor);
+      TextStyle(fontSize: AppTheme.timeText, color: AppTheme.timeColor);
 
   ///常规文字大小
   static TextStyle get bodySmall => TextStyle(
-    fontSize: AppTheme.normalText.sp,
+    fontSize: AppTheme.normalText,
     color: AppTheme.subtitleTextColor,
   );
 }

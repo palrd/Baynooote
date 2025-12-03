@@ -17,7 +17,7 @@ class ChangeCardState extends StatelessWidget {
         ///文字状态展示
         ShowCardStateText(),
         ///用来进行间隔
-        SizedBox(width: 5.sw),
+        SizedBox(width: 5),
         ///暂时不做展示
         ///BtnAndText(),
       ],
@@ -73,9 +73,9 @@ class TextChoice extends StatelessWidget {
 
   Widget theBubble(double size, double position) {
     return Container(
-      margin: EdgeInsets.only(top: position.sw),
-      height: size.sw,
-      width: size.sw,
+      margin: EdgeInsets.only(top: position),
+      height: size,
+      width: size,
       decoration: BoxDecoration(
         color: Colors.white.withAlpha(0x99),
         shape: BoxShape.circle,
@@ -96,7 +96,7 @@ class TextChoice extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white.withAlpha(0x99),
-          borderRadius: BorderRadius.circular(20.sw),
+          borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withAlpha(0x1A),
@@ -106,8 +106,8 @@ class TextChoice extends StatelessWidget {
           ],
         ),
         ///TODO 可以抽出只计算一次
-        margin: EdgeInsets.only(left: 3.sw),
-        padding: EdgeInsets.symmetric(vertical: 5.sw, horizontal: 3.sw),
+        margin: EdgeInsets.only(left: 3),
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
@@ -144,10 +144,10 @@ class ChangeStateButton extends StatelessWidget {
   Widget theBotton() {
     return ///用来切换文字的一个按钮
     Container(
-      margin: EdgeInsets.only(right: 3.sw),
+      margin: EdgeInsets.only(right: 3),
 
-      width: 30.sw,
-      height: 30.sw,
+      width: 30,
+      height: 30,
       decoration: BoxDecoration(
         color: Colors.white.withAlpha(0x99),
         shape: BoxShape.circle,
@@ -161,7 +161,7 @@ class ChangeStateButton extends StatelessWidget {
       ),
       child: Icon(
         Icons.keyboard_arrow_right,
-        size: 25.sw,
+        size: 25,
         color: AppTheme.typeIconColor,
       ),
     );

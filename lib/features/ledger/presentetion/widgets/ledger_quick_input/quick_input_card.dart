@@ -17,7 +17,7 @@ class QuickInputCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20.sw),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: const Color.fromARGB(14, 0, 0, 0),
@@ -26,8 +26,8 @@ class QuickInputCard extends StatelessWidget {
           ),
         ],
       ),
-      margin: EdgeInsets.only(top: 10.sw),
-      height: 100.sw,
+      margin: EdgeInsets.only(top: 10),
+      height: 100,
 
       ///在卡片内部首先分为左右两部分
       child: Row(children: [InputSection(), ConfirmButton()]),

@@ -1,4 +1,3 @@
-import 'package:baynooote/shared/extensions/int_extension.dart';
 import 'package:flutter/material.dart';
 
 class BaynoooteLedgerKeyboard extends StatelessWidget {
@@ -6,6 +5,6 @@ class BaynoooteLedgerKeyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.amber, height: 330.sw, child: Center());
+    return Container(color: Colors.amber, height: 330, child: Center());
   }
 }
