@@ -8,7 +8,7 @@ class ClipLine extends StatelessWidget {
   const ClipLine({
     this.width = 1.0,
     this.lineColor = Colors.white,
-    this.lineHeight = 2,
+    this.lineHeight = 4,
     super.key,
   });
 

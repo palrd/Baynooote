@@ -1,0 +1,19 @@
+-- 1. 建表语句
+CREATE TABLE ledgers (
+    id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+    amount REAL NOT NULL,
+    category_name TEXT NOT NULL,
+    note TEXT,
+    record_time DATETIME NOT NULL,
+    type INT NOT NULL
+);
+
+-- 2. 查询语句
+
+getAllLedgers:
+SELECT * FROM ledgers ORDER BY record_time DESC;
+
+getMonthExpenses:
+SELECT SUM(amount) 
+FROM ledgers 
+WHERE type = 0 AND record_time BETWEEN :start AND :end;

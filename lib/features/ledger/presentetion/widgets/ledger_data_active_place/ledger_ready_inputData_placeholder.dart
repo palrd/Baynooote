@@ -8,7 +8,6 @@ import 'package:lottie/lottie.dart';
 ///状态1：默认准备为提示状态
 ///状态2：进入就绪状态
 class LedgerReadyInputdataPlaceholder extends StatelessWidget {
-
   final Placeholderanimationset anim;
   const LedgerReadyInputdataPlaceholder({required this.anim, super.key});
 
@@ -17,30 +16,14 @@ class LedgerReadyInputdataPlaceholder extends StatelessWidget {
     return Stack(
       children: [
         ///默认为就绪
-        tipInputMode(context),
+        _containerAnimationBuilder(context),
       ],
     );
   }
 
-
-
-  Widget tipInputMode(context) {
-    return GestureDetector(
-      onTap: () {
-        anim.controller.forward();
-        final btVM = context.read<ConfirmButtonState>();
-        if (btVM.inputState == 0 || btVM.inputState == 4) {
-          btVM.changeState(2);
-        }
-      },
-
-      child: _containerAnimationBuilder(),
-    );
-  }
-
   ///动画组件
-  Widget _containerAnimationBuilder() {
-    return Column(children: [_texyContainer(), _animationIcon()]);
+  Widget _containerAnimationBuilder(BuildContext context) {
+    return Column(children: [_texyContainer(), _animationIcon(context)]);
   }
 
   ///文字动画
@@ -96,7 +79,7 @@ class LedgerReadyInputdataPlaceholder extends StatelessWidget {
   }
 
   ///一个快速记录的动画ICon
-  Widget _animationIcon() {
+  Widget _animationIcon(BuildContext context) {
     return Expanded(
       child: Transform(
         alignment: Alignment.bottomCenter,
@@ -108,13 +91,23 @@ class LedgerReadyInputdataPlaceholder extends StatelessWidget {
           anim.scaleAnimationYA.value,
           1.0,
         ),
-        child: Container(
-          padding: EdgeInsets.all(15),
-          alignment: Alignment.center,
-          child: Lottie.asset(LedgerChoiceTypeItems.lottieJsons[0]),
-        ),
+        child:
+            Container(
+              padding: EdgeInsets.all(15),
+              alignment: Alignment.center,
+              child: Lottie.asset(LedgerChoiceTypeItems.lottieJsons[2]),
+            ).addTapFeel(
+              onTap: () {
+                anim.controller.forward();
+
+                final btVM = context.read<ConfirmButtonState>();
+                if (btVM.inputState == 0 || btVM.inputState == 4) {
+                  btVM.changeState(2);
+                }
+              },
+              isSelfAnimationWillHappen: true,
+            ),
       ),
     );
   }
-
 }

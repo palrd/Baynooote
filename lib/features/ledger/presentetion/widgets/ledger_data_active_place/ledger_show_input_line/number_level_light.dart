@@ -30,7 +30,7 @@ class NumberLevelLight extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
         child: Container(
-          width: isDetail ? width : 36,
+          width: isDetail ? width : 40,
           height: isDetail ? height : 15,
           padding: EdgeInsets.symmetric(horizontal: 2),
           decoration: BoxDecoration(

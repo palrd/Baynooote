@@ -24,7 +24,7 @@ class LedgerHeader extends StatelessWidget {
             "Baynooote",
             style: TextStyle(
               fontSize: AppTheme.biggestTitle,
-              color: AppTheme.titleColor,
+              color: const Color.fromARGB(255, 255, 255, 255),
               fontWeight: FontWeight.bold,
               fontFamily: "Qinfen",
               shadows: [

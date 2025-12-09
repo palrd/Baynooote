@@ -36,7 +36,7 @@ class TypenameShow extends StatelessWidget {
   Widget buildWithComplete() {
     return Container(
       alignment: Alignment.center,
-      width: isCompleted ? witdh : 36,
+      width: isCompleted ? witdh : 40,
       height: isCompleted ? height : 20 * scale,
       decoration: BoxDecoration(
         color: bgColor,
@@ -69,7 +69,7 @@ class TypenameShow extends StatelessWidget {
               filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
               child: Container(
                 alignment: Alignment.center,
-                width: isCompleted ? witdh : 36,
+                width: isCompleted ? witdh : 40,
                 height: isCompleted ? height : 20 * scale,
                 decoration: BoxDecoration(color: bgColor),
                 child: Selector<QuickAnimationActiveState, int>(
@@ -98,7 +98,7 @@ class TypenameShow extends StatelessWidget {
           )
         : Container(
             alignment: Alignment.center,
-            width: isCompleted ? witdh : 36,
+            width: isCompleted ? witdh : 40,
             height: isCompleted ? height : 20 * scale,
             decoration: BoxDecoration(
               color: bgColor,

@@ -38,6 +38,13 @@ dependencies:
   rive: ^0.13.20
   lottie: ^3.3.2
   flutter_svg: ^2.2.2
+  # 1. Drift 核心库
+  drift: ^2.30.0
+  # 2. SQLite 绑定引擎 (方案A的核心，自带二进制文件)
+  sqlite3_flutter_libs: ^0.5.41
+  # 3. 辅助库：用于获取文件路径
+  path_provider: ^2.1.5
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:
@@ -48,7 +55,11 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
+  flutter_lints:
+    ^5.0.0
+    # 4. 代码生成器 (编译时把你的 SQL 变成 Dart 代码)
+  build_runner: ^2.10.4
+  drift_dev: ^2.30.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -68,7 +79,6 @@ flutter:
     - assets/lottie/dizzy.json
     - assets/lottie/Idea.json
     - assets/lottie/Bunny.json
-    - assets/Rives/baynoootebutton.riv
     - assets/Rives/ConfirmButton.riv
     - assets/svgs/animals/bat.svg
     - assets/svgs/animals/cat.svg
@@ -83,6 +93,9 @@ flutter:
     - assets/images/png/DataTimeUp.png
     - assets/images/png/wallpaper3.png
     - assets/images/png/wallpaper4.png
+    - assets/images/png/recored.png
+    - assets/svgs/icons/calculate.svg
+    - assets/svgs/icons/turkey.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -99,8 +112,6 @@ flutter:
     - family: Qinfen
       fonts:
         - asset: assets/fonts/MySmallFont.ttf
-        
-    
-  
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

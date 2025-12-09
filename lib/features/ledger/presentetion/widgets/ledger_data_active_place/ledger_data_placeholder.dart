@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAniamtionSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAniamtionSet2.dart';
@@ -84,6 +85,15 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
         Future.delayed(const Duration(milliseconds: 300), () {
           _controller4.forward();
         });
+      }
+    });
+    _controller4.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controller.reset();
+        _controller2.reset();
+        _controller3.reset();
+        _controller4.reset();
+        AnimationBus.animationBus.value++;
       }
     });
   }

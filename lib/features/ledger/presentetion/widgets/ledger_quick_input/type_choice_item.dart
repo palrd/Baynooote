@@ -75,23 +75,7 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.read<QuickAnimationActiveState>();
-    final vm2 = context.read<ConfirmButtonState>();
-    return GestureDetector(
-      onTap: () {
-        _controllerInvok?.forward();
-        if (widget.isTime != vm.typeChoiceBarActiveState) {
-          vm.ChangeTypeChoiceBarActiveState(widget.isTime);
-        }
-
-        ///更新index
-        vm.ChangeSelectedIndexActiveState(widget.index);
-        if (vm2.inputState == 0 || vm2.inputState == 4) {
-          vm2.changeState(2);
-        }
-      },
-      child: itemAnimationBuilder(),
-    );
+    return itemAnimationBuilder();
   }
 
   Widget itemAnimationBuilder() {
@@ -113,24 +97,39 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
     return Container(
       width: 30,
       height: 30,
+      alignment: Alignment.center,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
       child: Selector<QuickAnimationActiveState, bool>(
         shouldRebuild: (previous, next) => previous != next,
         builder: (_, isChoice, _) {
+          final vm = context.read<QuickAnimationActiveState>();
+          final vm2 = context.read<ConfirmButtonState>();
           return AnimatedOpacity(
             opacity: isChoice ? 1.0 : 0.5,
             duration: const Duration(milliseconds: 280),
-            child: Center(
-              child: SvgPicture.asset(
-                LedgerChoiceTypeItems.svgs[widget.index],
-                width: 22,
-                height: 22,
-                colorFilter: ColorFilter.mode(
-                  AppTheme.typeIconColor,
-                  BlendMode.srcIn,
+            child:
+                SvgPicture.asset(
+                  LedgerChoiceTypeItems.svgs[widget.index],
+                  width: 22,
+                  height: 22,
+                  colorFilter: ColorFilter.mode(
+                    isChoice ? Color(0xFF2E96DF) : AppTheme.typeIconColor,
+                    BlendMode.srcIn,
+                  ),
+                ).addTapFeel(
+                  onTap: () {
+                    _controllerInvok?.forward();
+                    if (widget.isTime != vm.typeChoiceBarActiveState) {
+                      vm.ChangeTypeChoiceBarActiveState(widget.isTime);
+                    }
+
+                    ///更新index
+                    vm.ChangeSelectedIndexActiveState(widget.index);
+                    if (vm2.inputState == 0 || vm2.inputState == 4) {
+                      vm2.changeState(2);
+                    }
+                  },
                 ),
-              ),
-            ),
           );
         },
         selector: (_, vm) => widget.index == vm.selectedIndexActiveState,

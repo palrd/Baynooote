@@ -66,7 +66,7 @@ class ShowTipsText extends StatelessWidget {
                   content,
                   style: TextStyle(
                     fontSize: 15,
-                    color: const Color.fromARGB(255, 199, 112, 58),
+                    color: const Color.fromARGB(255, 44, 149, 219),
                     fontWeight: FontWeight.bold,
                   ),
                 );

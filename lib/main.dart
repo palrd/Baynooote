@@ -1,3 +1,4 @@
+import 'package:baynooote/core/db/app_database.dart';
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/detail_record_view_model.dart';
@@ -10,6 +11,7 @@ import 'package:rive/rive.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await RiveFile.initialize();
+  final db = AppDatabase();
 
   runApp(
     MultiProvider(
@@ -27,10 +29,12 @@ void main() async {
             return TipContentViewModel(vm);
           },
         ),
+        Provider<AppDatabase>(
+          create: (ctx) => db,
+          dispose: (context, db) => db.close(),
+        ),
       ],
       child: Baynooote(),
     ),
-
-    ///在这里注册需要用到的状态模型
   );
 }

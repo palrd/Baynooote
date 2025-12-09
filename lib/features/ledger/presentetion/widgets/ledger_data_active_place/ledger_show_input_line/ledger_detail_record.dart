@@ -1,5 +1,5 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
-import 'package:baynooote/features/ledger/presentetion/view_models/detail_record_view_model.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 ///该组件用于记录记账详细
 class LedgerDetailRecord extends StatefulWidget {
@@ -17,65 +17,205 @@ class _LedgerDetailRecordState extends State<LedgerDetailRecord> {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<DetailRecordViewModel, int>(
-      builder: (_, maxLine, _) {
-        return Container(
-          clipBehavior: Clip.hardEdge,
-          decoration: const BoxDecoration(),
-          child: TextFormField(
-            onTap: () {
-              final vm = context.read<DetailRecordViewModel>();
-              if (vm.scale == 1.0) {
-                vm.changeScale(0.0);
-                vm.changeHeight(20.0);
-                Future.delayed(
-                  const Duration(milliseconds: 150),
-                  () => vm.changeMaxLine(4),
-                );
-              } else {
-                vm.changeScale(1.0);
-                vm.changeHeight(50.0);
-                vm.changeMaxLine(3);
-              }
-            },
-            showCursor: true,
-            cursorColor: Colors.white,
-            cursorRadius: Radius.circular(20),
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              color: Colors.white,
-              shadows: [
-                BoxShadow(
-                  color: Colors.black12,
-                  offset: Offset(2, 2),
-                  blurRadius: 4,
+    return Container(
+      child: Column(
+        children: [
+          Expanded(
+            flex: 6,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(right: 10),
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    shape: BoxShape.circle,
+                    // border: Border.all(color: Color(0xFF50A7EA), width: 3),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(15, 0, 0, 0),
+                        offset: Offset(0, 2),
+                        blurRadius: 10,
+                      ),
+                    ],
+                  ),
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    child: SvgPicture.asset(
+                      "assets/svgs/icons/turkey.svg",
+                      width: 23,
+                      height: 23,
+                      colorFilter: ColorFilter.mode(
+                        Color(0xFF50A7EA),
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ).addTapFeel(feelingLevel: 1),
+                ),
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(15, 0, 0, 0),
+                            offset: Offset(0, 2),
+                            blurRadius: 10,
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        "记账详细...",
+                        style: TextStyle(
+                          color: Color(0xFF50A7EA),
+                          fontWeight: FontWeight.w900,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ).addTapFeel(feelingLevel: 1),
+                  ),
                 ),
               ],
             ),
-            decoration: InputDecoration(
-              hintText: "点击输入记账详细",
-              hintStyle: TextStyle(
-                fontSize: AppTheme.thridTitle,
-                color: const Color.fromARGB(255, 255, 255, 255),
-                shadows: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    offset: Offset(2, 2),
-                    blurRadius: 4,
+          ),
+          Expanded(
+            flex: 4,
+            child: Container(
+              alignment: Alignment.topCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(right: 10),
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      shape: BoxShape.circle,
+                      // border: Border.all(color: Color(0xFF50A7EA), width: 3),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(15, 0, 0, 0),
+                          offset: Offset(0, 2),
+                          blurRadius: 10,
+                        ),
+                      ],
+                    ),
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),
+                      child: SvgPicture.asset(
+                        "assets/svgs/icons/calculate.svg",
+                        width: 23,
+                        height: 23,
+                        colorFilter: ColorFilter.mode(
+                          Color(0xFF50A7EA),
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ).addTapFeel(feelingLevel: 1),
+                  ),
+                  Expanded(
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 74,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              borderRadius: BorderRadius.circular(30),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromARGB(15, 0, 0, 0),
+                                  offset: Offset(0, 2),
+                                  blurRadius: 10,
+                                ),
+                              ],
+                            ),
+                            child: Center(
+                              child: Container(
+                                height: 8,
+                                width: 23,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF50A7EA),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Center(),
+                              ),
+                            ),
+                          ).addTapFeel(feelingLevel: 1),
+                          Container(
+                            width: 74,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              borderRadius: BorderRadius.circular(30),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromARGB(15, 0, 0, 0),
+                                  offset: Offset(0, 2),
+                                  blurRadius: 10,
+                                ),
+                              ],
+                            ),
+                            child: Center(
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Container(
+                                    height: 8,
+                                    width: 23,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF50A7EA),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Center(),
+                                  ),
+                                  Container(
+                                    height: 23,
+                                    width: 8,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF50A7EA),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Center(),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ).addTapFeel(feelingLevel: 1),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
-              border: InputBorder.none,
-              isCollapsed: false,
-              contentPadding: EdgeInsets.zero,
             ),
-            keyboardType: TextInputType.multiline,
-            minLines: 1,
-            maxLines: maxLine,
           ),
-        );
-      },
-      selector: (_, vm) => vm.maxLine,
+        ],
+      ),
     );
   }
 }

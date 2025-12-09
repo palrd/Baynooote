@@ -1,3 +1,4 @@
+import 'package:baynooote/core/db/app_database.dart';
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
 class MoneyCounterViewModel extends ChangeNotifier {
@@ -35,6 +36,7 @@ class MoneyCounterViewModel extends ChangeNotifier {
 
   void _confirmRecord(BuildContext context) {
     final confirmVM = context.read<RecordCompletedViewModel>();
+    final db = context.read<AppDatabase>();
 
     ///数据载入
     confirmVM
@@ -45,7 +47,9 @@ class MoneyCounterViewModel extends ChangeNotifier {
       )
       ..setIsRecordDetail(true)
       ..setConfirmedDate(
-        DateTime.now().hour.toString().padLeft(2,'0') + ":" + DateTime.now().minute.toString().padLeft(2,'0'),
+        DateTime.now().hour.toString().padLeft(2, '0') +
+            ":" +
+            DateTime.now().minute.toString().padLeft(2, '0'),
       )
       ..setTimeUnit((DateTime.now().hour >= 12 ? "PM" : "AM").toString())
       ..setIsInsertDB(true)

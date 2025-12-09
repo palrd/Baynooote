@@ -19,7 +19,6 @@ class LedgerChoiceTypeItems {
     'assets/svgs/animals/elephant.svg',
     'assets/svgs/animals/hippo.svg',
     'assets/svgs/animals/monkey.svg',
-    
   ];
 
   static final List<Color> iconColorsaBegin = [

@@ -21,7 +21,7 @@ class AppTextTheme {
   ///二级标题的设置
   static TextStyle get titleMedium => TextStyle(
     fontSize: AppTheme.secondaryTitle,
-    color: AppTheme.titleColor,
+    color: const Color.fromARGB(255, 255, 255, 255),
     fontWeight: FontWeight.bold,
     shadows: [
       BoxShadow(
