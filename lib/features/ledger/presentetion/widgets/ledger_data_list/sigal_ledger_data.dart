@@ -1,4 +1,5 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
+import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/ledger_show_count_type.dart';
 
 ///分左右,用Row
 ///  左头像
@@ -124,17 +125,19 @@ class DataHeader extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
+            LedgerShowCountType(width: 16, height: 5),
             Container(
               constraints: BoxConstraints(maxWidth: 120),
-              padding: EdgeInsets.only(right: 3),
+              padding: EdgeInsets.only(left: 1, right: 3),
               child: Text(
-                "\$998422222.22",
+                "998422222.22",
                 maxLines: 1,
                 style: TextStyle(
                   overflow: TextOverflow.ellipsis,
                   fontWeight: FontWeight.bold,
                   fontSize: 21,
                   fontFamily: 'Qinfen',
+                  height: 1.0,
                 ),
               ),
             ),

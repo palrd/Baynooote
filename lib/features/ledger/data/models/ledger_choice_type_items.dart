@@ -11,6 +11,7 @@ class LedgerChoiceTypeItems {
     Icons.lunch_dining_outlined,
     Icons.lunch_dining_outlined,
   ];
+  
   static final List svgs = [
     'assets/svgs/animals/pigeon.svg',
     'assets/svgs/animals/cat.svg',

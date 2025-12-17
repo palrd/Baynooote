@@ -4,7 +4,6 @@ import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
 ///该组件用于展示正在记录的账单类型
 class TypenameShow extends StatelessWidget {
-  final double scale;
   final Color textColor;
   final Color bgColor;
   final double witdh;
@@ -15,7 +14,6 @@ class TypenameShow extends StatelessWidget {
   final double fontSize;
   final int text;
   const TypenameShow({
-    this.scale = 1.0,
     this.textColor = Colors.white,
     this.bgColor = const Color.fromARGB(100, 247, 247, 247),
     this.witdh = 0,
@@ -36,8 +34,8 @@ class TypenameShow extends StatelessWidget {
   Widget buildWithComplete() {
     return Container(
       alignment: Alignment.center,
-      width: isCompleted ? witdh : 40,
-      height: isCompleted ? height : 20 * scale,
+      width: 40,
+      height: 20,
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(20),
@@ -70,7 +68,7 @@ class TypenameShow extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 width: isCompleted ? witdh : 40,
-                height: isCompleted ? height : 20 * scale,
+                height: isCompleted ? height : 20,
                 decoration: BoxDecoration(color: bgColor),
                 child: Selector<QuickAnimationActiveState, int>(
                   builder: (_, index, _) {
@@ -99,7 +97,7 @@ class TypenameShow extends StatelessWidget {
         : Container(
             alignment: Alignment.center,
             width: isCompleted ? witdh : 40,
-            height: isCompleted ? height : 20 * scale,
+            height: isCompleted ? height : 20,
             decoration: BoxDecoration(
               color: bgColor,
               borderRadius: BorderRadius.circular(20),

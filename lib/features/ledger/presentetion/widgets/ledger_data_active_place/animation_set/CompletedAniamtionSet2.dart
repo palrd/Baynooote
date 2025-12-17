@@ -16,8 +16,6 @@ class Completedaniamtionset2 {
 
   ///针对所有完成后的小组件的展示动画
   void action() {
-   
-
     rotateXAfter1 = Tween(begin: pi / 2, end: 0.0).animate(
       CurvedAnimation(
         parent: controller,

@@ -15,12 +15,17 @@ class QuickInputCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: ShapeDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
+        shape: SmoothRectangleBorder(
+          borderRadius: SmoothBorderRadius(
+            cornerRadius: 16,
+            cornerSmoothing: 1,
+          ),
+        ),
+        shadows: [
           BoxShadow(
-            color: const Color.fromARGB(14, 0, 0, 0),
+            color: Color.fromARGB(25, 0, 0, 0),
             offset: Offset(0, 5),
             blurRadius: 10,
           ),

@@ -20,35 +20,5 @@ class RecordCompletedViewModel extends ChangeNotifier {
   String get userName => _userName;
   String get timeUnit => _timeUnit;
 
-  void setComfirmedMoney(double money) {
-    _comfirmedMoney = money;
-  }
-
-  void setComfirmedIndex(int index) {
-    _comfirmedIndex = index;
-  }
-
-  void setIsRecordDetail(bool isDetail) {
-    _isRecordDetail = isDetail;
-  }
-
-  void setIsInsertDB(bool isInsert) {
-    _isInsertDB = isInsert;
-  }
-
-  void setConfirmedDate(String date) {
-    _confirmedDate = date;
-  }
-
-  void setUserName(String name) {
-    _userName = name;
-  }
-
-  void setConfirmedLightIndex(int index) {
-    _confirmedLightIndex = index;
-  }
-
-  void setTimeUnit(String unit) {
-    _timeUnit = unit;
-  }
+  
 }

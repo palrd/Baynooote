@@ -95,10 +95,10 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
 
   Widget _buildIcon() {
     return Container(
-      width: 30,
-      height: 30,
+      width: 35,
+      height: 35,
       alignment: Alignment.center,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(35)),
       child: Selector<QuickAnimationActiveState, bool>(
         shouldRebuild: (previous, next) => previous != next,
         builder: (_, isChoice, _) {
@@ -110,8 +110,8 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
             child:
                 SvgPicture.asset(
                   LedgerChoiceTypeItems.svgs[widget.index],
-                  width: 22,
-                  height: 22,
+                  width: 23,
+                  height: 23,
                   colorFilter: ColorFilter.mode(
                     isChoice ? Color(0xFF2E96DF) : AppTheme.typeIconColor,
                     BlendMode.srcIn,
@@ -120,11 +120,11 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
                   onTap: () {
                     _controllerInvok?.forward();
                     if (widget.isTime != vm.typeChoiceBarActiveState) {
-                      vm.ChangeTypeChoiceBarActiveState(widget.isTime);
+                      vm.changeTypeChoiceBarActiveState(widget.isTime);
                     }
 
                     ///更新index
-                    vm.ChangeSelectedIndexActiveState(widget.index);
+                    vm.changeSelectedIndexActiveState(widget.index);
                     if (vm2.inputState == 0 || vm2.inputState == 4) {
                       vm2.changeState(2);
                     }
@@ -148,8 +148,8 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
               color: Color.fromARGB(255, 197, 201, 204),
               shape: BoxShape.circle,
             ),
-            width: 30,
-            height: 30,
+            width: 35,
+            height: 35,
             child: Center(),
           ),
         );

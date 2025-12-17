@@ -10,21 +10,17 @@ class TypeChoiceBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
-
     return Container(
       height: 50,
-      padding: EdgeInsets.only(
-        left: 15,
-        top: 8,
-        bottom: 8,
-        right: 15,
-      ),
+      padding: EdgeInsets.only(left: 15, top: 8),
       child: Container(
         child: Stack(
           children: [
             TheChoicer(),
-            Row(children: [TypeWithTime(), TypeChoiceScrollBar()]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [TypeWithTime(), TypeChoiceScrollBar()],
+            ),
           ],
         ),
       ),
@@ -65,8 +61,8 @@ class TypeChoiceScrollBar extends StatelessWidget {
   Widget typeChoiceBarExpanded() {
     return Expanded(
       child: Container(
-        height: 30,
-        margin: EdgeInsets.only(left: 10),
+        height: 35,
+        margin: EdgeInsets.only(left: 12.5),
         decoration: BoxDecoration(
           color: const Color.fromARGB(30, 197, 201, 204),
           borderRadius: BorderRadius.circular(20),

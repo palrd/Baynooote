@@ -51,7 +51,7 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
     ///开始为各个属性添加动画并绑定曲线
     ///第一步进到目标容器边缘
     ///到边缘
-    _positionAnimation1 = Tween<double>(begin: 0, end: 40).animate(
+    _positionAnimation1 = Tween<double>(begin: 0, end: 47.5).animate(
       CurvedAnimation(
         parent: _controller,
         curve: const Interval(0, 1.0, curve: Curves.easeInCubic),
@@ -59,7 +59,7 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
     );
 
     ///开始变宽
-    _widthAnimation = Tween<double>(begin: 30, end: 180).animate(
+    _widthAnimation = Tween<double>(begin: 35, end: 190).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Interval(0.0, 0.6, curve: Curves.easeInOutCubic),
@@ -117,7 +117,7 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
 
         ///绑定宽度
         width: _widthAnimation.value,
-        height: 30,
+        height: 35,
         child: Center(),
       ),
     );

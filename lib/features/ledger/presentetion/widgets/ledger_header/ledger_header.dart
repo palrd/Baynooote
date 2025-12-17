@@ -1,17 +1,15 @@
 import 'dart:ui';
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
-
-
 class LedgerHeader extends StatelessWidget {
   const LedgerHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadiusGeometry.only(
-        bottomLeft: Radius.circular(20),
-        bottomRight: Radius.circular(20),
+    return ClipSmoothRect(
+      radius: SmoothBorderRadius.only(
+        bottomLeft: SmoothRadius(cornerRadius: 20, cornerSmoothing: 1),
+        bottomRight: SmoothRadius(cornerRadius: 20, cornerSmoothing: 1),
       ),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),

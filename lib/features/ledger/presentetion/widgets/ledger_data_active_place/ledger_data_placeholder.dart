@@ -6,6 +6,7 @@ import 'package:baynooote/features/ledger/presentetion/view_models/confirm_butto
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAniamtionSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAniamtionSet2.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAnimationSet3.dart';
+import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/InputLineAnimationSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/PlaceholderAnimationSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_ready_inputData_placeholder.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/ledger_show_input_line.dart';
@@ -34,10 +35,12 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
   late AnimationController _controller2;
   late AnimationController _controller3;
   late AnimationController _controller4;
+  late AnimationController _controller5;
   late Placeholderanimationset _anim;
   late Completedaniamtionset _anim2;
   late Completedaniamtionset2 _anim3;
   late Completedanimationset3 _anim4;
+  late Inputlineanimationset _anim5;
 
   @override
   void initState() {
@@ -63,10 +66,15 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
       vsync: this,
       duration: const Duration(milliseconds: 1000),
     );
+    _controller5 = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
     _anim = Placeholderanimationset(_controller);
     _anim2 = Completedaniamtionset(_controller2);
     _anim3 = Completedaniamtionset2(_controller3);
     _anim4 = Completedanimationset3(_controller4);
+    _anim5 = Inputlineanimationset(_controller5);
     final vmButton = context.read<ConfirmButtonState>();
     vmButton.addListener(() {
       if (vmButton.inputState == 2) {
@@ -75,15 +83,21 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
         _controller2.forward();
       }
     });
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controller5.forward();
+        // _controller2.forward();
+      }
+    });
     _controller2.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        _controller3.forward();
+        // _controller3.forward();
       }
     });
     _controller3.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Future.delayed(const Duration(milliseconds: 300), () {
-          _controller4.forward();
+          // _controller4.forward();
         });
       }
     });
@@ -171,9 +185,10 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
                     ),
                     child: Container(
                       margin: EdgeInsets.only(top: _anim.jumpMargin.value),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                          50 * _anim.radiusChange.value,
+                      child: ClipSmoothRect(
+                        radius: SmoothBorderRadius(
+                          cornerRadius: 40 * _anim.radiusChange.value,
+                          cornerSmoothing: 1,
                         ),
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
@@ -229,7 +244,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
         _anim.scaleAnimationYB.value,
         1.0,
       ),
-      child: LedgerShowInputLine(),
+      child: LedgerShowInputLine(anim: _anim5),
     );
   }
 }

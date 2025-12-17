@@ -8,7 +8,7 @@ export 'package:baynooote/features/ledger/data/models/ledger_choice_type_items.d
 export 'package:flutter/material.dart';
 export 'package:baynooote/features/ledger/presentetion/view_models/quick_input_animation_active_state.dart';
 export 'package:baynooote/features/ledger/presentetion/view_models/data_active_place_view_model.dart';
-export 'package:baynooote/features/ledger/presentetion/view_models/state_card_view_model.dart';
 export 'package:baynooote/features/ledger/presentetion/view_models/record_completed_view_model.dart';
 
 export 'package:baynooote/shared/widgets/RiveWidgetBuilder.dart';
+export 'package:figma_squircle/figma_squircle.dart';

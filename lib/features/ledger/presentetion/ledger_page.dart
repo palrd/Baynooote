@@ -1,3 +1,5 @@
+import 'package:baynooote/features/ledger/presentetion/view_models/confirm_record_view_model.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/record_collection/record_collection_amount.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_data_active_place.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_list/ledger_data_list.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_header/ledger_header.dart';
@@ -16,6 +18,18 @@ class LedgerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     print("脚手架重构！");
     return Scaffold(
+      floatingActionButton: ElevatedButton(
+        onPressed: () {
+          final vm = context.read<RecordCollectionAmountViewModel>();
+          if (vm.amount != 0) {
+            vm.updateAmount(0.0);
+          } else {
+            vm.updateAmount(20);
+          }
+        },
+        child: Icon(Icons.add, size: 40),
+      ),
+
       ///底层背景色
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       resizeToAvoidBottomInset: false,

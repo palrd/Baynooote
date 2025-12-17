@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-///这个桥接模型用于管理动画状态
+///用于管理顶部类型选择栏的动画状态
 class QuickAnimationActiveState extends ChangeNotifier {
   ///命名方式为 动画名称+ActiveState
   ///用于管理快速记录卡片中的类型选择器动画状态
@@ -9,21 +9,21 @@ class QuickAnimationActiveState extends ChangeNotifier {
   bool _typeChoiceBarActiveState = false;
 
   ///用于记录当前被选中的icon index
-  int _selectedIndexActiveState = 0;
+  int _selectedIndex = 0;
 
   ///提供getter
   bool get typeChoiceBarActiveState => _typeChoiceBarActiveState;
-  int get selectedIndexActiveState => _selectedIndexActiveState;
+  int get selectedIndexActiveState => _selectedIndex;
 
   ///提供setter
-  void ChangeTypeChoiceBarActiveState(bool state) {
+  void changeTypeChoiceBarActiveState(bool state) {
     _typeChoiceBarActiveState = state;
     notifyListeners();
   }
 
   ///传入一个index并更新
-  void ChangeSelectedIndexActiveState(int index) {
-    _selectedIndexActiveState = index;
+  void changeSelectedIndexActiveState(int index) {
+    _selectedIndex = index;
     notifyListeners();
   }
 }

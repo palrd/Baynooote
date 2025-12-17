@@ -1,9 +1,8 @@
-
 ///私有导入
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
 ///组件导入
-import 'change_card_state.dart';
+
 import 'quick_input_card.dart';
 
 class LedgerQuickInput extends StatelessWidget {
@@ -12,14 +11,11 @@ class LedgerQuickInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("LedgerQuickInput重构！");
-    
+
     ///最外层container用于设定上外边距
     return Container(
       margin: EdgeInsets.only(top: 100),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [ChangeCardState(), QuickInputCard()],
-      ),
+      child: QuickInputCard(),
     );
   }
 }

@@ -45,6 +45,7 @@ dependencies:
   # 3. 辅助库：用于获取文件路径
   path_provider: ^2.1.5
   path: ^1.9.1
+  figma_squircle: ^0.6.3
 
 dev_dependencies:
   flutter_test:
@@ -96,6 +97,8 @@ flutter:
     - assets/images/png/recored.png
     - assets/svgs/icons/calculate.svg
     - assets/svgs/icons/turkey.svg
+    - assets/svgs/icons/calendar.svg
+    - assets/svgs/icons/connection-box.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

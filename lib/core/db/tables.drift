@@ -1,19 +1,50 @@
--- 1. 建表语句
-CREATE TABLE ledgers (
+-- 1. 分类表
+CREATE TABLE categories (
     id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
-    amount REAL NOT NULL,
-    category_name TEXT NOT NULL,
-    note TEXT,
-    record_time DATETIME NOT NULL,
-    type INT NOT NULL
+    name TEXT NOT NULL,
+    icon_path TEXT NOT NULL,
+    type INT NOT NULL, -- 0支出 1收入
+    sort_order INT NOT NULL DEFAULT 0
 );
 
--- 2. 查询语句
+-- 2. 账单主表
+CREATE TABLE ledgers (
+    id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+    amount INT NOT NULL, -- 或者用 INT 存“分”
+    record_type INT NOT NULL, -- 0支出 1收入
+    record_time DATETIME NOT NULL,
+    title TEXT, -- 可为空
+    category_id INT NOT NULL -- 逻辑外键
+);
 
-getAllLedgers:
-SELECT * FROM ledgers ORDER BY record_time DESC;
+-- 3. 详情块表 (实现图文混排)
+CREATE TABLE ledger_blocks (
+    id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+    ledger_id INT NOT NULL,
+    block_type INT NOT NULL, -- 0:Text, 1:Image, 2:Video, 3:Audio
+    content TEXT NOT NULL,   -- 文字内容 或 文件路径
+    sort_index INT NOT NULL, -- 排版顺序
+    meta_data TEXT           -- 额外的JSON信息 (可选)
+);
 
-getMonthExpenses:
-SELECT SUM(amount) 
-FROM ledgers 
-WHERE type = 0 AND record_time BETWEEN :start AND :end;
+-- 建立索引，加速查询
+CREATE INDEX idx_ledgers_time ON ledgers(record_time);
+CREATE INDEX idx_blocks_ledger ON ledger_blocks(ledger_id);
+
+---------------------------------------------------------
+-- 查询语句 (DAO)
+---------------------------------------------------------
+
+-- 1. 获取账单列表 (包含分类信息)
+-- 使用 JOIN 一次性把图标和名字查出来，不需要查两次库
+getAllLedgersWithCategory:
+SELECT l.*, c.name AS category_name, c.icon_path
+FROM ledgers l
+INNER JOIN categories c ON l.category_id = c.id
+ORDER BY l.record_time DESC;
+
+-- 2. 获取某条账单的所有详情块 (按顺序排列)
+getBlocksByLedgerId:
+SELECT * FROM ledger_blocks 
+WHERE ledger_id = :ledgerId 
+ORDER BY sort_index ASC;

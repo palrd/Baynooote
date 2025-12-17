@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/CompletedAniamtionSet2.dart';
+import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/ledger_show_count_type.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/number_level_light.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/show_animation_icon.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/typeName_show.dart';
@@ -92,22 +93,31 @@ class LedgerShowRecordCompleted extends StatelessWidget {
           alignment: Alignment.center,
           height: 50,
           padding: EdgeInsets.all(5),
-          child: Text(
-            "\$${vm.comfirmedMoney}",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-              height: 1.0,
-              fontFamily: 'Qinfen',
-              shadows: [
-                BoxShadow(
-                  color: const Color.fromARGB(40, 0, 0, 0),
-                  offset: Offset(1, 1),
-                  blurRadius: 2,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              LedgerShowCountType(width: 28, height: 8),
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                child: Text(
+                  "${vm.comfirmedMoney}",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    height: 1.0,
+                    fontFamily: 'Qinfen',
+                    shadows: [
+                      BoxShadow(
+                        color: const Color.fromARGB(40, 0, 0, 0),
+                        offset: Offset(1, 1),
+                        blurRadius: 2,
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -175,11 +185,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
             Container(
               width: 12,
               height: 12,
-              child: Icon(
-                Icons.check_rounded,
-                size: 12,
-                color: Colors.green,
-              ),
+              child: Icon(Icons.check_rounded, size: 12, color: Colors.green),
             ),
           )
         : SizedBox.shrink();
@@ -260,11 +266,7 @@ class LedgerShowRecordCompleted extends StatelessWidget {
               width: 20,
               height: 20,
 
-              child: Icon(
-                Icons.alternate_email,
-                size: 18,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.alternate_email, size: 18, color: Colors.white),
             ),
           ),
           Expanded(

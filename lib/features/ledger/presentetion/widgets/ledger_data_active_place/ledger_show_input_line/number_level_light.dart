@@ -56,7 +56,7 @@ class NumberLevelLight extends StatelessWidget {
   }
 
   Widget _sigalLight(Color color, int now) {
-    return Selector<MoneyCounterViewModel, int>(
+    return Selector<MoneyCounterViewModel, double>(
       builder: (_, index, _) {
         if (index == 4) {
           return AnimatedContainer(
@@ -82,7 +82,7 @@ class NumberLevelLight extends StatelessWidget {
           );
         }
       },
-      selector: (_, vm) => vm.index,
+      selector: (_, vm) => vm.moneyNumber,
     );
   }
 
