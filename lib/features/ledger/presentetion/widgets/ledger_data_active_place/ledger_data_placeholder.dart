@@ -86,7 +86,13 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _controller5.forward();
-        // _controller2.forward();
+        _controller2.forward();
+      }
+    });
+    _controller5.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        AnimationBus.numberKeyBoardAnimationBus.value =
+            AnimationBusType.activate;
       }
     });
     _controller2.addStatusListener((status) {
@@ -107,7 +113,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
         _controller2.reset();
         _controller3.reset();
         _controller4.reset();
-        AnimationBus.animationBus.value++;
+        AnimationBus.listAnimationBus.value = AnimationBusType.activate;
       }
     });
   }

@@ -1,16 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 extension WidgetExtension on Widget {
   Widget addTapFeel({
     VoidCallback? onTap,
+    VoidCallback? onLongPress,
     bool isSelfAnimationWillHappen = false,
+    bool isUseLongPress = false,
+    int triggerTimer = 150,
     int feelingLevel = 3,
   }) {
     return QsqushFeel(
       onTap: onTap,
+      onLongPress: onLongPress,
       isSelfAnimationWillHappen: isSelfAnimationWillHappen,
+      isUseLongPress: isUseLongPress,
       feelingLevel: feelingLevel,
+      triggerTimer: triggerTimer,
       child: this,
     );
   }
@@ -19,13 +27,19 @@ extension WidgetExtension on Widget {
 class QsqushFeel extends StatefulWidget {
   final Widget? child;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
   final bool? isSelfAnimationWillHappen;
+  final bool? isUseLongPress;
   final int? feelingLevel;
+  final int? triggerTimer;
   const QsqushFeel({
     this.onTap,
+    this.onLongPress,
     this.isSelfAnimationWillHappen,
+    this.isUseLongPress,
     this.child,
     this.feelingLevel,
+    this.triggerTimer,
     super.key,
   });
 
@@ -37,6 +51,7 @@ class _QsqushFeelState extends State<QsqushFeel>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation scale;
+  Timer? timer;
 
   @override
   void initState() {
@@ -53,6 +68,30 @@ class _QsqushFeelState extends State<QsqushFeel>
       case 3:
         press(0.8, 1.1);
     }
+  }
+
+  void _startTimer() {
+    ///执行一次后再连发
+    _trigger();
+
+    timer = Timer.periodic(Duration(milliseconds: widget.triggerTimer!), (
+      time,
+    ) {
+      _trigger();
+    });
+  }
+
+  void _trigger() {
+    HapticFeedback.selectionClick();
+    widget.onTap?.call();
+  }
+
+  void _stopTimer() {
+    ///暂停计时器
+    timer?.cancel();
+
+    ///清空定时器
+    timer = null;
   }
 
   void press(double min, double max) {
@@ -101,6 +140,23 @@ class _QsqushFeelState extends State<QsqushFeel>
           });
         }
       },
+      onLongPressStart: widget.isUseLongPress!
+          ? (_) {
+              ///触发长按逻辑
+              _startTimer();
+              controller.animateTo(0.4);
+            }
+          : null,
+      onLongPressUp: widget.isUseLongPress!
+          ? () {
+              ///触发长按逻辑
+              _stopTimer();
+              controller.forward().then((_) {
+                widget.onTap?.call();
+              });
+            }
+          : null,
+
       onTapCancel: () {
         controller.forward().then((_) {
           controller.reset();

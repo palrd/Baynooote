@@ -30,8 +30,17 @@ class _LedgerDataListState extends State<LedgerDataList>
   void initState() {
     super.initState();
     initAnimation();
-    AnimationBus.animationBus.addListener(() {
-      changeHeight();
+    AnimationBus.listAnimationBus.addListener(() {
+      if (AnimationBus.listAnimationBus.value == AnimationBusType.activate) {
+        activateList();
+
+        ///列表调起
+      }
+      if (AnimationBus.listAnimationBus.value == AnimationBusType.packUp) {
+        packUpList();
+
+        ///列表收起
+      }
     });
   }
 
@@ -44,7 +53,7 @@ class _LedgerDataListState extends State<LedgerDataList>
     anim = Datalistanimationset(controller);
   }
 
-  void changeHeight() {
+  void activateList() {
     sheetController
         .animateTo(
           0.679,
@@ -59,6 +68,23 @@ class _LedgerDataListState extends State<LedgerDataList>
           });
         });
     controller.forward();
+  }
+
+  void packUpList() {
+    sheetController
+        .animateTo(
+          0.0,
+          duration: Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+        )
+        .then((_) {
+          setState(() {
+            minSize = 0;
+            initSize = 0;
+            print("我执行！");
+          });
+        });
+    controller.reverse();
   }
 
   @override
