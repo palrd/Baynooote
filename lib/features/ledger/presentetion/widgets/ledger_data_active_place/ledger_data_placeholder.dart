@@ -86,11 +86,11 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _controller5.forward();
-        _controller2.forward();
       }
     });
     _controller5.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
+        // _controller2.forward();
         AnimationBus.numberKeyBoardAnimationBus.value =
             AnimationBusType.activate;
       }
@@ -118,20 +118,22 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
     });
   }
 
+  ///为了优化这一块动画的性能，我需要更加明确的重绘范围界定
+  ///所以首先分析，究竟有几个组件拥有动画
+  ///他们的变换顺序是什么
+  ///具体分析
+  ///就动画控制器来看，在这一个组件内拥有控制器的组件是三个
+  ///内部缩小盒子1---controller1(0-0.5)
+  ///内部放大盒子2---controller1(0.5-1.0)
+  ///外部缩小盒子1---controller2(0-0.5)
+  ///外部新盒子1---controller2(0.5-1.0)
   @override
   Widget build(BuildContext context) {
     ///外层容器
-    return AnimatedBuilder(
-      animation: _controller2,
-      builder: (context, _) {
-        return Stack(
-          alignment: Alignment.center,
-          children: [_showLedgerRecordCompleted(), _buildContainer()],
-        );
-      },
-    );
+    return Stack(children: [_showLedgerRecordCompleted(), _buildScaleBox()]);
   }
 
+  ///这里是controller4监听点
   Widget _showLedgerRecordCompleted() {
     final vm = context.read<RecordCompletedViewModel>();
     return AnimatedBuilder(
@@ -147,110 +149,152 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
           child: child,
         );
       },
+
+      ///隔离点
       child: Align(
         alignment: Alignment.topCenter,
         child: Container(
           margin: EdgeInsets.only(top: 30),
-          child: Transform(
-            alignment: Alignment.bottomCenter,
-            transform: Matrix4.diagonal3Values(
-              _anim2.scaleBX.value,
-              _anim2.scaleBY.value,
-              1.0,
-            )..rotateY(_anim2.rotateXB.value),
+
+          ///这里需要听controller2的后半部分
+          child: AnimatedBuilder(
+            animation: _controller2,
+
+            ///隔离
             child: LedgerShowRecordCompleted(vm: vm, anim: _anim3),
+            builder: (_, child) {
+              return Transform(
+                alignment: Alignment.bottomCenter,
+                transform: Matrix4.diagonal3Values(
+                  _anim2.scaleBX.value,
+                  _anim2.scaleBY.value,
+                  1.0,
+                )..rotateY(_anim2.rotateXB.value),
+                child: child,
+              );
+            },
           ),
         ),
       ),
     );
   }
 
-  Widget _buildContainer() {
+  ///这个负责完成controller2的前半部分
+  Widget _buildScaleBox() {
     return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, _) {
+      animation: _controller2,
+
+      ///隔离点
+      child: _buildContainer(),
+      builder: (_, child) {
         return Transform(
           alignment: Alignment.bottomCenter,
           transform: Matrix4.diagonal3Values(
-            _anim.scaleAnimationXS.value,
-            _anim.scaleAnimationYS.value,
+            _anim2.scaleX.value,
+            _anim2.scaleY.value,
             1.0,
           ),
-          child: FractionallySizedBox(
-            widthFactor: _anim.widthStrech.value,
-            child: Selector<QuickAnimationActiveState, int>(
-              builder: (_, index, child) {
-                return Align(
-                  alignment: _anim.jumpAlign.value,
-                  child: Transform(
-                    alignment: Alignment.bottomCenter,
-                    transform: Matrix4.diagonal3Values(
-                      _anim2.scaleX.value,
-                      _anim2.scaleY.value,
-                      1.0,
-                    ),
-                    child: Container(
-                      margin: EdgeInsets.only(top: _anim.jumpMargin.value),
-                      child: ClipSmoothRect(
-                        radius: SmoothBorderRadius(
-                          cornerRadius: 40 * _anim.radiusChange.value,
-                          cornerSmoothing: 1,
-                        ),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                          child: Container(
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 300),
-                              height: 200,
-                              clipBehavior: Clip.hardEdge,
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  ///颜色过渡
-                                  colors: [
-                                    LedgerChoiceTypeItems
-                                        .iconColorsaBegin[index],
-                                    LedgerChoiceTypeItems.iconColorsaEnd[index],
-                                  ],
-                                  begin: AlignmentGeometry.topCenter,
-                                  end: AlignmentGeometry.bottomCenter,
-                                ),
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  ///默认展示提示用户对于今日记账的输入
-                                  LedgerReadyInputdataPlaceholder(anim: _anim),
-
-                                  ///展示icon
-                                  _showIcon(),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
-              selector: (_, vm) => vm.selectedIndexActiveState,
-            ),
-          ),
+          child: child,
         );
       },
     );
   }
 
-  Widget _showIcon() {
-    return Transform(
-      alignment: Alignment.bottomCenter,
-      transform: Matrix4.diagonal3Values(
-        _anim.scaleAnimationXB.value,
-        _anim.scaleAnimationYB.value,
-        1.0,
+  ///这里只负责听controller1
+  Widget _buildContainer() {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Transform(
+          alignment: Alignment.bottomCenter,
+          transform: Matrix4.identity()
+            ..scaleByDouble(
+              _anim.scaleAnimationXS.value,
+              _anim.scaleAnimationYS.value,
+              1.0,
+              1.0,
+            )
+            ..translateByDouble(0.0, _anim.jumpMargin.value, 0.0, 1.0),
+          child: Align(
+            alignment: _anim.jumpAlign.value,
+            child: SizedBox(
+              height: 200,
+              child: FractionallySizedBox(
+                widthFactor: _anim.widthStrech.value,
+                child: ClipSmoothRect(
+                  radius: SmoothBorderRadius(
+                    cornerRadius: 40 * _anim.radiusChange.value,
+                    cornerSmoothing: 1,
+                  ),
+
+                  ///这一块可以看出来已经和动画无关，或者说这里面组件自己有动画驱动，
+                  ///所以我要放到这个AnimatedBuilder的child中做隔离
+                  child: child!,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+
+      ///隔离点，外部容器的controller已经结束，隔离转到内部给小盒子
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        child: Selector<QuickAnimationActiveState, int>(
+          builder: (_, index, child) {
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: 200,
+              clipBehavior: Clip.hardEdge,
+              padding: EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  ///颜色过渡
+                  colors: [
+                    LedgerChoiceTypeItems.iconColorsaBegin[index],
+                    LedgerChoiceTypeItems.iconColorsaEnd[index],
+                  ],
+                  begin: AlignmentGeometry.topCenter,
+                  end: AlignmentGeometry.bottomCenter,
+                ),
+              ),
+              child: child,
+            );
+          },
+
+          ///selector的隔离点
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              ///这个是缩小,组件内自动动画
+              LedgerReadyInputdataPlaceholder(anim: _anim),
+
+              ///这个负责放大，但是这里面挂着一个重型组件，
+              ///所以我要用AnimatedBuilder做边缘隔离
+              ///但是因为它使用的是controller1，
+              ///所以我再使用一个Builder，然后做边缘隔离
+              AnimatedBuilder(
+                animation: _controller,
+                builder: (_, child) {
+                  return Transform(
+                    alignment: Alignment.bottomCenter,
+                    transform: Matrix4.diagonal3Values(
+                      _anim.scaleAnimationXB.value,
+                      _anim.scaleAnimationYB.value,
+                      1.0,
+                    ),
+                    child: child,
+                  );
+                },
+
+                ///隔离点
+                child: LedgerShowInputLine(anim: _anim5),
+              ),
+            ],
+          ),
+          selector: (_, vm) => vm.selectedIndexActiveState,
+        ),
       ),
-      child: LedgerShowInputLine(anim: _anim5),
     );
   }
 }

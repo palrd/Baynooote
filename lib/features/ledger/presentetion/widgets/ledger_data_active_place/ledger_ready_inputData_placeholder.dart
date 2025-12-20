@@ -30,7 +30,8 @@ class LedgerReadyInputdataPlaceholder extends StatelessWidget {
   Widget _texyContainer() {
     return AnimatedBuilder(
       animation: anim.controller,
-      builder: (context, _) {
+      child: Column(children: [noDataText(), tipStartLedgerText()]),
+      builder: (context, child) {
         return Transform(
           alignment: Alignment.bottomCenter,
           transform: Matrix4.diagonal3Values(
@@ -41,9 +42,7 @@ class LedgerReadyInputdataPlaceholder extends StatelessWidget {
             anim.scaleAnimationYAT.value,
             1.0,
           ),
-          child: Container(
-            child: Column(children: [noDataText(), tipStartLedgerText()]),
-          ),
+          child: child,
         );
       },
     );
@@ -81,16 +80,22 @@ class LedgerReadyInputdataPlaceholder extends StatelessWidget {
   ///一个快速记录的动画ICon
   Widget _animationIcon(BuildContext context) {
     return Expanded(
-      child: Transform(
-        alignment: Alignment.bottomCenter,
-        transform: Matrix4.diagonal3Values(
-          ///这个值控制X
-          anim.scaleAnimationXA.value,
+      child: AnimatedBuilder(
+        animation: anim.controller,
+        builder: (_, child) {
+          return Transform(
+            alignment: Alignment.bottomCenter,
+            transform: Matrix4.diagonal3Values(
+              ///这个值控制X
+              anim.scaleAnimationXA.value,
 
-          ///这个值控制Y
-          anim.scaleAnimationYA.value,
-          1.0,
-        ),
+              ///这个值控制Y
+              anim.scaleAnimationYA.value,
+              1.0,
+            ),
+            child: child,
+          );
+        },
         child:
             Container(
               padding: EdgeInsets.all(15),

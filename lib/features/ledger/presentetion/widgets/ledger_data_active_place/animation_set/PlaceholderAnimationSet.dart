@@ -3,7 +3,6 @@ import 'package:baynooote/features/ledger/di/ledger_module.dart';
 class Placeholderanimationset {
   late AnimationController controller;
 
-
   ///准备动画变化值
   ///外层盒子的动画S 0~0.5
   late Animation<double> scaleAnimationXS;
@@ -33,9 +32,7 @@ class Placeholderanimationset {
     action4();
   }
 
- 
-
- void action1() {
+  void action1() {
     ///内部盒子的动画A
     //向下压缩-慢
     scaleAnimationXA =
@@ -180,7 +177,6 @@ class Placeholderanimationset {
   }
 
   void action3() {
-   
     radiusChange = Tween<double>(begin: 0.4, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
@@ -228,8 +224,6 @@ class Placeholderanimationset {
             ).chain(CurveTween(curve: Curves.easeIn)),
             weight: 20,
           ),
-          
-        
         ]).animate(
           CurvedAnimation(parent: controller, curve: const Interval(0.4, 0.8)),
         );
@@ -290,7 +284,7 @@ class Placeholderanimationset {
           TweenSequenceItem(
             tween: Tween<double>(
               begin: 30,
-              end: 30,
+              end: 20,
             ).chain(CurveTween(curve: Curves.easeInOut)),
             weight: 20,
           ),
@@ -298,8 +292,8 @@ class Placeholderanimationset {
           ///跳到更高
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 30,
-              end: 20,
+              begin: 20,
+              end: 10,
             ).chain(CurveTween(curve: Curves.easeIn)),
             weight: 10,
           ),
@@ -307,7 +301,7 @@ class Placeholderanimationset {
           ///下落
           TweenSequenceItem(
             tween: Tween<double>(
-              begin: 20,
+              begin: 10,
               end: 30,
             ).chain(CurveTween(curve: Curves.easeOut)),
             weight: 20,
