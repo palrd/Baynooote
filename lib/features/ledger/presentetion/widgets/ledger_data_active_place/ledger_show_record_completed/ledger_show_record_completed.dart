@@ -8,9 +8,9 @@ import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_activ
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/typeName_show.dart';
 
 class LedgerShowRecordCompleted extends StatelessWidget {
-  RecordCompletedViewModel vm;
-  Completedaniamtionset2 anim;
-  LedgerShowRecordCompleted({required this.vm, required this.anim, super.key});
+  final RecordCompletedViewModel vm;
+  final Completedaniamtionset2 anim;
+  const LedgerShowRecordCompleted({required this.vm, required this.anim, super.key});
 
   @override
   Widget build(BuildContext context) {

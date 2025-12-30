@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/record_collection/record_collection_record_type.dart';
 
@@ -19,23 +17,25 @@ class _LedgerShowCountTypeState extends State<LedgerShowCountType>
   late Animation<double> scaleToIncomeY;
   late Animation<double> scaleFromExpenseX;
   late Animation<double> scaleFromExpenseY;
+  late RecordCollectionViewModel _vm;
 
   @override
   void initState() {
     super.initState();
     initAnimation();
-    final vm = context.read<RecordCollectionViewModel>();
-    vm.addListener(() {
+    _vm = context.read<RecordCollectionViewModel>();
+    _vm.addListener(_onTypeChanged);
+  }
 
-      ///1向前
-      if (vm.recordType == RecordType.income) {
-        controller.forward();
-      }
-      ///0向后
-      else if (vm.recordType == RecordType.expend) {
-        controller.reverse();
-      }
-    });
+  void _onTypeChanged() {
+    ///1向前
+    if (_vm.recordType == RecordType.income) {
+      controller.forward();
+    }
+    ///0向后
+    else if (_vm.recordType == RecordType.expend) {
+      controller.reverse();
+    }
   }
 
   void initAnimation() {
@@ -163,6 +163,13 @@ class _LedgerShowCountTypeState extends State<LedgerShowCountType>
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    _vm.removeListener(_onTypeChanged);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: 40,
@@ -176,9 +183,7 @@ class _LedgerShowCountTypeState extends State<LedgerShowCountType>
       ),
     ).addTapFeel(
       onTap: () {
-        final vm = context.read<RecordCollectionViewModel>();
-
-        vm.changeRecordType();
+        _vm.changeRecordType();
       },
     );
   }

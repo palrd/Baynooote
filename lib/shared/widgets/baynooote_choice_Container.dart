@@ -24,8 +24,59 @@ class BaynoooteChoiceContainer extends StatefulWidget {
       _BaynoooteChoiceContainerState();
 }
 
-class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer> {
+class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
+    with SingleTickerProviderStateMixin {
   final ValueNotifier<bool> isSelected = ValueNotifier(false);
+
+  late AnimationController controller;
+  late Animation scale;
+
+  @override
+  void initState() {
+    super.initState();
+    _initAnimation();
+    isSelected.addListener(_onSelectedChange);
+  }
+
+  void _onSelectedChange() {
+    if (isSelected.value) {
+      controller.forward();
+    } else {
+      controller.reverse();
+    }
+  }
+
+  void _initAnimation() {
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+
+    scale = TweenSequence([
+      TweenSequenceItem(
+        tween: Tween(
+          begin: 0.0,
+          end: 1.1,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
+        weight: 60,
+      ),
+      TweenSequenceItem(
+        tween: Tween(
+          begin: 1.1,
+          end: 1.0,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
+        weight: 40,
+      ),
+    ]).animate(controller);
+  }
+
+  @override
+  void dispose() {
+    isSelected.dispose();
+    controller.dispose();
+    isSelected.removeListener(_onSelectedChange);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,48 +88,55 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer> {
           widget.onTap?.call();
         }
       },
-      child: SizedBox(
-        height: widget.containerHeight,
-        width: widget.containerWidth,
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromARGB(5, 0, 0, 0),
+              offset: Offset(0, 2),
+              blurRadius: 5,
+            ),
+          ],
+        ),
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Container(
-              alignment: Alignment.center,
-              height: widget.containerHeight,
-              width: widget.containerWidth,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  width: 3,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromARGB(15, 0, 0, 0),
-                    offset: Offset(0, 2),
-                    blurRadius: 10,
+            AnimatedBuilder(
+              animation: controller,
+              child: Container(
+                alignment: Alignment.center,
+                height: widget.containerHeight,
+                width: widget.containerWidth,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    width: widget.borderWidth,
                   ),
-                ],
+                ),
+                child: Center(),
               ),
-              child: Center(),
+              builder: (_, child) {
+                return Transform.scale(scale: scale.value, child: child);
+              },
             ),
             ValueListenableBuilder(
               valueListenable: isSelected,
               builder: (context, isSelect, _) {
                 return AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
+                  duration: Duration(milliseconds: 200),
                   curve: Curves.easeInOut,
                   alignment: Alignment.center,
                   transformAlignment: Alignment.center,
                   transform: Matrix4.diagonal3Values(
-                    isSelect ? 0.8 : 1.0,
-                    isSelect ? 0.8 : 1.0,
+                    isSelect ? 0.78 : 1.0,
+                    isSelect ? 0.78 : 1.0,
                     1.0,
                   ),
-                  height: widget.containerHeight - widget.borderWidth,
-                  width: widget.containerWidth - widget.borderWidth,
+                  height: widget.containerHeight,
+                  width: widget.containerWidth,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Color.fromARGB(255, 255, 255, 255),

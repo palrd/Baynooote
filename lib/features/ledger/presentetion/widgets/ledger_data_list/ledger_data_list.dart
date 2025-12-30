@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
-import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/DataListAnimationSet.dart';
+import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/SheetAnimationSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_list/list_data_time.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_list/sigal_ledger_data.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +17,7 @@ class LedgerDataList extends StatefulWidget {
 class _LedgerDataListState extends State<LedgerDataList>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
-  late Datalistanimationset anim;
+  late Sheetanimationset anim;
   final DraggableScrollableController sheetController =
       DraggableScrollableController();
   final ValueNotifier<double> sheetNotifiler = ValueNotifier(0.0);
@@ -30,18 +30,29 @@ class _LedgerDataListState extends State<LedgerDataList>
   void initState() {
     super.initState();
     initAnimation();
-    AnimationBus.listAnimationBus.addListener(() {
-      if (AnimationBus.listAnimationBus.value == AnimationBusType.activate) {
-        activateList();
+    AnimationBus.listAnimationBus.addListener(_onBusChnage);
+  }
 
-        ///列表调起
-      }
-      if (AnimationBus.listAnimationBus.value == AnimationBusType.packUp) {
-        packUpList();
+  @override
+  void dispose() {
+    AnimationBus.listAnimationBus.removeListener(_onBusChnage);
+    controller.dispose();
+    sheetController.dispose();
+    sheetNotifiler.dispose();
+    super.dispose();
+  }
 
-        ///列表收起
-      }
-    });
+  void _onBusChnage() {
+    if (AnimationBus.listAnimationBus.value == AnimationBusType.activate) {
+      activateList();
+
+      ///列表调起
+    }
+    if (AnimationBus.listAnimationBus.value == AnimationBusType.packUp) {
+      packUpList();
+
+      ///列表收起
+    }
   }
 
   void initAnimation() {
@@ -50,7 +61,7 @@ class _LedgerDataListState extends State<LedgerDataList>
       vsync: this,
     );
 
-    anim = Datalistanimationset(controller);
+    anim = Sheetanimationset(controller);
   }
 
   void activateList() {
@@ -64,7 +75,6 @@ class _LedgerDataListState extends State<LedgerDataList>
           setState(() {
             minSize = 0.679;
             initSize = 0.679;
-            print("我执行！");
           });
         });
     controller.forward();
@@ -79,9 +89,8 @@ class _LedgerDataListState extends State<LedgerDataList>
         )
         .then((_) {
           setState(() {
-            minSize = 0;
-            initSize = 0;
-            print("我执行！");
+            minSize = 0.0;
+            initSize = 0.0;
           });
         });
     controller.reverse();
@@ -183,7 +192,6 @@ class DataListInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("object");
     return Container(
       color: Colors.transparent,
       child: ScrollConfiguration(

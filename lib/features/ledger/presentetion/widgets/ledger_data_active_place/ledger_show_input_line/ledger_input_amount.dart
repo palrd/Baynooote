@@ -19,12 +19,32 @@ class _LedgerInputAmountState extends State<LedgerInputAmount>
   late Animation<double> scaleToShowAmountY;
   late Animation<double> scaleFromTipX;
   late Animation<double> scaleFromTipY;
+  late RecordCollectionAmountViewModel _vm;
 
   final List<String> _chars = ["金", "额", "输", "入", "中", ".", ".", "."];
 
   @override
   void initState() {
     super.initState();
+
+    _vm = context.read<RecordCollectionAmountViewModel>();
+    initAniamtion();
+    initAniamtion2();
+    _vm.addListener(_onInputBufferChanged);
+  }
+
+  void _onInputBufferChanged() {
+    ///意思是金额数据重新被从大于0的部分变回0，才执行回溯动画
+    if (_vm.inputBuffer == "0.00" && controller2.isCompleted) {
+      controller2.reverse();
+    }
+    // ///意思是当金额从0变成大于0的时候才执行动画，因为后面在金额已经大于0的时候再怎么改变也不执行动画了
+    else if (_vm.inputBuffer != "0.00" && controller2.isDismissed) {
+      controller2.forward();
+    }
+  }
+
+  void initAniamtion() {
     controller = AnimationController(
       duration: const Duration(milliseconds: 1500), // 调整波浪速度
 
@@ -32,24 +52,12 @@ class _LedgerInputAmountState extends State<LedgerInputAmount>
     );
     // 关键点：不需要 reverse，只要一直重复跑就行，形成无限循环的时间流
     controller.repeat();
-    final vm = context.read<RecordCollectionAmountViewModel>();
-    initAniamtion2();
-    vm.addListener(() {
-      ///意思是金额数据重新被从大于0的部分变回0，才执行回溯动画
-      if (vm.inputBuffer == "0.00" && controller2.isCompleted) {
-        controller2.reverse();
-      }
-      // ///意思是当金额从0变成大于0的时候才执行动画，因为后面在金额已经大于0的时候再怎么改变也不执行动画了
-      else if (vm.inputBuffer != "0.00" && controller2.isDismissed) {
-        controller2.forward();
-      }
-    });
   }
 
   void initAniamtion2() {
     controller2 = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      reverseDuration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 200),
+      reverseDuration: const Duration(milliseconds: 250),
       vsync: this,
     );
 
@@ -173,6 +181,8 @@ class _LedgerInputAmountState extends State<LedgerInputAmount>
   @override
   void dispose() {
     controller.dispose();
+    controller2.dispose();
+    _vm.removeListener(_onInputBufferChanged);
     super.dispose();
   }
 
@@ -271,17 +281,33 @@ class _LedgerInputAmountState extends State<LedgerInputAmount>
   Widget _buildShowAmount() {
     return Selector<RecordCollectionAmountViewModel, String>(
       builder: (_, inputBuffer, _) {
-        return Text(
-          inputBuffer,
-          maxLines: 1,
+        double fontSize = 40.0;
+        if (inputBuffer.contains(".")) {
+          final parts = inputBuffer.split(".");
+
+          ///检测数字整位到达6位上限就缩小字体
+          if (parts[0].length >= 6) {
+            fontSize = 31.0;
+          }
+          if (parts[0].length == 5 && parts[1].isNotEmpty) {
+            fontSize = 37.0;
+          }
+        } else {
+          if (inputBuffer.length == 6) {
+            fontSize = 31.0;
+          }
+        }
+        return AnimatedDefaultTextStyle(
           style: TextStyle(
             overflow: TextOverflow.clip,
-            height: 1.0,
             fontFamily: 'Qinfen',
-            fontSize: 40,
+            fontSize: fontSize,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
+          duration: const Duration(milliseconds: 150),
+          curve: Curves.easeInOut,
+          child: Text(inputBuffer, maxLines: 1),
         );
       },
       shouldRebuild: (previous, next) {

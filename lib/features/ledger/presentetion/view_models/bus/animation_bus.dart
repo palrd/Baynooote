@@ -9,4 +9,7 @@ class AnimationBus {
   );
   static final ValueNotifier<AnimationBusType> numberKeyBoardAnimationBus =
       ValueNotifier(AnimationBusType.packUp);
+
+  static final ValueNotifier<AnimationBusType>
+  typeChoiceBottomSheetAnimationBus = ValueNotifier(AnimationBusType.packUp);
 }

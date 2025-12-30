@@ -10,20 +10,6 @@ class LedgerDataActivePlace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("LedgerDataActivePlace重构！");
-
-    return Expanded(
-      child: Container(
-        // color: Colors.amber,
-        child: Stack(
-          children: [
-            Visibility(visible: true, child: LedgerDataPlaceholder()),
-            
-          ],
-        ),
-      ),
-    );
+    return Expanded(child: LedgerDataPlaceholder());
   }
-
- 
 }

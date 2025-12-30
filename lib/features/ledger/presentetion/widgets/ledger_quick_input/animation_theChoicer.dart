@@ -41,6 +41,12 @@ class _TheChoicerState extends State<TheChoicer> with TickerProviderStateMixin {
     _initAnimation();
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   void _initAnimation() {
     _controller = AnimationController(
       vsync: this,

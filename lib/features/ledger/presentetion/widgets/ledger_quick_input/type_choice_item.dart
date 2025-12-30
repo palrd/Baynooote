@@ -1,4 +1,4 @@
-///私有导入
+
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,7 +30,7 @@ class TypeChoiceItem extends StatefulWidget {
 class _TypeChoiceItemState extends State<TypeChoiceItem>
     with SingleTickerProviderStateMixin {
   ///用来管理选中背景的控制器
-  AnimationController? _controllerInvok;
+   AnimationController? _controllerInvok;
 
   ///统一曲线
   late CurvedAnimation _curvedAnimation;
@@ -46,6 +46,12 @@ class _TypeChoiceItemState extends State<TypeChoiceItem>
     if (widget.isUseOpcityContainer) {
       initInvokAnimationController();
     }
+  }
+
+  @override
+  void dispose() {
+    _controllerInvok?.dispose();
+    super.dispose();
   }
 
   void initInvokAnimationController() {

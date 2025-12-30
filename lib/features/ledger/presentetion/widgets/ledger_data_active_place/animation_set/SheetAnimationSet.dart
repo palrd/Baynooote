@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Datalistanimationset {
+class Sheetanimationset {
   late AnimationController controller;
   late Animation scaleX;
   late Animation scaleY;
 
-  Datalistanimationset(this.controller) {
+  Sheetanimationset(this.controller) {
     action();
   }
 

@@ -1,7 +1,7 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 
-class LedgerCallTypeSheetUp extends StatelessWidget {
-  const LedgerCallTypeSheetUp({super.key});
+class LedgerCallDefNameBarUp extends StatelessWidget {
+  const LedgerCallDefNameBarUp({super.key});
 
   @override
   Widget build(BuildContext context) {

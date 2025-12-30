@@ -1,9 +1,7 @@
-import 'dart:ui';
-
-import 'package:baynooote/core/util/money_util.dart';
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/record_collection/record_collection_amount.dart';
+import 'dart:ui';
 
 class BaynoooteNumberKeyboard extends StatefulWidget {
   const BaynoooteNumberKeyboard({super.key});
@@ -84,11 +82,11 @@ class _BaynoooteNumberKeyboardState extends State<BaynoooteNumberKeyboard>
   Widget _buildKeyboard() {
     return ClipSmoothRect(
       radius: SmoothBorderRadius.only(
-        topLeft: SmoothRadius(cornerRadius: 30, cornerSmoothing: 1),
-        topRight: SmoothRadius(cornerRadius: 30, cornerSmoothing: 1),
+        topLeft: SmoothRadius(cornerRadius: 20, cornerSmoothing: 1),
+        topRight: SmoothRadius(cornerRadius: 20, cornerSmoothing: 1),
       ),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
         child: Container(
           height: 230,
           alignment: Alignment.center,
@@ -171,7 +169,7 @@ class _BaynoooteNumberKeyboardState extends State<BaynoooteNumberKeyboard>
                   ).addTapFeel(
                     feelingLevel: 1,
                     isUseLongPress: true,
-                    triggerTimer:150,
+                    triggerTimer: 80,
                     onTap: () => vm.delete(),
                   );
                 }),

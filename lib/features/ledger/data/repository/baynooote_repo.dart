@@ -104,7 +104,6 @@ class BaynoooteRepo {
             // id 是自增的，第一条插入的 id 默认就是 1
           ),
         );
-    print("分类初始化完成");
   }
 
   Future<void> factoryReset() async {

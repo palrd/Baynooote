@@ -71,8 +71,7 @@ class _QsqushFeelState extends State<QsqushFeel>
   }
 
   void _startTimer() {
-    ///执行一次后再连发
-    _trigger();
+   
 
     timer = Timer.periodic(Duration(milliseconds: widget.triggerTimer!), (
       time,

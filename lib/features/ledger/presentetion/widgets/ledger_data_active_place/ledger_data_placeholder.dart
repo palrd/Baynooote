@@ -113,20 +113,22 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
         _controller2.reset();
         _controller3.reset();
         _controller4.reset();
+        _controller5.reset();
         AnimationBus.listAnimationBus.value = AnimationBusType.activate;
       }
     });
   }
 
-  ///为了优化这一块动画的性能，我需要更加明确的重绘范围界定
-  ///所以首先分析，究竟有几个组件拥有动画
-  ///他们的变换顺序是什么
-  ///具体分析
-  ///就动画控制器来看，在这一个组件内拥有控制器的组件是三个
-  ///内部缩小盒子1---controller1(0-0.5)
-  ///内部放大盒子2---controller1(0.5-1.0)
-  ///外部缩小盒子1---controller2(0-0.5)
-  ///外部新盒子1---controller2(0.5-1.0)
+  @override
+  void dispose() {
+    _controller.dispose();
+    _controller2.dispose();
+    _controller3.dispose();
+    _controller4.dispose();
+    _controller5.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     ///外层容器
