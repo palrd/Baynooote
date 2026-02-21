@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
-import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/SheetAnimationSet.dart';
+import 'package:baynooote/shared/animation_set/SheetAnimationSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_list/list_data_time.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_list/sigal_ledger_data.dart';
 import 'package:flutter/services.dart';

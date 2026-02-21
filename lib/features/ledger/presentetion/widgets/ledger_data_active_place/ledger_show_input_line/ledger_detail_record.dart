@@ -1,6 +1,6 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
-import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/InputLineAnimationSet.dart';
+import 'package:baynooote/shared/animation_set/InputLineAnimationSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/ledger_call_detail_sheet_up.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/ledger_count_type_button.dart';
 import 'package:baynooote/shared/widgets/baynooote_choice_Container.dart';
@@ -76,10 +76,12 @@ class LedgerDetailRecord extends StatelessWidget {
       animation: anim.controller,
       child: BaynoooteChoiceContainer(
         onTap: () {
-          AnimationBus.typeChoiceBottomSheetAnimationBus.value ==
+          AnimationBus.typeChoiceBottomSheetAnimationBus.value =
+              AnimationBus.typeChoiceBottomSheetAnimationBus.value ==
                   AnimationBusType.activate
               ? AnimationBusType.packUp
               : AnimationBusType.activate;
+          print(AnimationBus.typeChoiceBottomSheetAnimationBus.value);
           AnimationBus.numberKeyBoardAnimationBus.value =
               AnimationBusType.packUp;
         },

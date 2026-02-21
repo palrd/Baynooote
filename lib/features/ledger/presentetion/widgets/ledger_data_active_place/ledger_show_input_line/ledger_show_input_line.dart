@@ -1,5 +1,5 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
-import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/InputLineAnimationSet.dart';
+import 'package:baynooote/shared/animation_set/InputLineAnimationSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/clip_line.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/ledger_call_def_name_bar_up.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/ledger_detail_record.dart';
@@ -112,7 +112,7 @@ class LedgerShowInputLine extends StatelessWidget {
     );
   }
 
-  ///numberT和金额量包裹
+
   Widget _topWrapper() {
     return Container(
       alignment: Alignment.centerLeft,

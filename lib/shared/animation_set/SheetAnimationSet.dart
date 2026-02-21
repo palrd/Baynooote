@@ -4,6 +4,9 @@ class Sheetanimationset {
   late AnimationController controller;
   late Animation scaleX;
   late Animation scaleY;
+  late Animation offsetY;
+
+  
 
   Sheetanimationset(this.controller) {
     action();
@@ -19,5 +22,8 @@ class Sheetanimationset {
       begin: 2.0,
       end: 1.0,
     ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+
+    
+    
   }
 }

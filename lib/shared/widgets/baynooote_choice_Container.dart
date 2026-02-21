@@ -9,6 +9,7 @@ class BaynoooteChoiceContainer extends StatefulWidget {
   final double containerWidth;
   final double containerHeight;
   final double borderWidth;
+  final Color backgroundColor;
   final Widget? icon;
   const BaynoooteChoiceContainer({
     this.icon,
@@ -16,6 +17,7 @@ class BaynoooteChoiceContainer extends StatefulWidget {
     this.containerHeight = 40,
     this.borderWidth = 3,
     this.onTap,
+    this.backgroundColor = const Color.fromARGB(255, 255, 255, 255),
     super.key,
   });
 
@@ -84,9 +86,7 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
       onTap: () {
         isSelected.value = !isSelected.value;
         HapticFeedback.selectionClick();
-        if (isSelected.value) {
-          widget.onTap?.call();
-        }
+        widget.onTap?.call();
       },
       child: Container(
         decoration: BoxDecoration(
@@ -112,7 +112,7 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
                   color: Colors.transparent,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: widget.backgroundColor,
                     width: widget.borderWidth,
                   ),
                 ),
@@ -139,7 +139,7 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
                   width: widget.containerWidth,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: widget.backgroundColor,
                   ),
                   child: Center(),
                 );

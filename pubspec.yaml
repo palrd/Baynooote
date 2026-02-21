@@ -38,7 +38,7 @@ dependencies:
   rive: ^0.13.20
   lottie: ^3.3.2
   flutter_svg: ^2.2.2
-  # 1. Drift 核心库
+  # 1. Drift 核心库 
   drift: ^2.30.0
   # 2. SQLite 绑定引擎 (方案A的核心，自带二进制文件)
   sqlite3_flutter_libs: ^0.5.41

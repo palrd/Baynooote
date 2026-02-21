@@ -1,12 +1,10 @@
 import 'dart:ui';
 
 import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
-import 'package:baynooote/features/ledger/presentetion/widgets/ledger_bottom_active_place/ledger_bottom_type_choice_sheet/ledger_search.dart';
+import 'package:baynooote/features/ledger/presentetion/widgets/ledger_bottom_active_place/ledger_bottom_type_choice_sheet/ledger_bottom_sheet_nav_bar.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_bottom_active_place/ledger_bottom_type_choice_sheet/ledger_sigal_type_choice.dart';
-import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/SheetAnimationSet.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class LedgerBottomTypeChoiceSheet extends StatefulWidget {
   const LedgerBottomTypeChoiceSheet({super.key});
@@ -19,11 +17,11 @@ class LedgerBottomTypeChoiceSheet extends StatefulWidget {
 class _LedgerBottomTypeChoiceSheetState
     extends State<LedgerBottomTypeChoiceSheet>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Sheetanimationset _anim;
   final DraggableScrollableController _scrollController =
       DraggableScrollableController();
-  double _initSize = 0.0;
+  late AnimationController controller;
+  late Animation offsetY;
+  late Animation opacity;
 
   @override
   void initState() {
@@ -31,6 +29,38 @@ class _LedgerBottomTypeChoiceSheetState
     _initAnimation();
     AnimationBus.typeChoiceBottomSheetAnimationBus.addListener(
       _onAniamationBusChanged,
+    );
+  }
+
+  void _initAnimation() {
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 420),
+      reverseDuration: const Duration(milliseconds: 300),
+    );
+
+    offsetY = TweenSequence([
+      TweenSequenceItem(
+        tween: Tween(
+          begin: 1000.0,
+          end: -30.0,
+        ).chain(CurveTween(curve: Curves.easeOut)),
+        weight: 65,
+      ),
+      TweenSequenceItem(
+        tween: Tween(
+          begin: -30.0,
+          end: 0.0,
+        ).chain(CurveTween(curve: Curves.easeOut)),
+        weight: 35,
+      ),
+    ]).animate(controller);
+
+    opacity = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: const Interval(0.0, 1.0, curve: Curves.ease),
+      ),
     );
   }
 
@@ -46,46 +76,19 @@ class _LedgerBottomTypeChoiceSheetState
   }
 
   void _activate() {
-    _scrollController
-        .animateTo(
-          0.35,
-          duration: Duration(milliseconds: 250),
-          curve: Curves.easeInOut,
-        )
-        .then((_) {
-          setState(() {
-            _initSize = 0.5;
-          });
-        });
-    _controller.forward();
+    controller.forward();
   }
 
   void _packUp() {
-    _scrollController
-        .animateTo(
-          0.0,
-          duration: Duration(milliseconds: 250),
-          curve: Curves.easeInOut,
-        )
-        .then((_) {
-          setState(() {
-            _initSize = 0.0;
-          });
-        });
-    _controller.reverse();
-  }
-
-  void _initAnimation() {
-    _controller = AnimationController(
-      duration: Duration(milliseconds: 250),
-      vsync: this,
-    );
-    _anim = Sheetanimationset(_controller);
+    controller.reverse().then((_) {
+      setState(() {
+        _scrollController.reset();
+      });
+    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     _scrollController.dispose();
     AnimationBus.typeChoiceBottomSheetAnimationBus.removeListener(
       _onAniamationBusChanged,
@@ -96,72 +99,87 @@ class _LedgerBottomTypeChoiceSheetState
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      child: DraggableScrollableSheet(
-        initialChildSize: _initSize,
-        minChildSize: 0.0,
-        maxChildSize: 1.0,
-        controller: _scrollController,
-        builder: (context, scrollController) {
-          return Container(
-            // padding: EdgeInsets.symmetric(horizontal: 20),
-            child: ClipSmoothRect(
-              radius: SmoothBorderRadius.only(
-                topLeft: SmoothRadius(cornerRadius: 25, cornerSmoothing: 1.0),
-                topRight: SmoothRadius(cornerRadius: 25, cornerSmoothing: 1.0),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-                child: Container(
-                  color: const Color.fromARGB(17, 255, 255, 255),
-                  child: ScrollConfiguration(
-                    behavior: ScrollConfiguration.of(
-                      context,
-                    ).copyWith(scrollbars: false),
-                    child: CustomScrollView(
-                      shrinkWrap: true,
-                      controller: scrollController,
-                      slivers: [
-                        SliverPadding(
-                          padding: EdgeInsets.symmetric(horizontal: 35),
-                          sliver: SliverToBoxAdapter(child: LedgerSearch()),
-                        ),
+    return Stack(
+      children: [
+        AnimatedBuilder(
+          animation: controller,
+          child: _buildSheet(),
+          builder: (_, child) {
+            return Transform.translate(
+              offset: Offset(0.0, offsetY.value),
+              child: child,
+            );
+          },
+        ),
+        Align(
+          alignment: AlignmentGeometry.bottomCenter,
+          child: SizedBox(
+            height: 85,
+            child: Center(child: LedgerBottomSheetNavBar()),
+          ),
+        ),
+      ],
+    );
+  }
 
-                        SliverToBoxAdapter(child: SizedBox(height: 20)),
-
-                        SliverPadding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          sliver: SliverGrid(
-                            delegate: SliverChildBuilderDelegate(
-                              childCount: 30,
-                              (_, index) {
-                                return LedgerSigalTypeChoice();
-                              },
-                            ),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 4,
-                                  mainAxisSpacing: 10,
-                                  mainAxisExtent: 100,
-                                ),
-                          ),
+  Widget _buildSheet() {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.55,
+      minChildSize: 0.0,
+      maxChildSize: 1.0,
+      controller: _scrollController,
+      builder: (context, scrollController) {
+        return Container(
+          child: ClipSmoothRect(
+            radius: SmoothBorderRadius.only(
+              topLeft: SmoothRadius(cornerRadius: 30, cornerSmoothing: 1.0),
+              topRight: SmoothRadius(cornerRadius: 30, cornerSmoothing: 1.0),
+            ),
+            child: Container(
+              color: const Color.fromARGB(255, 255, 255, 255),
+              child: ScrollConfiguration(
+                behavior: ScrollConfiguration.of(
+                  context,
+                ).copyWith(scrollbars: false),
+                child: AnimatedBuilder(
+                  animation: controller,
+                  builder: (_, child) {
+                    return Opacity(opacity: 1.0, child: child);
+                  },
+                  child: CustomScrollView(
+                    shrinkWrap: true,
+                    controller: scrollController,
+                    slivers: [
+                      SliverPadding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 20,
                         ),
-                      ],
-                    ),
+                        sliver: SliverGrid(
+                          delegate: SliverChildBuilderDelegate(childCount: 30, (
+                            _,
+                            index,
+                          ) {
+                            return SizedBox(
+                              height: 100,
+                              child: LedgerSigalTypeChoice(),
+                            );
+                          }),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 4,
+                                mainAxisSpacing: 10,
+                                mainAxisExtent: 100,
+                                crossAxisSpacing: 10,
+                              ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-          );
-        },
-      ),
-      builder: (_, child) {
-        return Transform.scale(
-          scaleX: _anim.scaleX.value,
-          scaleY: _anim.scaleY.value,
-          alignment: Alignment.bottomCenter,
-          child: child,
+          ),
         );
       },
     );

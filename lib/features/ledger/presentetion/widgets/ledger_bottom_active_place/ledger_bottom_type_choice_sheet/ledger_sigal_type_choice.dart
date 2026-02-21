@@ -6,27 +6,31 @@ class LedgerSigalTypeChoice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        BaynoooteChoiceContainer(
-          icon: Icon(Icons.woo_commerce, size: 30, color: Colors.blue),
-          containerWidth: 70,
-          containerHeight: 70,
-          borderWidth: 5,
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 5),
-          child: Text(
-            "午餐",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.blue,
+    return Container(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BaynoooteChoiceContainer(
+            icon: Icon(Icons.woo_commerce, size: 30, color: Colors.white),
+            containerWidth: 70,
+            containerHeight: 70,
+            borderWidth: 5,
+            backgroundColor: Color(0xFF50A7EA),
+            
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 5),
+            child: Text(
+              "午餐",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF50A7EA),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

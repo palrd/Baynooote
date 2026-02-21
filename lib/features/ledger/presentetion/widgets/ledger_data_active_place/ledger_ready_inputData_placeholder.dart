@@ -1,6 +1,6 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
-import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/animation_set/PlaceholderAnimationSet.dart';
+import 'package:baynooote/shared/animation_set/PlaceholderAnimationSet.dart';
 import 'package:lottie/lottie.dart';
 
 ///该组件中，展示的内容是，提示用户当前没有数据，可以输入数据
