@@ -17,17 +17,17 @@ class LedgerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: ElevatedButton(
-      //   onPressed: () {
-      //     AnimationBus.typeChoiceBottomSheetAnimationBus.value =
-      //         AnimationBus.typeChoiceBottomSheetAnimationBus.value ==
-      //             AnimationBusType.activate
-      //         ? AnimationBusType.packUp
-      //         : AnimationBusType.activate;
+      floatingActionButton: ElevatedButton(
+        onPressed: () {
+          AnimationBus.typeChoiceBottomSheetAnimationBus.value =
+              AnimationBus.typeChoiceBottomSheetAnimationBus.value ==
+                  AnimationBusType.activate
+              ? AnimationBusType.packUp
+              : AnimationBusType.activate;
         
-      //   },
-      //   child: Icon(Icons.add, size: 40),     
-      // ),
+        },
+        child: Icon(Icons.add, size: 40),     
+      ),
 
       ///底层背景色
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
