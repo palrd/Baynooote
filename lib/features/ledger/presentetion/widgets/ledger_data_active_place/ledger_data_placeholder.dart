@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
-import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/confirm_button_state.dart';
 import 'package:baynooote/shared/animation_set/CompletedAniamtionSet.dart';
 import 'package:baynooote/shared/animation_set/CompletedAniamtionSet2.dart';
@@ -91,8 +90,8 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
     _controller5.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         // _controller2.forward();
-        AnimationBus.numberKeyBoardAnimationBus.value =
-            AnimationBusType.activate;
+        // AnimationBus.numberKeyBoardAnimationBus.value =
+        //     AnimationBusType.activate;
       }
     });
     _controller2.addStatusListener((status) {
@@ -114,7 +113,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
         _controller3.reset();
         _controller4.reset();
         _controller5.reset();
-        AnimationBus.listAnimationBus.value = AnimationBusType.activate;
+        // AnimationBus.listAnimationBus.value = AnimationBusType.activate;
       }
     });
   }

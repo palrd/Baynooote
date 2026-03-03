@@ -1,5 +1,4 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
-import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/record_collection/record_collection_amount.dart';
 import 'dart:ui';
 
@@ -26,16 +25,16 @@ class _BaynoooteNumberKeyboardState extends State<BaynoooteNumberKeyboard>
       duration: Duration(milliseconds: 200),
     );
     action();
-    AnimationBus.numberKeyBoardAnimationBus.addListener(() {
-      if (AnimationBus.numberKeyBoardAnimationBus.value ==
-          AnimationBusType.activate) {
-        activateKeyBoard();
-      }
-      if (AnimationBus.numberKeyBoardAnimationBus.value ==
-          AnimationBusType.packUp) {
-        packUpKeyBoard();
-      }
-    });
+    // AnimationBus.numberKeyBoardAnimationBus.addListener(() {
+    //   if (AnimationBus.numberKeyBoardAnimationBus.value ==
+    //       AnimationBusType.activate) {
+    //     activateKeyBoard();
+    //   }
+    //   if (AnimationBus.numberKeyBoardAnimationBus.value ==
+    //       AnimationBusType.packUp) {
+    //     packUpKeyBoard();
+    //   }
+    // });
   }
 
   void action() {

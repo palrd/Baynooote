@@ -1,4 +1,4 @@
-import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sheet_bus.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_bottom_active_place/ledger_bottom_active_place.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_data_active_place.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_list/ledger_data_list.dart';
@@ -19,14 +19,11 @@ class LedgerPage extends StatelessWidget {
     return Scaffold(
       floatingActionButton: ElevatedButton(
         onPressed: () {
-          AnimationBus.typeChoiceBottomSheetAnimationBus.value =
-              AnimationBus.typeChoiceBottomSheetAnimationBus.value ==
-                  AnimationBusType.activate
-              ? AnimationBusType.packUp
-              : AnimationBusType.activate;
-        
+          BottomSheetBus.bottomSheetNow.value == BottomSheetType.typeChoice
+              ? BottomSheetType.none
+              : BottomSheetType.typeChoice;
         },
-        child: Icon(Icons.add, size: 40),     
+        child: Icon(Icons.add, size: 40),
       ),
 
       ///底层背景色

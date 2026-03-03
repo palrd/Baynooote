@@ -1,4 +1,4 @@
-import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sheet_bus.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_bottom_active_place/ledger_bottom_type_choice_sheet/ledger_bottom_sheet_nav_bar.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_bottom_active_place/ledger_bottom_type_choice_sheet/ledger_sigal_type_choice.dart';
 import 'package:baynooote/shared/widgets/baynooote_bottom_sheet.dart';
@@ -11,15 +11,7 @@ class LedgerBottomTypeChoiceSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaynoooteBottomSheet(
-      AnimationBus.typeChoiceBottomSheetAnimationBus,
-      child: Container(
-        padding: EdgeInsets.only(bottom: 35),
-        child: Text("data"),
-      ),
-    );
-
-    BaynoooteBottomSheet(
-      AnimationBus.typeChoiceBottomSheetAnimationBus,
+      BottomSheetType.typeChoice,
       isScrollable: true,
       slivers: [
         SliverPadding(

@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
-import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
 import 'package:baynooote/shared/animation_set/SheetAnimationSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_list/list_data_time.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_list/sigal_ledger_data.dart';
@@ -30,12 +29,11 @@ class _LedgerDataListState extends State<LedgerDataList>
   void initState() {
     super.initState();
     initAnimation();
-    AnimationBus.listAnimationBus.addListener(_onBusChnage);
+    
   }
 
   @override
   void dispose() {
-    AnimationBus.listAnimationBus.removeListener(_onBusChnage);
     controller.dispose();
     sheetController.dispose();
     sheetNotifiler.dispose();
@@ -43,16 +41,16 @@ class _LedgerDataListState extends State<LedgerDataList>
   }
 
   void _onBusChnage() {
-    if (AnimationBus.listAnimationBus.value == AnimationBusType.activate) {
-      activateList();
+    // if (AnimationBus.listAnimationBus.value == AnimationBusType.activate) {
+    //   activateList();
 
-      ///列表调起
-    }
-    if (AnimationBus.listAnimationBus.value == AnimationBusType.packUp) {
-      packUpList();
+    //   ///列表调起
+    // }
+    // if (AnimationBus.listAnimationBus.value == AnimationBusType.packUp) {
+    //   packUpList();
 
-      ///列表收起
-    }
+    //   ///列表收起
+    // }
   }
 
   void initAnimation() {
