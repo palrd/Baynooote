@@ -1,5 +1,7 @@
 # baynooote
 
+视频展示链接：
+https://www.bilibili.com/video/BV1E9wUztEJV/?vd_source=6a5ec63f29e4ff95a269505dde7ee5c7
 
 
 Baynooote 记账微应用 (个人极客探索项目)
@@ -13,3 +15,4 @@ Baynooote 记账微应用 (个人极客探索项目)
 (RepaintBoundary)”，减少动画过程中的无效整树 Rebuild，将 CPU 渲染开销降至最低。
 • 触觉与视觉协同：集成 HapticFeedback 震动 API，将视觉形变与物理震感对齐，提供细腻的终端用户
 交互体验。
+
