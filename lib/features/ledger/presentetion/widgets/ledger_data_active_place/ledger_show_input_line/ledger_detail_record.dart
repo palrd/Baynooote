@@ -1,5 +1,5 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
-import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sheet_bus.dart';
 import 'package:baynooote/shared/animation_set/InputLineAnimationSet.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/ledger_call_detail_sheet_up.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_show_input_line/ledger_count_type_button.dart';
@@ -71,20 +71,12 @@ class LedgerDetailRecord extends StatelessWidget {
     );
   }
 
+  /// TODO:未来请抽成单独的TypeChoice.dart
   Widget _buildTypeChoiceButton() {
     return AnimatedBuilder(
       animation: anim.controller,
       child: BaynoooteChoiceContainer(
-        onTap: () {
-          AnimationBus.typeChoiceBottomSheetAnimationBus.value =
-              AnimationBus.typeChoiceBottomSheetAnimationBus.value ==
-                  AnimationBusType.activate
-              ? AnimationBusType.packUp
-              : AnimationBusType.activate;
-          print(AnimationBus.typeChoiceBottomSheetAnimationBus.value);
-          AnimationBus.numberKeyBoardAnimationBus.value =
-              AnimationBusType.packUp;
-        },
+        type: BottomSheetType.typeChoice,
         icon: SvgPicture.asset(
           "assets/svgs/icons/turkey.svg",
           width: 23,
@@ -109,10 +101,12 @@ class LedgerDetailRecord extends StatelessWidget {
     );
   }
 
+  /// TODO:未来请抽成单独的Caculate.dart
   Widget _buildCalculateButton() {
     return AnimatedBuilder(
       animation: anim.controller,
       child: BaynoooteChoiceContainer(
+        type: BottomSheetType.caculate,
         icon: SvgPicture.asset(
           "assets/svgs/icons/calculate.svg",
           width: 23,

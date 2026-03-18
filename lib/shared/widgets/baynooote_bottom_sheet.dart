@@ -1,4 +1,4 @@
-import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sheet_bus.dart';
 import 'package:baynooote/shared/animation_set/BottomSheetJumpUpAniamtionSet.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/foundation.dart';
@@ -8,8 +8,8 @@ class BaynoooteBottomSheet extends StatefulWidget {
   ///该组件是否要求可滚动
   final bool isScrollable;
 
-  ///监听AnimationBus中的谁
-  final ValueListenable<AnimationBusType> animationBus;
+  ///这个弹窗本身的名字
+  final BottomSheetType bottomSheetType;
 
   ///弹窗起来时要做什么
   final void Function()? onActive;
@@ -27,7 +27,7 @@ class BaynoooteBottomSheet extends StatefulWidget {
   final Widget? maskChild;
 
   const BaynoooteBottomSheet(
-    this.animationBus, {
+    this.bottomSheetType, {
     this.isScrollable = false,
     this.onActive,
     this.onPackUp,
@@ -54,7 +54,7 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
   void initState() {
     super.initState();
     _initAnimation();
-    widget.animationBus.addListener(_onAniamationBusChanged);
+    BottomSheetBus.bottomSheetNow.addListener(_onAniamationBusChanged);
   }
 
   void _initAnimation() {
@@ -65,7 +65,7 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
 
     _maskController = AnimationController(
       duration: const Duration(milliseconds: 80),
-      reverseDuration: Duration(milliseconds: 250),
+      reverseDuration: Duration(milliseconds: 420),
       vsync: this,
     );
 
@@ -75,10 +75,9 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
   }
 
   void _onAniamationBusChanged() {
-    if (widget.animationBus.value == AnimationBusType.activate) {
+    if (BottomSheetBus.bottomSheetNow.value == widget.bottomSheetType) {
       _activate();
-    }
-    if (widget.animationBus.value == AnimationBusType.packUp) {
+    } else {
       _packUp();
     }
   }
@@ -100,21 +99,11 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
   }
 
   @override
-  void didUpdateWidget(covariant BaynoooteBottomSheet oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (oldWidget.animationBus != widget.animationBus) {
-      oldWidget.animationBus.removeListener(_onAniamationBusChanged);
-      widget.animationBus.addListener(_onAniamationBusChanged);
-    }
-  }
-
-  @override
   void dispose() {
     _scrollController.dispose();
     _controller.dispose();
     _maskController.dispose();
-    widget.animationBus.removeListener(_onAniamationBusChanged);
+    BottomSheetBus.bottomSheetNow.removeListener(_onAniamationBusChanged);
     super.dispose();
   }
 

@@ -1,4 +1,5 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sheet_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -6,12 +7,14 @@ import 'package:flutter/services.dart';
 ///它的内部容器会缩小
 class BaynoooteChoiceContainer extends StatefulWidget {
   final VoidCallback? onTap;
+  final BottomSheetType type;
   final double containerWidth;
   final double containerHeight;
   final double borderWidth;
   final Color backgroundColor;
   final Widget? icon;
   const BaynoooteChoiceContainer({
+    this.type = BottomSheetType.none,
     this.icon,
     this.containerWidth = 40,
     this.containerHeight = 40,
@@ -28,8 +31,6 @@ class BaynoooteChoiceContainer extends StatefulWidget {
 
 class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
     with SingleTickerProviderStateMixin {
-  final ValueNotifier<bool> isSelected = ValueNotifier(false);
-
   late AnimationController controller;
   late Animation scale;
 
@@ -37,15 +38,23 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
   void initState() {
     super.initState();
     _initAnimation();
-    isSelected.addListener(_onSelectedChange);
+    
   }
 
-  void _onSelectedChange() {
-    if (isSelected.value) {
-      controller.forward();
+  void _onBusChanged() {
+    if (BottomSheetBus.bottomSheetNow.value == widget.type) {
+      _active();
     } else {
-      controller.reverse();
+      _unactive();
     }
+  }
+
+  void _active() {
+    controller.forward();
+  }
+
+  void _unactive() {
+    controller.reverse();
   }
 
   void _initAnimation() {
@@ -74,9 +83,7 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
 
   @override
   void dispose() {
-    isSelected.dispose();
     controller.dispose();
-    isSelected.removeListener(_onSelectedChange);
     super.dispose();
   }
 
@@ -84,7 +91,7 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        isSelected.value = !isSelected.value;
+        BottomSheetBus.setSheetValue(widget.type);
         HapticFeedback.selectionClick();
         widget.onTap?.call();
       },
@@ -123,7 +130,7 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
               },
             ),
             ValueListenableBuilder(
-              valueListenable: isSelected,
+              valueListenable: BottomSheetBus.bottomSheetNow,
               builder: (context, isSelect, _) {
                 return AnimatedContainer(
                   duration: Duration(milliseconds: 200),
@@ -131,8 +138,12 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
                   alignment: Alignment.center,
                   transformAlignment: Alignment.center,
                   transform: Matrix4.diagonal3Values(
-                    isSelect ? 0.78 : 1.0,
-                    isSelect ? 0.78 : 1.0,
+                    BottomSheetBus.bottomSheetNow.value == widget.type
+                        ? 0.78
+                        : 1.0,
+                    BottomSheetBus.bottomSheetNow.value == widget.type
+                        ? 0.78
+                        : 1.0,
                     1.0,
                   ),
                   height: widget.containerHeight,

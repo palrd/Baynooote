@@ -1,4 +1,4 @@
-import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sheet_bus.dart';
 import 'package:baynooote/shared/widgets/baynooote_choice_Container.dart';
 import 'package:flutter/material.dart';
 
@@ -17,17 +17,15 @@ class _LedgerBottomSheetNavBarState extends State<LedgerBottomSheetNavBar>
 
   @override
   void initState() {
-    AnimationBus.typeChoiceBottomSheetAnimationBus.addListener(
-      _onAnimationBusChanged,
-    );
     initAnimation();
+    BottomSheetBus.bottomSheetNow.addListener(_onAnimationBusChanged);
     super.initState();
   }
 
   void initAnimation() {
     controller2 = AnimationController(
       duration: const Duration(milliseconds: 400),
-      reverseDuration: const Duration(milliseconds: 150),
+      reverseDuration: const Duration(milliseconds: 420),
       vsync: this,
     );
 
@@ -50,12 +48,9 @@ class _LedgerBottomSheetNavBarState extends State<LedgerBottomSheetNavBar>
   }
 
   void _onAnimationBusChanged() {
-    if (AnimationBus.typeChoiceBottomSheetAnimationBus.value ==
-        AnimationBusType.activate) {
+    if (BottomSheetBus.bottomSheetNow.value == BottomSheetType.typeChoice) {
       _active();
-    }
-    if (AnimationBus.typeChoiceBottomSheetAnimationBus.value ==
-        AnimationBusType.packUp) {
+    } else {
       _packUp();
     }
   }
@@ -70,10 +65,8 @@ class _LedgerBottomSheetNavBarState extends State<LedgerBottomSheetNavBar>
 
   @override
   void dispose() {
-    AnimationBus.typeChoiceBottomSheetAnimationBus.removeListener(
-      _onAnimationBusChanged,
-    );
     controller2.dispose();
+    BottomSheetBus.bottomSheetNow.removeListener(_onAnimationBusChanged);
     super.dispose();
   }
 
