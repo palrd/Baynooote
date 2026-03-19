@@ -76,7 +76,9 @@ class LedgerDetailRecord extends StatelessWidget {
     return AnimatedBuilder(
       animation: anim.controller,
       child: BaynoooteChoiceContainer(
-        type: BottomSheetType.typeChoice,
+        listenValue: BottomSheetBus.bottomSheetNow,
+        value: BottomSheetType.typeChoice,
+        onTap: () => {BottomSheetBus.setSheetValue(BottomSheetType.typeChoice)},
         icon: SvgPicture.asset(
           "assets/svgs/icons/turkey.svg",
           width: 23,
@@ -106,7 +108,9 @@ class LedgerDetailRecord extends StatelessWidget {
     return AnimatedBuilder(
       animation: anim.controller,
       child: BaynoooteChoiceContainer(
-        type: BottomSheetType.caculate,
+        listenValue: BottomSheetBus.bottomSheetNow,
+        value: BottomSheetType.caculate,
+        onTap: () => {BottomSheetBus.setSheetValue(BottomSheetType.caculate)},
         icon: SvgPicture.asset(
           "assets/svgs/icons/calculate.svg",
           width: 23,

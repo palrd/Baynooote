@@ -1,7 +1,6 @@
 import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sheet_bus.dart';
 import 'package:baynooote/shared/animation_set/BottomSheetJumpUpAniamtionSet.dart';
 import 'package:figma_squircle/figma_squircle.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class BaynoooteBottomSheet extends StatefulWidget {
@@ -23,8 +22,6 @@ class BaynoooteBottomSheet extends StatefulWidget {
   ///列表中想放什么
   final List<Widget> slivers;
 
-  ///可以在遮罩层中放一些东西
-  final Widget? maskChild;
 
   const BaynoooteBottomSheet(
     this.bottomSheetType, {
@@ -33,7 +30,6 @@ class BaynoooteBottomSheet extends StatefulWidget {
     this.onPackUp,
     this.child = const SizedBox(),
     this.slivers = const [],
-    this.maskChild,
     super.key,
   });
 
@@ -46,8 +42,6 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
   final DraggableScrollableController _scrollController =
       DraggableScrollableController();
   late AnimationController _controller;
-  late AnimationController _maskController;
-
   late Bottomsheetjumpupaniamtionset _anim;
 
   @override
@@ -63,15 +57,9 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
       duration: const Duration(milliseconds: 420),
     );
 
-    _maskController = AnimationController(
-      duration: const Duration(milliseconds: 80),
-      reverseDuration: Duration(milliseconds: 420),
-      vsync: this,
-    );
-
     _anim = widget.isScrollable
-        ? Bottomsheetjumpupaniamtionset(_controller, _maskController, 85)
-        : Bottomsheetjumpupaniamtionset(_controller, _maskController, 35);
+        ? Bottomsheetjumpupaniamtionset(_controller, 85)
+        : Bottomsheetjumpupaniamtionset(_controller, 35);
   }
 
   void _onAniamationBusChanged() {
@@ -83,18 +71,13 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
   }
 
   void _activate() {
-    _maskController.forward();
     _controller.forward();
     widget.onActive?.call();
   }
 
   void _packUp() {
     widget.onPackUp?.call();
-    _maskController.reverse().then((_) {
-      if (_scrollController.isAttached) {
-        _scrollController.reset();
-      }
-    });
+
     _controller.reverse();
   }
 
@@ -102,7 +85,6 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
   void dispose() {
     _scrollController.dispose();
     _controller.dispose();
-    _maskController.dispose();
     BottomSheetBus.bottomSheetNow.removeListener(_onAniamationBusChanged);
     super.dispose();
   }
@@ -111,6 +93,7 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        Positioned.fill(child: _buildMask()),
         Align(
           alignment: AlignmentGeometry.bottomCenter,
           child: AnimatedBuilder(
@@ -124,7 +107,6 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
             },
           ),
         ),
-        Align(alignment: AlignmentGeometry.bottomCenter, child: _buildMask()),
       ],
     );
   }
@@ -162,33 +144,30 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
   }
 
   Widget _buildMask() {
-    return AnimatedBuilder(
-      animation: _maskController,
-      child: ClipSmoothRect(
-        radius: SmoothBorderRadius.only(
-          topLeft: SmoothRadius(cornerRadius: 20, cornerSmoothing: 1),
-          topRight: SmoothRadius(cornerRadius: 20, cornerSmoothing: 1),
-        ),
-        child: Container(
-          height: widget.isScrollable ? 85 : 35,
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 255, 255, 255),
-            boxShadow: [
-              BoxShadow(
-                color: const Color.fromARGB(61, 0, 0, 0),
-                offset: Offset(0, 5),
-                blurRadius: 10,
+    return ValueListenableBuilder(
+      valueListenable: BottomSheetBus.bottomSheetNow,
+      builder: (_, _, child) {
+        return IgnorePointer(
+          //不等于none时才不允许穿透
+          ignoring:
+              BottomSheetBus.bottomSheetNow.value != widget.bottomSheetType,
+          child: GestureDetector(
+            onTap: () {
+              BottomSheetBus.setSheetValue(widget.bottomSheetType);
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              decoration: BoxDecoration(
+                color:
+                    BottomSheetBus.bottomSheetNow.value ==
+                        widget.bottomSheetType
+                    ? Colors.black12
+                    : Colors.transparent,
               ),
-            ],
+              child: Center(),
+            ),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-          child: widget.isScrollable ? widget.maskChild : Center(),
-        ),
-      ),
-      builder: (_, child) {
-        return Transform.translate(
-          offset: Offset(0.0, _anim.maskOffsetY.value),
-          child: child,
         );
       },
     );

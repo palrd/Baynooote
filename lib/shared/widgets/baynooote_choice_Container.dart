@@ -1,20 +1,23 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sheet_bus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ///这个组件用来创建一个Telegram风格的选择按钮，当按下时
 ///它的内部容器会缩小
-class BaynoooteChoiceContainer extends StatefulWidget {
+class BaynoooteChoiceContainer<T> extends StatefulWidget {
   final VoidCallback? onTap;
-  final BottomSheetType type;
+  final ValueListenable<T> listenValue;
+  final T value;
   final double containerWidth;
   final double containerHeight;
   final double borderWidth;
   final Color backgroundColor;
   final Widget? icon;
   const BaynoooteChoiceContainer({
-    this.type = BottomSheetType.none,
+    required this.listenValue,
+    required this.value,
     this.icon,
     this.containerWidth = 40,
     this.containerHeight = 40,
@@ -38,11 +41,11 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
   void initState() {
     super.initState();
     _initAnimation();
-    
+    widget.listenValue.addListener(onBusChanged);
   }
 
-  void _onBusChanged() {
-    if (BottomSheetBus.bottomSheetNow.value == widget.type) {
+  void onBusChanged() {
+    if (widget.listenValue.value == widget.value) {
       _active();
     } else {
       _unactive();
@@ -84,6 +87,7 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
   @override
   void dispose() {
     controller.dispose();
+    widget.listenValue.removeListener(onBusChanged);
     super.dispose();
   }
 
@@ -91,7 +95,6 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        BottomSheetBus.setSheetValue(widget.type);
         HapticFeedback.selectionClick();
         widget.onTap?.call();
       },
@@ -130,7 +133,7 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
               },
             ),
             ValueListenableBuilder(
-              valueListenable: BottomSheetBus.bottomSheetNow,
+              valueListenable: widget.listenValue,
               builder: (context, isSelect, _) {
                 return AnimatedContainer(
                   duration: Duration(milliseconds: 200),
@@ -138,10 +141,10 @@ class _BaynoooteChoiceContainerState extends State<BaynoooteChoiceContainer>
                   alignment: Alignment.center,
                   transformAlignment: Alignment.center,
                   transform: Matrix4.diagonal3Values(
-                    BottomSheetBus.bottomSheetNow.value == widget.type
+                    widget.listenValue.value == widget.value
                         ? 0.78
                         : 1.0,
-                    BottomSheetBus.bottomSheetNow.value == widget.type
+                    widget.listenValue.value == widget.value
                         ? 0.78
                         : 1.0,
                     1.0,

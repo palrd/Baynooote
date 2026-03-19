@@ -1,5 +1,4 @@
 import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sheet_bus.dart';
-import 'package:baynooote/features/ledger/presentetion/widgets/ledger_bottom_active_place/ledger_bottom_type_choice_sheet/ledger_bottom_sheet_nav_bar.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_bottom_active_place/ledger_bottom_type_choice_sheet/ledger_sigal_type_choice.dart';
 import 'package:baynooote/shared/widgets/baynooote_bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +17,10 @@ class LedgerBottomTypeChoiceSheet extends StatelessWidget {
           padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 85),
           sliver: SliverGrid(
             delegate: SliverChildBuilderDelegate(childCount: 30, (_, index) {
-              return SizedBox(height: 100, child: LedgerSigalTypeChoice());
+              return SizedBox(
+                height: 100,
+                child: LedgerSigalTypeChoice(index: index),
+              );
             }),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
@@ -29,7 +31,6 @@ class LedgerBottomTypeChoiceSheet extends StatelessWidget {
           ),
         ),
       ],
-      maskChild: LedgerBottomSheetNavBar(),
     );
   }
 }

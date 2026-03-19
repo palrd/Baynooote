@@ -19,9 +19,7 @@ class LedgerPage extends StatelessWidget {
     return Scaffold(
       floatingActionButton: ElevatedButton(
         onPressed: () {
-          BottomSheetBus.bottomSheetNow.value == BottomSheetType.typeChoice
-              ? BottomSheetType.none
-              : BottomSheetType.typeChoice;
+          BottomSheetBus.bottomSheetNow.value = BottomSheetType.none;
         },
         child: Icon(Icons.add, size: 40),
       ),
