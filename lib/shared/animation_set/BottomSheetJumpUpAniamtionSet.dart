@@ -3,15 +3,11 @@ import 'package:baynooote/features/ledger/di/ledger_module.dart';
 class Bottomsheetjumpupaniamtionset {
   late AnimationController controller;
   late Animation offsetY;
-  late Animation maskOffsetY;
+  late Animation opcity;
   late Animation reverseOffsetY;
   late double height;
 
-  Bottomsheetjumpupaniamtionset(
-    this.controller,
-    
-    this.height,
-  ) {
+  Bottomsheetjumpupaniamtionset(this.controller, this.height) {
     initAnimation();
   }
 
@@ -20,7 +16,7 @@ class Bottomsheetjumpupaniamtionset {
       TweenSequenceItem(
         tween: Tween(
           begin: 1200.0,
-          end:30.0,
+          end: 30.0,
         ).chain(CurveTween(curve: Curves.easeOut)),
         weight: 65,
       ),
@@ -33,6 +29,9 @@ class Bottomsheetjumpupaniamtionset {
       ),
     ]).animate(controller);
 
-    
+    opcity = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
   }
 }

@@ -22,7 +22,6 @@ class BaynoooteBottomSheet extends StatefulWidget {
   ///列表中想放什么
   final List<Widget> slivers;
 
-
   const BaynoooteBottomSheet(
     this.bottomSheetType, {
     this.isScrollable = false,
@@ -118,7 +117,7 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
       maxChildSize: 1.0,
       controller: _scrollController,
       builder: (context, scrollController) {
-        return Container(
+        return SizedBox(
           child: ClipSmoothRect(
             radius: SmoothBorderRadius.only(
               topLeft: SmoothRadius(cornerRadius: 30, cornerSmoothing: 1.0),
@@ -130,10 +129,15 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
                 behavior: ScrollConfiguration.of(
                   context,
                 ).copyWith(scrollbars: false),
-                child: CustomScrollView(
-                  shrinkWrap: true,
-                  controller: scrollController,
-                  slivers: widget.slivers,
+                child: AnimatedBuilder(
+                  animation: _controller,
+                  builder: (_, child) {
+                    return Opacity(opacity: _anim.opcity.value, child: child);
+                  },
+                  child: CustomScrollView(
+                    controller: scrollController,
+                    slivers: widget.slivers,
+                  ),
                 ),
               ),
             ),
