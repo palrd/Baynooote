@@ -3,7 +3,7 @@ import 'package:baynooote/shared/animation_set/BottomSheetJumpUpAniamtionSet.dar
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 
-class BaynoooteBottomSheet extends StatefulWidget {
+class BaynoooteBottomSheet<T> extends StatefulWidget {
   ///该组件是否要求可滚动
   final bool isScrollable;
 
@@ -76,8 +76,13 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
 
   void _packUp() {
     widget.onPackUp?.call();
-
-    _controller.reverse();
+    _controller.reverse().then(
+      (_) => {
+        setState(() {
+          _scrollController.reset();
+        }),
+      },
+    );
   }
 
   @override
