@@ -17,6 +17,13 @@ class BottomSheetBus {
     BottomSheetType.none,
   );
 
+  //用来反馈表单是否需要完全展开
+  static final ValueNotifier<bool> isSheetMax = ValueNotifier(false);
+
+  static void setSheetMax() {
+    isSheetMax.value = !isSheetMax.value;
+  }
+
   ///此方法用于关闭或开启弹窗
   static void setSheetValue(BottomSheetType type) {
     bottomSheetNow.value = bottomSheetNow.value == type

@@ -23,7 +23,6 @@ class LedgerPage extends StatelessWidget {
           BottomSheetBus.setSheetValue(BottomSheetType.none);
           return;
         }
-        Navigator.of(context).pop();
       },
       child: Scaffold(
         floatingActionButton: ElevatedButton(

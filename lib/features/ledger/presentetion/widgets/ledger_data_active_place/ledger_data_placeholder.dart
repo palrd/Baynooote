@@ -52,23 +52,23 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
     ///初始化动画控制器
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1800),
+      duration: Duration(milliseconds: 1400),
     );
     _controller2 = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 700),
     );
     _controller3 = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 400),
     );
     _controller4 = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 500),
     );
     _controller5 = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 450),
     );
     _anim = Placeholderanimationset(_controller);
     _anim2 = Completedaniamtionset(_controller2);
@@ -91,8 +91,7 @@ class _LedgerDataPlaceholderState extends State<LedgerDataPlaceholder>
     _controller5.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         // _controller2.forward();
-        BottomSheetBus.bottomSheetNow.value =BottomSheetType.numberKeyBoard;
-        print(BottomSheetBus.bottomSheetNow.value);
+        BottomSheetBus.bottomSheetNow.value = BottomSheetType.numberKeyBoard;
       }
     });
     _controller2.addStatusListener((status) {

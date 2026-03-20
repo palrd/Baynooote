@@ -2,6 +2,7 @@ import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sh
 import 'package:baynooote/shared/animation_set/BottomSheetJumpUpAniamtionSet.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class BaynoooteBottomSheet<T> extends StatefulWidget {
   ///该组件是否要求可滚动
@@ -53,12 +54,12 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
   void _initAnimation() {
     _controller = AnimationController(
       vsync: this,
+
       duration: const Duration(milliseconds: 420),
+      reverseDuration: const Duration(milliseconds: 200),
     );
 
-    _anim = widget.isScrollable
-        ? Bottomsheetjumpupaniamtionset(_controller, 85)
-        : Bottomsheetjumpupaniamtionset(_controller, 35);
+    _anim = Bottomsheetjumpupaniamtionset(_controller);
   }
 
   void _onAniamationBusChanged() {
@@ -116,39 +117,57 @@ class _BaynoooteBottomSheetState extends State<BaynoooteBottomSheet>
   }
 
   Widget _buildSheet() {
-    return DraggableScrollableSheet(
-      initialChildSize: 0.55,
-      minChildSize: 0.0,
-      maxChildSize: 1.0,
-      controller: _scrollController,
-      builder: (context, scrollController) {
-        return SizedBox(
-          child: ClipSmoothRect(
-            radius: SmoothBorderRadius.only(
-              topLeft: SmoothRadius(cornerRadius: 30, cornerSmoothing: 1.0),
-              topRight: SmoothRadius(cornerRadius: 30, cornerSmoothing: 1.0),
-            ),
-            child: Container(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              child: ScrollConfiguration(
-                behavior: ScrollConfiguration.of(
-                  context,
-                ).copyWith(scrollbars: false),
-                child: AnimatedBuilder(
-                  animation: _controller,
-                  builder: (_, child) {
-                    return Opacity(opacity: _anim.opcity.value, child: child);
-                  },
-                  child: CustomScrollView(
-                    controller: scrollController,
-                    slivers: widget.slivers,
+    return NotificationListener<DraggableScrollableNotification>(
+      onNotification: (notification) {
+        if (notification.extent >= 0.98 && !BottomSheetBus.isSheetMax.value) {
+          HapticFeedback.selectionClick();
+          BottomSheetBus.setSheetMax();
+        }
+        if (notification.extent <= 0.98 && BottomSheetBus.isSheetMax.value) {
+          BottomSheetBus.setSheetMax();
+        }
+
+        //不再将事件向上传递
+        return true;
+      },
+      child: DraggableScrollableSheet(
+        initialChildSize: 0.55,
+        minChildSize: 0.55,
+        maxChildSize: 1.0,
+        controller: _scrollController,
+        snap: true,
+        snapAnimationDuration: const Duration(milliseconds: 120),
+        shouldCloseOnMinExtent: true,
+        builder: (context, scrollController) {
+          return SizedBox(
+            child: ClipSmoothRect(
+              radius: SmoothBorderRadius.only(
+                topLeft: SmoothRadius(cornerRadius: 20, cornerSmoothing: 1.0),
+                topRight: SmoothRadius(cornerRadius: 20, cornerSmoothing: 1.0),
+              ),
+              child: Container(
+                color: const Color.fromARGB(255, 255, 255, 255),
+                padding: EdgeInsets.only(top: 25),
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(
+                    context,
+                  ).copyWith(scrollbars: false),
+                  child: AnimatedBuilder(
+                    animation: _controller,
+                    builder: (_, child) {
+                      return Opacity(opacity: _anim.opcity.value, child: child);
+                    },
+                    child: CustomScrollView(
+                      controller: scrollController,
+                      slivers: widget.slivers,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

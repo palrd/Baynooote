@@ -4,10 +4,8 @@ class Bottomsheetjumpupaniamtionset {
   late AnimationController controller;
   late Animation offsetY;
   late Animation opcity;
-  late Animation reverseOffsetY;
-  late double height;
 
-  Bottomsheetjumpupaniamtionset(this.controller, this.height) {
+  Bottomsheetjumpupaniamtionset(this.controller) {
     initAnimation();
   }
 
@@ -32,6 +30,6 @@ class Bottomsheetjumpupaniamtionset {
     opcity = Tween<double>(
       begin: 0.0,
       end: 1.0,
-    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
   }
 }
