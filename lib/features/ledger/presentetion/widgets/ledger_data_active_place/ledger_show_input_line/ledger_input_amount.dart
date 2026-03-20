@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
-import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sheet_bus.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/record_collection/record_collection_amount.dart';
 import 'package:flutter/material.dart';
 
@@ -225,11 +225,12 @@ class _LedgerInputAmountState extends State<LedgerInputAmount>
     ).addTapFeel(
       feelingLevel: 1,
       onTap: () {
-        AnimationBus.numberKeyBoardAnimationBus.value =
-            AnimationBus.numberKeyBoardAnimationBus.value ==
-                AnimationBusType.activate
-            ? AnimationBusType.packUp
-            : AnimationBusType.activate;
+        BottomSheetBus.bottomSheetNow.value =
+            BottomSheetBus.bottomSheetNow.value ==
+                BottomSheetType.numberKeyBoard
+            ? BottomSheetType.none
+            : BottomSheetType.numberKeyBoard;
+        print(BottomSheetBus.bottomSheetNow.value);
       },
     );
   }

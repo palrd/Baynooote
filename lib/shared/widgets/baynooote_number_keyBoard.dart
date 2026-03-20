@@ -1,5 +1,5 @@
 import 'package:baynooote/features/ledger/di/ledger_module.dart';
-import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sheet_bus.dart';
 import 'package:baynooote/features/ledger/presentetion/view_models/record_collection/record_collection_amount.dart';
 import 'dart:ui';
 
@@ -25,17 +25,16 @@ class _BaynoooteNumberKeyboardState extends State<BaynoooteNumberKeyboard>
       vsync: this,
       duration: Duration(milliseconds: 200),
     );
+    BottomSheetBus.bottomSheetNow.addListener(_onBusChanged);
     action();
-    AnimationBus.numberKeyBoardAnimationBus.addListener(() {
-      if (AnimationBus.numberKeyBoardAnimationBus.value ==
-          AnimationBusType.activate) {
-        activateKeyBoard();
-      }
-      if (AnimationBus.numberKeyBoardAnimationBus.value ==
-          AnimationBusType.packUp) {
-        packUpKeyBoard();
-      }
-    });
+  }
+
+  void _onBusChanged() {
+    if (BottomSheetBus.bottomSheetNow.value == BottomSheetType.numberKeyBoard) {
+      activateKeyBoard();
+    } else {
+      packUpKeyBoard();
+    }
   }
 
   void action() {
@@ -60,6 +59,12 @@ class _BaynoooteNumberKeyboardState extends State<BaynoooteNumberKeyboard>
 
   void packUpKeyBoard() {
     controller.reverse();
+  }
+
+  @override
+  void dispose() {
+    BottomSheetBus.bottomSheetNow.removeListener(_onBusChanged);
+    super.dispose();
   }
 
   @override

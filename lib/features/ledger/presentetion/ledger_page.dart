@@ -1,4 +1,4 @@
-import 'package:baynooote/features/ledger/presentetion/view_models/bus/animation_bus.dart';
+import 'package:baynooote/features/ledger/presentetion/view_models/bus/bottom_sheet_bus.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_bottom_active_place/ledger_bottom_active_place.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_active_place/ledger_data_active_place.dart';
 import 'package:baynooote/features/ledger/presentetion/widgets/ledger_data_list/ledger_data_list.dart';
@@ -16,35 +16,43 @@ class LedgerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // floatingActionButton: ElevatedButton(
-      //   onPressed: () {
-      //     AnimationBus.typeChoiceBottomSheetAnimationBus.value =
-      //         AnimationBus.typeChoiceBottomSheetAnimationBus.value ==
-      //             AnimationBusType.activate
-      //         ? AnimationBusType.packUp
-      //         : AnimationBusType.activate;
-        
-      //   },
-      //   child: Icon(Icons.add, size: 40),     
-      // ),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (BottomSheetBus.bottomSheetNow.value != BottomSheetType.none) {
+          BottomSheetBus.setSheetValue(BottomSheetType.none);
+          return;
+        }
+      },
+      child: Scaffold(
+        floatingActionButton: ElevatedButton(
+          onPressed: () {
+            BottomSheetBus.bottomSheetNow.value = BottomSheetType.none;
+          },
+          child: Icon(Icons.add, size: 40),
+        ),
 
-      ///底层背景色
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      resizeToAvoidBottomInset: false,
+        ///底层背景色
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        resizeToAvoidBottomInset: false,
 
-      ///用于提供渐变背景和左右内边距
-      body: Stack(
-        children: [
-          ///最底部的背景
-          backGround(),
+        ///用于提供渐变背景和左右内边距
+        body: Stack(
+          children: [
+            ///最底部的背景
+            backGround(),
 
-          ///下方内容的容器
-          centerContentContainer(context),
-
-          ///顶部标签
-          Positioned(top: 0, left: 0, right: 0, child: LedgerHeader()),
-        ],
+            ///下方内容的容器
+            centerContentContainer(context),
+            //底部的弹窗区域
+            Align(
+            alignment: AlignmentGeometry.bottomCenter,
+            child: LedgerBottomActivePlace(),
+            ),
+            ///顶部标签
+            Positioned(top: 0, left: 0, right: 0, child: LedgerHeader()),
+          ],
+        ),
       ),
     );
   }
@@ -58,7 +66,7 @@ class LedgerPage extends StatelessWidget {
   ///下层的容器
   Widget centerContentContainer(BuildContext context) {
     final gradientTheme = Theme.of(context).extension<AppGradientTheme>();
-    print("centerContentContainer重构！");
+    
 
     ///作为容器，占满屏幕、提供基础的左右padding约束、背景渐变色
     ///其中的内容拆分为单独widget逐个放入
@@ -74,11 +82,7 @@ class LedgerPage extends StatelessWidget {
               children: [LedgerQuickInput(), LedgerDataActivePlace()],
             ),
           ),
-          LedgerDataList(),
-          Align(
-            alignment: AlignmentGeometry.bottomCenter,
-            child: LedgerBottomActivePlace(),
-          ),
+          LedgerDataList(),          
         ],
       ),
     );
